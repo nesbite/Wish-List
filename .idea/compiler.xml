@@ -22,10 +22,17 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <processorPath useClasspath="true" />
-        <module name="WishList" />
+        <module name="android" />
+        <module name="persistence" />
+        <module name="service" />
+        <module name="web" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="android" target="1.5" />
+      <module name="persistence" target="1.5" />
+      <module name="service" target="1.5" />
+      <module name="web" target="1.5" />
       <module name="WishList" target="1.5" />
     </bytecodeTargetLevel>
   </component>
