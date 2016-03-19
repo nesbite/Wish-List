@@ -6,7 +6,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import pl.edu.agh.io.Impl.GiftServiceImpl;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,7 +15,7 @@ import java.util.concurrent.atomic.AtomicLong;
 public class GiftListController {
 
     @Autowired
-    private GiftServiceImpl giftService;
+    private GiftService giftService;
 
     private final AtomicLong counter = new AtomicLong();
 
@@ -37,12 +36,12 @@ public class GiftListController {
 
     @RequestMapping("/removegift/{id}")
     public boolean removeGift(@PathVariable(value="id") Long id) {
-        return removeGift(id);
+        return giftService.removeGift(id);
     }
 
     @RequestMapping("/updategift/{id}")
     public boolean updateGift(@PathVariable(value="id") Long id, @RequestParam(value="newname") String newName, @RequestParam(value="desc") String description) {
-        return updateGift(id, newName, description);
+        return giftService.updateGift(id, newName, description);
     }
 
 }
