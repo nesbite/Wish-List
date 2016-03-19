@@ -1,5 +1,7 @@
 package pl.edu.agh.io;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.sql.*;
 
 
@@ -26,26 +28,40 @@ public class DatabaseConnector {
             //STEP 4: Execute a query
             System.out.println("Creating statement...");
             stmt = conn.createStatement();
-            String sql;
-            sql = "SELECT id, first, last, age FROM Employees";
-            ResultSet rs = stmt.executeQuery(sql);
+            StringBuffer sql = new StringBuffer();
+            String aSQLScriptFilePath = "E:\\My Files\\AGH\\SEMESTR6\\IO\\WishList\\create_tables.sql";
+            BufferedReader reader = new BufferedReader(
+                    new FileReader(aSQLScriptFilePath));
+            String line;
+            while((line = reader.readLine()) != null){
+                sql.append(line);
+            }
+            String[] inst = sql.toString().split(";");
+            //sql = "SELECT id, first, last, age FROM Employees";
+            for(int i = 0; i<inst.length; i++)
+            {
+                if(!inst[i].trim().equals(""))
+                {
+                    stmt.execute(inst[i]);
+                }
+            }
 
             //STEP 5: Extract data from result set
-            while (rs.next()) {
-                //Retrieve by column name
-                int id = rs.getInt("id");
-                int age = rs.getInt("age");
-                String first = rs.getString("first");
-                String last = rs.getString("last");
-
-                //Display values
-                System.out.print("ID: " + id);
-                System.out.print(", Age: " + age);
-                System.out.print(", First: " + first);
-                System.out.println(", Last: " + last);
-            }
-            //STEP 6: Clean-up environment
-            rs.close();
+//            while (rs.next()) {
+//                //Retrieve by column name
+//                int id = rs.getInt("id");
+//                int age = rs.getInt("age");
+//                String first = rs.getString("first");
+//                String last = rs.getString("last");
+//
+//                //Display values
+//                System.out.print("ID: " + id);
+//                System.out.print(", Age: " + age);
+//                System.out.print(", First: " + first);
+//                System.out.println(", Last: " + last);
+//            }
+//            //STEP 6: Clean-up environment
+//            rs.close();
             stmt.close();
             conn.close();
         } catch (SQLException se) {
