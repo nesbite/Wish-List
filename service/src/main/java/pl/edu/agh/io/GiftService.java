@@ -3,7 +3,7 @@ package pl.edu.agh.io;
 import java.util.List;
 
 public interface GiftService {
-    boolean addGift(Gift gift);
+    boolean addGift(Long id, Gift gift);
     Gift getGift(Long id);
     List<Gift> getAllGifts();
     boolean removeGift(Long id);

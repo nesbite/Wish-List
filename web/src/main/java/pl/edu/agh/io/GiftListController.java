@@ -21,7 +21,7 @@ public class GiftListController {
 
     @RequestMapping("/addgift/{id}")
     public boolean addGift(@PathVariable(value="id") Long id, @RequestParam(value="name", required = true) String name, @RequestParam(value="desc", defaultValue="") String description) {
-        return giftService.addGift(new Gift(id, name, description));
+        return giftService.addGift(id, new Gift(id, name, description));
     }
 
     @RequestMapping("/getgift")

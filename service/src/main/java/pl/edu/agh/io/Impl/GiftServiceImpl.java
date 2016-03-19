@@ -9,6 +9,7 @@ import pl.edu.agh.io.GiftService;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.LinkedList;
 import java.util.List;
 
 @Service
@@ -16,8 +17,8 @@ public class GiftServiceImpl implements GiftService {
     @Autowired
     DatabaseConnector dbc;
 
-    public boolean addGift(Gift gift) {
-        dbc.executeUpdate(String.format("INSERT INTO wishlist.Gifts VALUES (null, \"%s\", \"%s\", 1)", gift.getName(), gift.getDescription()));
+    public boolean addGift(Long id, Gift gift) {
+        dbc.executeUpdate(String.format("INSERT INTO Gifts VALUES (null, \"%s\", \"%s\", %d)", gift.getName(), gift.getDescription(), id));
         return true;
     }
 
@@ -35,14 +36,32 @@ public class GiftServiceImpl implements GiftService {
     }
 
     public List<Gift> getAllGifts() {
-        return null;
+        List<Gift> giftList = new LinkedList<>();
+        ResultSet rs = dbc.executeQuery("SELECT * FROM Gifts");
+        try {
+            while (rs.next()) {
+                long giftID = rs.getLong("giftID");
+                String name = rs.getString("name");
+                String desc = rs.getString("description");
+                long userID = rs.getLong("userid");
+
+                //Assuming you have a user object
+                Gift gift = new Gift(giftID, name, desc);
+                giftList.add(gift);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return giftList;
     }
 
     public boolean removeGift(Long id) {
-        return false;
+        dbc.executeUpdate(String.format("DELETE FROM Gifts WHERE GiftID = %d", id));
+        return true;
     }
 
     public boolean updateGift(Long id, String name, String description) {
+        dbc.executeUpdate(String.format("UPDATE Gifts SET Name=\"%s\", Description=\"%s\" WHERE GiftID = %d", name, description, id));
         return false;
     }
 }
