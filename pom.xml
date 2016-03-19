@@ -13,6 +13,7 @@
         <module>web</module>
         <module>service</module>
         <module>android</module>
+        <module>domain</module>
     </modules>
 
 
