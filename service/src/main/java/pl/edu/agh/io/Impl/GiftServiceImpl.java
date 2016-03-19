@@ -17,17 +17,17 @@ public class GiftServiceImpl implements GiftService {
     DatabaseConnector dbc;
 
     public boolean addGift(Gift gift) {
-        dbc.executeUpdate("INSERT INTO wishlist.presents VALUES (2, \"alalalalla\", \"description\", 1)");
+        dbc.executeUpdate(String.format("INSERT INTO wishlist.Gifts VALUES (null, \"%s\", \"%s\", 1)", gift.getName(), gift.getDescription()));
         return true;
     }
 
     public Gift getGift(Long id) {
-        ResultSet rs = dbc.executeQuery(String.format("SELECT * FROM presents WHERE PresentID = %d", id));
+        ResultSet rs = dbc.executeQuery(String.format("SELECT * FROM Gifts WHERE GiftID = %d", id));
 
         try {
             rs.next();
-            System.out.println(rs.getLong("PresentID") + rs.getString("Name") + rs.getString("Description"));
-            return new Gift(rs.getLong("PresentID"), rs.getString("Name"), rs.getString("Description"));
+            System.out.println(rs.getLong("GiftID") + rs.getString("Name") + rs.getString("Description"));
+            return new Gift(rs.getLong("GiftID"), rs.getString("Name"), rs.getString("Description"));
         } catch (SQLException e) {
             e.printStackTrace();
         }

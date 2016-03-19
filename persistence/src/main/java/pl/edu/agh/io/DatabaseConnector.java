@@ -2,10 +2,7 @@ package pl.edu.agh.io;
 
 import org.springframework.stereotype.Service;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.sql.*;
 
 @Service
@@ -43,9 +40,8 @@ public class DatabaseConnector {
     public void initTables(){
         try {
             StringBuffer sql = new StringBuffer();
-            String aSQLScriptFilePath = "./src/main/resources/create_tables.sql";
-            BufferedReader reader = new BufferedReader(
-                    new FileReader(aSQLScriptFilePath));
+            InputStream inputStream = getClass().getResourceAsStream("/create_tables.sql");
+            BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
             String line;
             while ((line = reader.readLine()) != null) {
                 sql.append(line);

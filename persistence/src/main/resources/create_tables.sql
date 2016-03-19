@@ -1,7 +1,7 @@
 CREATE SCHEMA IF NOT EXISTS wishlist;
 
 DROP TABLE IF EXISTS wishlist.Friends;
-DROP TABLE IF EXISTS wishlist.Presents;
+DROP TABLE IF EXISTS wishlist.Gifts;
 DROP TABLE IF EXISTS wishlist.Users;
 
 USE wishlist;
@@ -11,8 +11,8 @@ CREATE TABLE wishlist.Users(
 	Login NVARCHAR(20) NOT NULL,
   PasswordHash BINARY(64) NOT NULL
 );
-CREATE TABLE wishlist.Presents (
-	PresentID INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+CREATE TABLE wishlist.Gifts (
+	GiftID INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
 	Name NVARCHAR(40) NOT NULL,
   Description NVARCHAR(255),
 	UserID INT NOT NULL,
