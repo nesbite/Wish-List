@@ -88,5 +88,14 @@ public class DatabaseConnector {
         }
         return null;
     }
+
+    public int executeUpdate(String query){
+        try {
+            return stmt.executeUpdate(query);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
 }
 

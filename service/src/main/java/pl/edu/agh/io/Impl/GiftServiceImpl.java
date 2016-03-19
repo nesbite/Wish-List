@@ -17,11 +17,13 @@ public class GiftServiceImpl implements GiftService {
     DatabaseConnector dbc;
 
     public boolean addGift(Gift gift) {
-        return false;
+        dbc.executeUpdate("INSERT INTO wishlist.presents VALUES (2, \"alalalalla\", \"description\", 1)");
+        return true;
     }
 
     public Gift getGift(Long id) {
         ResultSet rs = dbc.executeQuery(String.format("SELECT * FROM presents WHERE PresentID = %d", id));
+
         try {
             rs.next();
             System.out.println(rs.getLong("PresentID") + rs.getString("Name") + rs.getString("Description"));
