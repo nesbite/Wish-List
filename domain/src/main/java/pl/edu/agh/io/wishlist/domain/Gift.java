@@ -1,4 +1,4 @@
-package pl.edu.agh.io;
+package pl.edu.agh.io.wishlist.domain;
 
 public class Gift {
     private final long id;

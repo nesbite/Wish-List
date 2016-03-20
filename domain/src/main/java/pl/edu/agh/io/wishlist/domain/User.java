@@ -1,9 +1,9 @@
-package pl.edu.agh.io;
+package pl.edu.agh.io.wishlist.domain;
 
 public class User {
-    public final long id;
-    public final String username;
-    public final String password;
+    private final long id;
+    private final String username;
+    private final String password;
 
     public User(long id, String username, String password) {
         this.id = id;

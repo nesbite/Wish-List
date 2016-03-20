@@ -1,0 +1,155 @@
+package pl.edu.agh.io.wishlist.persistence.Impl;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
+import pl.edu.agh.io.wishlist.domain.Gift;
+import pl.edu.agh.io.wishlist.persistence.GiftDAO;
+
+import javax.sql.DataSource;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
+@Component
+public class GiftDAOImpl implements GiftDAO {
+    @Autowired
+    private DataSource dataSource;
+
+    private Connection conn = null;
+
+    public boolean insert(Long id, Gift gift) {
+        int result = -1;
+        try {
+            conn = dataSource.getConnection();
+            PreparedStatement ps = conn.prepareStatement("INSERT INTO Gifts VALUES (null, ?, ?, ?)");
+            ps.setString(1, gift.getName());
+            ps.setString(2, gift.getDescription());
+            ps.setLong(3, id);
+            result = ps.executeUpdate();
+            ps.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            if (conn != null) {
+                try {
+                    conn.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return result != -1;
+
+    }
+
+    public Gift get(Long id) {
+        Gift gift = null;
+        try {
+            conn = dataSource.getConnection();
+            PreparedStatement ps = conn.prepareStatement("SELECT * FROM Gifts WHERE GiftID = ?");
+            ps.setLong(1, id);
+            ResultSet rs = ps.executeQuery();
+            if(rs.next()){
+                long giftID = rs.getLong("giftID");
+                String name = rs.getString("name");
+                String desc = rs.getString("description");
+                gift = new Gift(giftID, name, desc);
+            }
+            rs.close();
+            ps.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            if (conn != null) {
+                try {
+                    conn.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();}
+            }
+        }
+        return gift;
+    }
+
+    public List<Gift> getAll(Long id) {
+        List<Gift> giftList = new ArrayList<>();
+        try {
+            conn = dataSource.getConnection();
+            PreparedStatement ps = conn.prepareStatement("SELECT * FROM Gifts WHERE UserID = ?");
+            ps.setLong(1, id);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                long giftID = rs.getLong("giftID");
+                String name = rs.getString("name");
+                String desc = rs.getString("description");
+
+                Gift gift = new Gift(giftID, name, desc);
+                giftList.add(gift);
+            }
+            rs.close();
+            ps.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            if (conn != null) {
+                try {
+                    conn.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return giftList;
+    }
+
+    public boolean remove(Long id) {
+        int result = -1;
+        try {
+            conn = dataSource.getConnection();
+            PreparedStatement ps = conn.prepareStatement("DELETE FROM Gifts WHERE GiftID = ?");
+            ps.setLong(1, id);
+            result = ps.executeUpdate();
+            ps.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            if (conn != null) {
+                try {
+                    conn.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return result != -1;
+    }
+
+    public boolean update(Long id, String name, String description) {
+        int result = -1;
+        try {
+            conn = dataSource.getConnection();
+            PreparedStatement ps = conn.prepareStatement("UPDATE Gifts SET Name=?, Description=? WHERE GiftID = ?");
+            ps.setString(1, name);
+            ps.setString(2, description);
+            ps.setLong(3, id);
+            result = ps.executeUpdate();
+            ps.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            if (conn != null) {
+                try {
+                    conn.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return result != -1;
+
+    }
+
+}
