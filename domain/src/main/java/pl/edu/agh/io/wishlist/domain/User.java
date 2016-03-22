@@ -2,12 +2,12 @@ package pl.edu.agh.io.wishlist.domain;
 
 public class User {
     private final long id;
-    private final String username;
+    private final String login;
     private final String password;
 
-    public User(long id, String username, String password) {
+    public User(long id, String login, String password) {
         this.id = id;
-        this.username = username;
+        this.login = login;
         this.password = password;
     }
 
@@ -15,8 +15,8 @@ public class User {
         return id;
     }
 
-    public String getUsername() {
-        return username;
+    public String getLogin() {
+        return login;
     }
 
     public String getPassword() {
