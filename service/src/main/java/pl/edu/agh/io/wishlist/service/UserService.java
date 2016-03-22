@@ -1,8 +1,8 @@
-package pl.edu.agh.io.wishlist.persistence;
+package pl.edu.agh.io.wishlist.service;
 
 import pl.edu.agh.io.wishlist.domain.User;
 
-public interface UserDAO {
+public interface UserService {
     boolean addUser(User user);
     User getUser(String login);
 }

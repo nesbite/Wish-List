@@ -1,6 +1,5 @@
 package pl.edu.agh.io.wishlist.web;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.PathVariable;
