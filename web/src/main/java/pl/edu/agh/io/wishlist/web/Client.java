@@ -39,7 +39,7 @@ public class Client {
             checker.getGift(120);
             checker.getGift(121);
             checker.removeGift(106);
-            checker.updateGift(151, "modified gift", "modified description");
+            checker.updateGift(152, 1, "modified gift", "modified description");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -52,6 +52,11 @@ class Checker{
         HttpGet request = new HttpGet(url);
         String response = send(request);
         Gift gift= new ObjectMapper().readValue(response, Gift.class);
+        System.out.println("----------------------------------------");
+        System.out.println(gift.getName());
+        System.out.println(gift.getDescription());
+        System.out.println(gift.getUserID());
+        System.out.println("----------------------------------------");
         return gift;
     }
 
@@ -63,11 +68,11 @@ class Checker{
 
         List<Gift> giftList = new ObjectMapper().readValue(response, new TypeReference<List<Gift>>(){});
 
-
+        System.out.println("----------------------------------------");
         for (Gift giftTemp : giftList) {
             System.out.println("Id: "+ giftTemp.getId()+"\nName: " + giftTemp.getName() + "\nDesc: "+giftTemp.getDescription());
         }
-
+        System.out.println("----------------------------------------");
         return giftList;
     }
 
@@ -77,7 +82,9 @@ class Checker{
         JSONObject jsonObject = new JSONObject(gift);
         System.out.println(jsonObject);
         StringEntity params = new StringEntity(jsonObject.toString());
-        HttpPost request = new HttpPost("http://localhost:8080/gifts/add");
+        String url = "http://localhost:8080/gifts/add";
+
+        HttpPost request = new HttpPost(url);
         request.addHeader("content-type", "application/json");
         request.setEntity(params);
         String response = send(request);
@@ -95,11 +102,17 @@ class Checker{
         System.out.println("----------------------------------------");
     }
 
-    void updateGift(long giftID, String name, String desc) throws IOException {
-//        System.out.println(String.format("http://localhost:8080/gifts/update/%s?name=%s&description=%s", giftID, name ,desc));
-        String url = String.format("http://localhost:8080/gifts/update/%s?name=%s&desc=%s", giftID, URLEncoder.encode(name, "UTF-8") ,URLEncoder.encode(desc, "UTF-8"));
+    void updateGift(long giftID, long userID, String name, String desc) throws IOException {
+        Gift gift = new Gift(userID, name, desc);
+        JSONObject jsonObject = new JSONObject(gift);
+        System.out.println(jsonObject);
+        StringEntity params = new StringEntity(jsonObject.toString());
+        String url = "http://localhost:8080/gifts/update/" + giftID;
+
         System.out.println(url);
         HttpPost request = new HttpPost(url);
+        request.addHeader("content-type", "application/json");
+        request.setEntity(params);
         String response = send(request);
         System.out.println("----------------------------------------");
         System.out.println(response);

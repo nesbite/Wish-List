@@ -9,5 +9,5 @@ public interface GiftService {
     List<Gift> getAllGifts(Long id);
     boolean addGift(Gift gift);
     boolean removeGift(Long id);
-    boolean editGift(Long id, String name, String description);
+    boolean editGift(Long id, Gift gift);
 }

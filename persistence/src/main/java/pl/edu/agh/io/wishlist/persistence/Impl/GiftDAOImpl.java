@@ -128,13 +128,13 @@ public class GiftDAOImpl implements GiftDAO {
         return result != -1;
     }
 
-    public boolean update(Long giftID, String name, String description) {
+    public boolean update(Long giftID, Gift gift) {
         int result = -1;
         try {
             conn = dataSource.getConnection();
             PreparedStatement ps = conn.prepareStatement("UPDATE Gifts SET Name=?, Description=? WHERE GiftID = ?");
-            ps.setString(1, name);
-            ps.setString(2, description);
+            ps.setString(1, gift.getName());
+            ps.setString(2, gift.getDescription());
             ps.setLong(3, giftID);
             result = ps.executeUpdate();
             ps.close();

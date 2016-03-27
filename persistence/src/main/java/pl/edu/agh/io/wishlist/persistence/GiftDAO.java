@@ -9,5 +9,5 @@ public interface GiftDAO {
     List<Gift> getAll(Long userID);
     boolean insert(Gift gift);
     boolean remove(Long giftID);
-    boolean update(Long giftID, String name, String description);
+    boolean update(Long giftID, Gift gift);
 }

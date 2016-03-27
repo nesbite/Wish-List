@@ -35,7 +35,7 @@ public class GiftServiceImpl implements GiftService {
     }
 
     @Override
-    public boolean editGift(Long id, String name, String description) {
-        return giftDAO.update(id, name, description);
+    public boolean editGift(Long id, Gift gift) {
+        return giftDAO.update(id, gift);
     }
 }
