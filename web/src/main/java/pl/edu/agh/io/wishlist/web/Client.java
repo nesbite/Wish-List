@@ -5,9 +5,7 @@ import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.ResponseHandler;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.client.methods.HttpRequestBase;
+import org.apache.http.client.methods.*;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
@@ -95,7 +93,7 @@ class Checker{
     }
     void removeGift(long giftID) throws IOException {
         String url = "http://localhost:8080/gifts/remove/"+giftID;
-        HttpPost request = new HttpPost(url);
+        HttpDelete request = new HttpDelete(url);
         String response = send(request);
         System.out.println("----------------------------------------");
         System.out.println(response);
@@ -110,7 +108,7 @@ class Checker{
         String url = "http://localhost:8080/gifts/update/" + giftID;
 
         System.out.println(url);
-        HttpPost request = new HttpPost(url);
+        HttpPut request = new HttpPut(url);
         request.addHeader("content-type", "application/json");
         request.setEntity(params);
         String response = send(request);

@@ -45,7 +45,7 @@ public class GiftListController {
     }
 
     @ResponseBody
-    @RequestMapping(value = "/remove/{id}", method = RequestMethod.POST)
+    @RequestMapping(value = "/remove/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<String> removeGift(@PathVariable Long id) {
         if(giftService.removeGift(id))
             return new ResponseEntity<>("Gift removed", HttpStatus.OK);
@@ -53,7 +53,7 @@ public class GiftListController {
     }
 
     @ResponseBody
-    @RequestMapping(value = "/update/{id}", method = RequestMethod.POST, consumes = "application/json")
+    @RequestMapping(value = "/update/{id}", method = RequestMethod.PUT, consumes = "application/json")
     public ResponseEntity<String> updateGift(@PathVariable Long id, @RequestBody Gift gift) {
         if(giftService.editGift(id, gift))
             return new ResponseEntity<>("Gift updated", HttpStatus.OK);
