@@ -1,10 +1,11 @@
 package pl.edu.agh.io.wishlist.service.Impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import pl.edu.agh.io.wishlist.domain.User;
 import pl.edu.agh.io.wishlist.persistence.UserDAO;
 import pl.edu.agh.io.wishlist.service.UserService;
-
+@Service("userService")
 public class UserServiceImpl implements UserService {
     @Autowired
     UserDAO userDAO;

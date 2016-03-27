@@ -1,9 +1,12 @@
 package pl.edu.agh.io.wishlist.domain;
 
+
 public class Gift {
-    private final long id;
+    private long id;
     private String name;
     private String description;
+
+    public Gift(){}
 
     public Gift(long id, String name) {
         this.id = id;
@@ -26,7 +29,7 @@ public class Gift {
     }
 
     public String getDescription() {
-        return description;
+        return (description == null ? "" : description);
     }
 
     public void updateName(String name){
