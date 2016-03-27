@@ -25,7 +25,7 @@ public class GiftListController {
     @RequestMapping(value = "/add", method = RequestMethod.POST, consumes = "application/json")
     public ResponseEntity<String> addGift(@RequestBody Gift gift) {
         System.out.println("Id: "+ gift.getId()+"\nName: " + gift.getName() + "\nDesc: "+gift.getDescription());
-        if(giftService.addGift(gift.getId(), gift))
+        if(giftService.addGift(gift))
             return new ResponseEntity<>("Gift added", HttpStatus.OK);
         return new ResponseEntity<>("Cannot add gift", HttpStatus.CONFLICT);
     }
@@ -53,9 +53,9 @@ public class GiftListController {
     }
 
     @ResponseBody
-    @RequestMapping(value = "/update/{id}", method = RequestMethod.POST, consumes = "application/json")
-    public ResponseEntity<String> updateGift(@PathVariable Long id, @RequestBody Gift gift) {
-        if(giftService.editGift(id, gift.getName(), gift.getDescription()))
+    @RequestMapping(value = "/update/{id}", method = RequestMethod.POST)
+    public ResponseEntity<String> updateGift(@PathVariable Long id, @RequestParam(value = "name") String name, @RequestParam(value = "desc") String description) {
+        if(giftService.editGift(id, name, description))
             return new ResponseEntity<>("Gift updated", HttpStatus.OK);
         return new ResponseEntity<>("Cannot update gift", HttpStatus.CONFLICT);
     }

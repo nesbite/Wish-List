@@ -1,18 +1,27 @@
 package pl.edu.agh.io.wishlist.web;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.ResponseHandler;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.client.methods.HttpRequestBase;
+import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClientBuilder;
+import org.apache.http.util.EntityUtils;
 import org.springframework.http.HttpStatus;
 import pl.edu.agh.io.wishlist.domain.Gift;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
+import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import org.json.JSONObject;
 
 import java.net.URLConnection;
+import java.net.URLEncoder;
 import java.util.List;
 
 
@@ -25,169 +34,115 @@ public class Client {
             checker.addGift(3, "statek", "ekskluzywny");
             checker.addGift(1, "balon", "kolorowy");
             checker.getAllGifts(1);
-            checker.getGift(118);
+            checker.getGift(152);
             checker.getGift(119);
             checker.getGift(120);
             checker.getGift(121);
             checker.removeGift(106);
-            checker.updateGift(112, "modified gift", "modified description");
+            checker.updateGift(151, "modified gift", "modified description");
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
-
-
 }
 
 class Checker{
-    Gift getGift(long id) throws IOException {
-        URL url = new URL("http://localhost:8080/gifts/getGift/" + id);
-        HttpURLConnection  connection = (HttpURLConnection )url.openConnection();
-        connection.setRequestMethod("GET");
-        connection.setConnectTimeout(5000);
-        connection.setReadTimeout(5000);
-
-        if(connection.getResponseCode() != HttpStatus.OK.value()){
-            System.out.println("\ngetGift("+id+") error\n");
-            return null;
-        }
-
-        BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-        String input = "";
-        String line;
-        while ((line = in.readLine()) != null) {
-            input += line;
-        }
-
-        Gift gift = new ObjectMapper().readValue(input, Gift.class);
-
-        System.out.println(input);
-        System.out.println("Id: " + gift.getId()+"\nName: " + gift.getName() + "\nDesc: " + gift.getDescription());
-        in.close();
+    Gift getGift(long giftID) throws IOException {
+        String url = "http://localhost:8080/gifts/getGift/" + giftID;
+        HttpGet request = new HttpGet(url);
+        String response = send(request);
+        Gift gift= new ObjectMapper().readValue(response, Gift.class);
         return gift;
     }
 
-    List<Gift> getAllGifts(long id) throws IOException {
+    List<Gift> getAllGifts(long userID) throws IOException {
 
-        URL url = new URL("http://localhost:8080/gifts/forUser/" + id);
-        HttpURLConnection  connection = (HttpURLConnection )url.openConnection();
-        connection.setRequestMethod("GET");
-        connection.setConnectTimeout(5000);
-        connection.setReadTimeout(5000);
+        String url = "http://localhost:8080/gifts/forUser/" + userID;
+        HttpGet request = new HttpGet(url);
+        String response = send(request);
 
-        if(connection.getResponseCode() != HttpStatus.OK.value()){
-            System.out.println("\ngetAllGifts("+id+") error\n");
-            return null;
-        }
-
-        BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-        String input = "";
-        String line;
-        while ((line = in.readLine()) != null) {
-            input += line;
-        }
-        List<Gift> giftList = new ObjectMapper().readValue(input, new TypeReference<List<Gift>>(){});
+        List<Gift> giftList = new ObjectMapper().readValue(response, new TypeReference<List<Gift>>(){});
 
 
         for (Gift giftTemp : giftList) {
             System.out.println("Id: "+ giftTemp.getId()+"\nName: " + giftTemp.getName() + "\nDesc: "+giftTemp.getDescription());
         }
 
-        in.close();
         return giftList;
     }
 
-    String addGift(long id, String name, String desc) throws IOException {
+    void addGift(long userID, String name, String desc) throws IOException {
 
-        Gift gift = new Gift(id,name, desc);
+        Gift gift = new Gift(userID, name, desc);
         JSONObject jsonObject = new JSONObject(gift);
         System.out.println(jsonObject);
-
-        URL url = new URL("http://localhost:8080/gifts/add");
-        URLConnection connection = url.openConnection();
-//        connection.setRequestMethod("POST");
-        connection.setDoOutput(true);
-        connection.setRequestProperty("Content-Type", "application/json");
-        connection.setConnectTimeout(5000);
-        connection.setReadTimeout(5000);
-
-//        if(connection.getResponseCode() != HttpStatus.OK.value()){
-//            System.out.println("\naddGift("+id+", name, desc) error\n");
-//            return null;
-//        }
-
-        OutputStreamWriter out = new OutputStreamWriter(connection.getOutputStream());
-        out.write(jsonObject.toString());
-        out.close();
-
-        BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-        String input = "";
-        String line;
-        while ((line = in.readLine()) != null) {
-            input += line;
-        }
-
-        System.out.println(input);
-        in.close();
-        return input;
+        StringEntity params = new StringEntity(jsonObject.toString());
+        HttpPost request = new HttpPost("http://localhost:8080/gifts/add");
+        request.addHeader("content-type", "application/json");
+        request.setEntity(params);
+        String response = send(request);
+        System.out.println("----------------------------------------");
+        System.out.println(response);
+        System.out.println("----------------------------------------");
 
     }
-    String removeGift(long id) throws IOException {
-        URL url = new URL("http://localhost:8080/gifts/remove/"+id);
-        HttpURLConnection  connection = (HttpURLConnection )url.openConnection();
-        connection.setRequestMethod("POST");
-        connection.setConnectTimeout(5000);
-        connection.setReadTimeout(5000);
-
-        if(connection.getResponseCode() != HttpStatus.OK.value()){
-            System.out.println("\nremoveGift("+id+") error\n");
-            return null;
-        }
-
-
-        BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-        String input = "";
-        String line;
-        while ((line = in.readLine()) != null) {
-            input += line;
-        }
-
-        System.out.println(input);
-        in.close();
-        return input;
+    void removeGift(long giftID) throws IOException {
+        String url = "http://localhost:8080/gifts/remove/"+giftID;
+        HttpPost request = new HttpPost(url);
+        String response = send(request);
+        System.out.println("----------------------------------------");
+        System.out.println(response);
+        System.out.println("----------------------------------------");
     }
-    String updateGift(long id, String name, String desc) throws IOException {
-        Gift gift = new Gift(id,name, desc);
-        JSONObject jsonObject = new JSONObject(gift);
-        System.out.println(jsonObject);
 
-        URL url = new URL("http://localhost:8080/gifts/update/" + id);
-        URLConnection  connection = url.openConnection();
-//        connection.setRequestMethod("POST");
-        connection.setDoOutput(true);
-        connection.setRequestProperty("Content-Type", "application/json");
-        connection.setConnectTimeout(5000);
-        connection.setReadTimeout(5000);
+    void updateGift(long giftID, String name, String desc) throws IOException {
+//        System.out.println(String.format("http://localhost:8080/gifts/update/%s?name=%s&description=%s", giftID, name ,desc));
+        String url = String.format("http://localhost:8080/gifts/update/%s?name=%s&desc=%s", giftID, URLEncoder.encode(name, "UTF-8") ,URLEncoder.encode(desc, "UTF-8"));
+        System.out.println(url);
+        HttpPost request = new HttpPost(url);
+        String response = send(request);
+        System.out.println("----------------------------------------");
+        System.out.println(response);
+        System.out.println("----------------------------------------");
 
-//        if(connection.getResponseCode() != HttpStatus.OK.value()){
-//            System.out.println("\nupdateGift("+id+", name, desc) error\n");
-//            return null;
-//        }
+    }
 
-        OutputStreamWriter out = new OutputStreamWriter(connection.getOutputStream());
-        out.write(jsonObject.toString());
-        out.close();
+    String send(HttpRequestBase request){
+        CloseableHttpClient httpClient = HttpClientBuilder.create().build();
+        String responseBody = null;
+        try {
 
-        BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-        String input = "";
-        String line;
-        while ((line = in.readLine()) != null) {
-            input += line;
+            // Create a custom response handler
+            ResponseHandler<String> responseHandler = new ResponseHandler<String>() {
+
+                @Override
+                public String handleResponse(
+                        final HttpResponse response) throws ClientProtocolException, IOException {
+                    int status = response.getStatusLine().getStatusCode();
+                    if (status >= 200 && status < 300) {
+                        HttpEntity entity = response.getEntity();
+                        return entity != null ? EntityUtils.toString(entity) : null;
+                    } else if(status == HttpStatus.CONFLICT.value() || status == HttpStatus.NOT_FOUND.value()){
+                        return "Operation failed: " + status;
+                    } else {
+                        throw new ClientProtocolException("Unexpected response status: " + status);
+                    }
+                }
+            };
+            responseBody = httpClient.execute(request, responseHandler);
+//            System.out.println("----------------------------------------");
+//            System.out.println(responseBody);
+        } catch (ClientProtocolException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                httpClient.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
-
-        System.out.println(input);
-        in.close();
-        return input;
+        return responseBody;
     }
  }

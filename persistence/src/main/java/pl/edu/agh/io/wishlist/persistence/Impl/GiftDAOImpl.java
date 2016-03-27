@@ -21,14 +21,14 @@ public class GiftDAOImpl implements GiftDAO {
 
     private Connection conn = null;
 
-    public boolean insert(Long id, Gift gift) {
+    public boolean insert(Gift gift) {
         int result = -1;
         try {
             conn = dataSource.getConnection();
             PreparedStatement ps = conn.prepareStatement("INSERT INTO Gifts VALUES (null, ?, ?, ?)");
             ps.setString(1, gift.getName());
             ps.setString(2, gift.getDescription());
-            ps.setLong(3, id);
+            ps.setLong(3, gift.getUserID());
             result = ps.executeUpdate();
             ps.close();
         } catch (SQLException e) {
@@ -46,18 +46,19 @@ public class GiftDAOImpl implements GiftDAO {
 
     }
 
-    public Gift get(Long id) {
+    public Gift get(Long giftID) {
         Gift gift = null;
         try {
             conn = dataSource.getConnection();
             PreparedStatement ps = conn.prepareStatement("SELECT * FROM Gifts WHERE GiftID = ?");
-            ps.setLong(1, id);
+            ps.setLong(1, giftID);
             ResultSet rs = ps.executeQuery();
             if(rs.next()){
-                long giftID = rs.getLong("giftID");
+                long id = rs.getLong("giftID");
                 String name = rs.getString("name");
                 String desc = rs.getString("description");
-                gift = new Gift(giftID, name, desc);
+                long userID = rs.getLong("userID");
+                gift = new Gift(id, userID, name, desc);
             }
             rs.close();
             ps.close();
@@ -74,19 +75,19 @@ public class GiftDAOImpl implements GiftDAO {
         return gift;
     }
 
-    public List<Gift> getAll(Long id) {
+    public List<Gift> getAll(Long userID) {
         List<Gift> giftList = new ArrayList<>();
         try {
             conn = dataSource.getConnection();
             PreparedStatement ps = conn.prepareStatement("SELECT * FROM Gifts WHERE UserID = ?");
-            ps.setLong(1, id);
+            ps.setLong(1, userID);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 long giftID = rs.getLong("giftID");
                 String name = rs.getString("name");
                 String desc = rs.getString("description");
-
-                Gift gift = new Gift(giftID, name, desc);
+                long UID = rs.getLong("giftID");
+                Gift gift = new Gift(giftID,UID, name, desc);
                 giftList.add(gift);
             }
             rs.close();
@@ -105,12 +106,12 @@ public class GiftDAOImpl implements GiftDAO {
         return giftList;
     }
 
-    public boolean remove(Long id) {
+    public boolean remove(Long giftID) {
         int result = -1;
         try {
             conn = dataSource.getConnection();
             PreparedStatement ps = conn.prepareStatement("DELETE FROM Gifts WHERE GiftID = ?");
-            ps.setLong(1, id);
+            ps.setLong(1, giftID);
             result = ps.executeUpdate();
             ps.close();
         } catch (SQLException e) {
@@ -127,14 +128,14 @@ public class GiftDAOImpl implements GiftDAO {
         return result != -1;
     }
 
-    public boolean update(Long id, String name, String description) {
+    public boolean update(Long giftID, String name, String description) {
         int result = -1;
         try {
             conn = dataSource.getConnection();
             PreparedStatement ps = conn.prepareStatement("UPDATE Gifts SET Name=?, Description=? WHERE GiftID = ?");
             ps.setString(1, name);
             ps.setString(2, description);
-            ps.setLong(3, id);
+            ps.setLong(3, giftID);
             result = ps.executeUpdate();
             ps.close();
         } catch (SQLException e) {
