@@ -11,7 +11,9 @@ public class User {
 
     private String login;
     private String password;
+
     private List<Long> friends;
+    private List<Gift> gifts;
 
     public User(String login, String password) {
         this.login = login;
@@ -38,6 +40,14 @@ public class User {
         this.friends = friends;
     }
 
+    public List<Gift> getGifts() {
+        return gifts;
+    }
+
+    public void setGifts(List<Gift> gifts) {
+        this.gifts = gifts;
+    }
+
     @Override
     public String toString() {
         return "User{" +
@@ -45,6 +55,7 @@ public class User {
                 ", login='" + login + '\'' +
                 ", password='" + password + '\'' +
                 ", friends=" + friends +
+                ", gifts=" + gifts +
                 '}';
     }
 }

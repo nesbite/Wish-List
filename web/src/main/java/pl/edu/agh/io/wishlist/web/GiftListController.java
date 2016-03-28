@@ -6,7 +6,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.edu.agh.io.wishlist.domain.Gift;
-import pl.edu.agh.io.wishlist.service.GiftService;
+import pl.edu.agh.io.wishlist.service.IGiftService;
 
 import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
@@ -17,15 +17,15 @@ public class GiftListController {
 
     @Autowired
     @Qualifier("giftService")
-    private GiftService giftService;
+    private IGiftService giftService;
 
     private final AtomicLong counter = new AtomicLong();
 
     @ResponseBody
-    @RequestMapping(value = "/add", method = RequestMethod.POST, consumes = "application/json")
-    public ResponseEntity<String> addGift(@RequestBody Gift gift) {
+    @RequestMapping(value = "/add/{id}", method = RequestMethod.POST, consumes = "application/json")
+    public ResponseEntity<String> addGift(@PathVariable Long userId, @RequestBody Gift gift) {
         System.out.println("Id: " + gift.getId() + "\nName: " + gift.getName() + "\nDesc: " + gift.getDescription());
-        if (giftService.addGift(gift))
+        if (giftService.addGift(userId, gift))
             return new ResponseEntity<>("Gift added", HttpStatus.OK);
         return new ResponseEntity<>("Cannot add gift", HttpStatus.CONFLICT);
     }

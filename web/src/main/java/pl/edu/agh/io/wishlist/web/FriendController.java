@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.*;
 import pl.edu.agh.io.wishlist.domain.User;
-import pl.edu.agh.io.wishlist.service.FriendService;
+import pl.edu.agh.io.wishlist.service.IFriendService;
 
 import java.util.List;
 
@@ -13,7 +13,7 @@ import java.util.List;
 public class FriendController {
     @Autowired
     @Qualifier("friendService")
-    private FriendService friendService;
+    private IFriendService friendService;
 
     @ResponseBody
     @RequestMapping(value = "/get/{id}", method = RequestMethod.GET, produces = "application/json")

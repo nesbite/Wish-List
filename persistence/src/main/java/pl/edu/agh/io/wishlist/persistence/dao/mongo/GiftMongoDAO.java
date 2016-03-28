@@ -14,7 +14,7 @@ import pl.edu.agh.io.wishlist.persistence.dao.GiftDAO;
 import java.util.List;
 
 @Component
-public class GiftMongoDAO implements GiftDAO {
+public class GiftMongoDAO implements GiftDAO{
 
     @Autowired
     MongoTemplate mongoTemplate;

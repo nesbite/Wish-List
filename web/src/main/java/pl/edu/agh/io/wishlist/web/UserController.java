@@ -4,14 +4,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.*;
 import pl.edu.agh.io.wishlist.domain.User;
-import pl.edu.agh.io.wishlist.service.UserService;
+import pl.edu.agh.io.wishlist.service.IUserService;
 
 @RestController
 @RequestMapping("/users")
 public class UserController {
     @Autowired
     @Qualifier("userService")
-    private UserService userService;
+    private IUserService userService;
 
     @ResponseBody
     @RequestMapping(value = "/add", method = RequestMethod.POST, consumes = "application/json")
