@@ -1,4 +1,4 @@
-package pl.edu.agh.io.wishlist.web;
+package pl.edu.agh.io.wishlist.server;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.http.HttpEntity;
@@ -10,13 +10,12 @@ import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.util.EntityUtils;
+import org.json.JSONObject;
 import org.springframework.http.HttpStatus;
 import pl.edu.agh.io.wishlist.domain.Gift;
-
-import java.io.*;
-import org.json.JSONObject;
 import pl.edu.agh.io.wishlist.domain.User;
 
+import java.io.IOException;
 import java.util.List;
 
 //Przed rozpoczeciem wywolac to shellu mongo:
@@ -119,7 +118,8 @@ class Checker{
 
     void addUser(long userID, String login, String password) throws IOException {
 
-        User user = new User(userID, login, password);
+        User user = new User(login, password);
+        user.setId(userID);
         JSONObject jsonObject = new JSONObject(user);
         System.out.println(jsonObject);
         StringEntity params = new StringEntity(jsonObject.toString());

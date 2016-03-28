@@ -9,15 +9,12 @@ public class User {
 
     @Id
     private long id;
+
     private String login;
     private String password;
     private List<Long> friends;
 
-    public User() {
-    }
-
-    public User(long id, String login, String password) {
-        this.id = id;
+    public User(String login, String password) {
         this.login = login;
         this.password = password;
         this.friends = new ArrayList<>();
@@ -43,8 +40,18 @@ public class User {
         this.friends = friends;
     }
 
-    public void setId(long id){
+    public void setId(long id) {
         this.id = id;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", login='" + login + '\'' +
+                ", password='" + password + '\'' +
+                ", friends=" + friends +
+                '}';
     }
 }
 
