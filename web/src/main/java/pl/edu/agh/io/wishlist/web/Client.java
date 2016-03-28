@@ -43,17 +43,17 @@ public class Client {
             checker.deleteFriend(1, 2);
             checker.getFriends(1);
             //Gifts
-//            checker.addGift(1, "auto", "duze");
-//            checker.addGift(2, "samolot", "szybki");
-//            checker.addGift(3, "statek", "ekskluzywny");
-//            checker.addGift(1, "balon", "kolorowy");
-//            checker.getAllGifts(1);
-//            checker.getGift(1);
-//            checker.getGift(119);
-//            checker.getGift(120);
-//            checker.getGift(121);
-//            checker.removeGift(1);
-//            checker.updateGift(2, 1, "modified gift", "modified description");
+            checker.addGift(1, "auto", "duze");
+            checker.addGift(2, "samolot", "szybki");
+            checker.addGift(3, "statek", "ekskluzywny");
+            checker.addGift(1, "balon", "kolorowy");
+            checker.getAllGifts(1);
+            checker.getGift(1);
+            checker.getGift(119);
+            checker.getGift(120);
+            checker.getGift(121);
+            checker.removeGift(1);
+            checker.updateGift(2, 1, "modified gift", "modified description");
         } catch (IOException e) {
             e.printStackTrace();
         }

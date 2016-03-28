@@ -59,7 +59,7 @@ public class FriendDAOImpl implements FriendDAO {
             return false;
         }
         List<Long> friendsIdList = user.getFriends();
-        Query removeQuery = Query.query(Criteria.where("_id").is(userId).and("friends").in(friendsIdList));
+        Query removeQuery = Query.query(Criteria.where("_id").is(userId).and("friends.id").in(friendsIdList));
         if(friendsIdList.contains(friendId)){
             mongoTemplate.upsert(removeQuery, new Update().pull("friends", friendId), User.class);
             return true;
