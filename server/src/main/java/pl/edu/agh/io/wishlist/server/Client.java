@@ -119,7 +119,6 @@ class Checker{
     void addUser(long userID, String login, String password) throws IOException {
 
         User user = new User(login, password);
-        user.setId(userID);
         JSONObject jsonObject = new JSONObject(user);
         System.out.println(jsonObject);
         StringEntity params = new StringEntity(jsonObject.toString());
@@ -147,7 +146,6 @@ class Checker{
         System.out.println("----------------------------------------");
         System.out.println(gift.getName());
         System.out.println(gift.getDescription());
-        System.out.println(gift.getUserID());
         System.out.println("----------------------------------------");
         return gift;
     }
@@ -170,7 +168,7 @@ class Checker{
 
     void addGift(long userID, String name, String desc) throws IOException {
 
-        Gift gift = new Gift(userID, name, desc);
+        Gift gift = new Gift(name, desc);
         JSONObject jsonObject = new JSONObject(gift);
         System.out.println(jsonObject);
         StringEntity params = new StringEntity(jsonObject.toString());
@@ -195,7 +193,7 @@ class Checker{
     }
 
     void updateGift(long giftID, long userID, String name, String desc) throws IOException {
-        Gift gift = new Gift(userID, name, desc);
+        Gift gift = new Gift(name, desc);
         JSONObject jsonObject = new JSONObject(gift);
         System.out.println(jsonObject);
         StringEntity params = new StringEntity(jsonObject.toString());

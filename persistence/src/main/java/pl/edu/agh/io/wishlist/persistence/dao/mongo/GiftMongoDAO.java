@@ -54,7 +54,7 @@ public class GiftMongoDAO implements GiftDAO {
     public boolean update(Long giftID, Gift gift) {
         Query query = new Query();
         query.addCriteria(Criteria.where("_id").is(giftID));
-        mongoTemplate.updateFirst(query, new Update().set("name", gift.getName()).set("description", gift.getDescription()).set("userID", gift.getUserID()), Gift.class);
+        mongoTemplate.updateFirst(query, new Update().set("name", gift.getName()).set("description", gift.getDescription()), Gift.class);
         return true;
     }
 

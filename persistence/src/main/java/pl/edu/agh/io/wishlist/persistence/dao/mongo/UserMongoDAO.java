@@ -22,7 +22,6 @@ public class UserMongoDAO implements UserDAO {
             return false;
         }
         long id =(long)Double.parseDouble(getNextSequence("userID", mongoTemplate).toString());
-        user.setId(id);
         mongoTemplate.insert(user);
         return true;
     }

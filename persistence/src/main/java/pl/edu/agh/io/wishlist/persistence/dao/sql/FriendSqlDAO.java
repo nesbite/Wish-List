@@ -38,7 +38,6 @@ public class FriendSqlDAO implements FriendDAO {
                     login = resultSet.getString(1);
                     password = resultSet.getString(2);
                     User user = new User(login, password);
-                    user.setId(id);
                     friends.add(user);
                 }
             }

@@ -26,7 +26,6 @@ public class GiftSqlDAO implements GiftDAO {
             PreparedStatement ps = conn.prepareStatement("INSERT INTO Gifts VALUES (null, ?, ?, ?)");
             ps.setString(1, gift.getName());
             ps.setString(2, gift.getDescription());
-            ps.setLong(3, gift.getUserID());
             result = ps.executeUpdate();
             ps.close();
         } catch (SQLException e) {
@@ -51,12 +50,12 @@ public class GiftSqlDAO implements GiftDAO {
             PreparedStatement ps = conn.prepareStatement("SELECT * FROM Gifts WHERE GiftID = ?");
             ps.setLong(1, giftID);
             ResultSet rs = ps.executeQuery();
-            if(rs.next()){
+            if (rs.next()) {
                 long id = rs.getLong("giftID");
                 String name = rs.getString("name");
                 String desc = rs.getString("description");
                 long userID = rs.getLong("userID");
-                gift = new Gift(id, userID, name, desc);
+                gift = new Gift(name, desc);
             }
             rs.close();
             ps.close();
@@ -67,7 +66,8 @@ public class GiftSqlDAO implements GiftDAO {
                 try {
                     conn.close();
                 } catch (SQLException e) {
-                    e.printStackTrace();}
+                    e.printStackTrace();
+                }
             }
         }
         return gift;
@@ -85,7 +85,7 @@ public class GiftSqlDAO implements GiftDAO {
                 String name = rs.getString("name");
                 String desc = rs.getString("description");
                 long UID = rs.getLong("giftID");
-                Gift gift = new Gift(giftID,UID, name, desc);
+                Gift gift = new Gift(name, desc);
                 giftList.add(gift);
             }
             rs.close();

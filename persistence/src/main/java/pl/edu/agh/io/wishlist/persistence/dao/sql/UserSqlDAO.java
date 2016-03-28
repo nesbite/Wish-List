@@ -50,7 +50,6 @@ public class UserSqlDAO implements UserDAO {
             Long id = result.getLong(1);
             String password = result.getString(3);
             user = new User(login, password);
-            user.setId(id);
             result.close();
             ps.close();
         } catch (SQLException e){
