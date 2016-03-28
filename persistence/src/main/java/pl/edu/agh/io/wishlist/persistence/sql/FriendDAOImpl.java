@@ -1,4 +1,4 @@
-package pl.edu.agh.io.wishlist.persistence.Impl;
+package pl.edu.agh.io.wishlist.persistence.sql;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -10,9 +10,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
-@Component
+
 public class FriendDAOImpl implements FriendDAO {
     @Autowired
     private DataSource dataSource;
@@ -21,7 +22,7 @@ public class FriendDAOImpl implements FriendDAO {
 
     @Override
     public List<User> getAll(Long id) {
-        List<User> friends = null;
+        List<User> friends = new ArrayList<>();
         try {
             conn = dataSource.getConnection();
             PreparedStatement ps = conn.prepareStatement("SELECT FriendID FROM wishlist.Friends WHERE UserID = ?");

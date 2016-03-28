@@ -1,7 +1,10 @@
 package pl.edu.agh.io.wishlist.domain;
 
 
+import org.springframework.data.annotation.Id;
+
 public class Gift {
+    @Id
     private long id;
     private String name;
     private String description;
@@ -55,5 +58,9 @@ public class Gift {
 
     public long getUserID() {
         return userID;
+    }
+
+    public void setId(long id){
+        this.id = id;
     }
 }

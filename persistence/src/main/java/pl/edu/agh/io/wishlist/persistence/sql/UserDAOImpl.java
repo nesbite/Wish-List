@@ -1,8 +1,7 @@
-package pl.edu.agh.io.wishlist.persistence.Impl;
+package pl.edu.agh.io.wishlist.persistence.sql;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 import pl.edu.agh.io.wishlist.persistence.UserDAO;
 import pl.edu.agh.io.wishlist.domain.User;
 
@@ -12,7 +11,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-@Component
 public class UserDAOImpl implements UserDAO {
 
     @Autowired

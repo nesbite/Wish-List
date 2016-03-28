@@ -14,30 +14,46 @@ import org.springframework.http.HttpStatus;
 import pl.edu.agh.io.wishlist.domain.Gift;
 
 import java.io.*;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import org.json.JSONObject;
+import pl.edu.agh.io.wishlist.domain.User;
 
-import java.net.URLConnection;
-import java.net.URLEncoder;
 import java.util.List;
+
+//Przed rozpoczeciem wywolac to shellu mongo:
+//db.counters.insert( { _id: "giftID",  seq:  1 })
+//db.counters.insert( { _id: "userID",  seq:  1 })
 
 
 public class Client {
     public static void main(String[] args) {
         try {
             Checker checker = new Checker();
+            //Users
+            checker.addUser(1, "login1", "password1");
+            checker.addUser(2, "login2", "password2");
+            checker.addUser(3, "login3", "password3");
+            checker.addUser(4, "login4", "password4");
+            checker.getUser("login2");
+            //Friends
+            checker.addFriend(1, 2);
+            checker.addFriend(1, 3);
+            checker.addFriend(1, 4);
+            checker.addFriend(1, 5);
+            checker.getFriends(1);
+            checker.deleteFriend(1, 2);
+            checker.getFriends(1);
+            //Gifts
             checker.addGift(1, "auto", "duze");
             checker.addGift(2, "samolot", "szybki");
             checker.addGift(3, "statek", "ekskluzywny");
             checker.addGift(1, "balon", "kolorowy");
             checker.getAllGifts(1);
-            checker.getGift(152);
+            checker.getGift(1);
             checker.getGift(119);
             checker.getGift(120);
             checker.getGift(121);
-            checker.removeGift(106);
-            checker.updateGift(152, 1, "modified gift", "modified description");
+            checker.removeGift(1);
+            checker.updateGift(2, 1, "modified gift", "modified description");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -45,11 +61,89 @@ public class Client {
 }
 
 class Checker{
+
+
+    List<User> getFriends(long id) throws IOException {
+        String url = "http://localhost:8080/friends/get/" + id;
+        HttpGet request = new HttpGet(url);
+        String response = send(request);
+        if(response.equalsIgnoreCase("")){
+            return null;
+        }
+        List<User> users = new ObjectMapper().readValue(response, new TypeReference<List<User>>(){});
+        System.out.println("----------------------------------------");
+        for (User user : users) {
+            System.out.println("Id: "+ user.getId()+"\nLogin: " + user.getLogin() + "\nPassword: "+user.getPassword()+"\nFriends: "+user.getFriends());
+        }
+        System.out.println("----------------------------------------");
+        return users;
+    }
+
+    void addFriend(long userId, long friendId) throws IOException {
+
+        String url = "http://localhost:8080/friends/add/"+userId+"?friendId="+friendId;
+        System.out.println(url);
+        HttpPut request = new HttpPut(url);
+        String response = send(request);
+        System.out.println("----------------------------------------");
+        System.out.println(response);
+        System.out.println("----------------------------------------");
+
+    }
+
+    void deleteFriend(long userId, long friendId) throws IOException {
+
+        String url = "http://localhost:8080/friends/delete/"+userId+"?friendId="+friendId;
+
+        HttpDelete request = new HttpDelete(url);
+        String response = send(request);
+        System.out.println("----------------------------------------");
+        System.out.println(response);
+        System.out.println("----------------------------------------");
+
+    }
+
+    User getUser(String login) throws IOException {
+        String url = "http://localhost:8080/users/get/" + login;
+        HttpGet request = new HttpGet(url);
+        String response = send(request);
+        System.out.println(response);
+        User user= new ObjectMapper().readValue(response, User.class);
+        System.out.println("----------------------------------------");
+        System.out.println(user.getLogin());
+        System.out.println(user.getPassword());
+        System.out.println(user.getFriends());
+        System.out.println("----------------------------------------");
+        return user;
+    }
+
+    void addUser(long userID, String login, String password) throws IOException {
+
+        User user = new User(userID, login, password);
+        JSONObject jsonObject = new JSONObject(user);
+        System.out.println(jsonObject);
+        StringEntity params = new StringEntity(jsonObject.toString());
+        String url = "http://localhost:8080/users/add";
+
+        HttpPost request = new HttpPost(url);
+        request.addHeader("content-type", "application/json");
+        request.setEntity(params);
+        String response = send(request);
+        System.out.println("----------------------------------------");
+        System.out.println(response);
+        System.out.println("----------------------------------------");
+
+    }
+
     Gift getGift(long giftID) throws IOException {
         String url = "http://localhost:8080/gifts/getGift/" + giftID;
         HttpGet request = new HttpGet(url);
         String response = send(request);
-        Gift gift= new ObjectMapper().readValue(response, Gift.class);
+        System.out.println(response);
+        if("Operation failed".equalsIgnoreCase(response.subSequence(0,16).toString())){
+            return null;
+        }
+        Gift gift = new ObjectMapper().readValue(response, Gift.class);
         System.out.println("----------------------------------------");
         System.out.println(gift.getName());
         System.out.println(gift.getDescription());
@@ -118,7 +212,7 @@ class Checker{
 
     }
 
-    String send(HttpRequestBase request){
+    private String send(HttpRequestBase request){
         CloseableHttpClient httpClient = HttpClientBuilder.create().build();
         String responseBody = null;
         try {
@@ -128,7 +222,7 @@ class Checker{
 
                 @Override
                 public String handleResponse(
-                        final HttpResponse response) throws ClientProtocolException, IOException {
+                        final HttpResponse response) throws IOException {
                     int status = response.getStatusLine().getStatusCode();
                     if (status >= 200 && status < 300) {
                         HttpEntity entity = response.getEntity();

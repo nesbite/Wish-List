@@ -26,12 +26,14 @@ public class GiftServiceImpl implements GiftService {
 
     @Override
     public boolean addGift(Gift gift) {
-        return giftDAO.insert(gift);
+        giftDAO.put(gift);
+        return true;
     }
 
     @Override
     public boolean removeGift(Long id) {
-        return giftDAO.remove(id);
+        giftDAO.remove(id);
+        return true;
     }
 
     @Override
