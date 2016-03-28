@@ -21,7 +21,17 @@ public class User {
         this.friends = new ArrayList<>();
     }
 
+<<<<<<< HEAD
     public long getId() {
+=======
+    public User(Long id, String login, String password) {
+        this.id = String.valueOf(id);
+        this.login = login;
+        this.password = password;
+    }
+
+    public String getId() {
+>>>>>>> User with annotated id
         return id;
     }
 
