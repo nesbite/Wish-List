@@ -2,6 +2,9 @@ package pl.edu.agh.io.wishlist.domain;
 
 import org.springframework.data.annotation.Id;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class User {
 
     @Id
@@ -13,23 +16,14 @@ public class User {
     public User() {
     }
 
-    public User(String login, String password) {
+    public User(long id, String login, String password) {
+        this.id = id;
         this.login = login;
         this.password = password;
         this.friends = new ArrayList<>();
     }
 
-<<<<<<< HEAD
     public long getId() {
-=======
-    public User(Long id, String login, String password) {
-        this.id = String.valueOf(id);
-        this.login = login;
-        this.password = password;
-    }
-
-    public String getId() {
->>>>>>> User with annotated id
         return id;
     }
 

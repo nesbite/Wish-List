@@ -1,6 +1,5 @@
 package pl.edu.agh.io.wishlist.persistence;
 
-import org.springframework.data.mongodb.repository.MongoRepository;
 import pl.edu.agh.io.wishlist.domain.Gift;
 
 import java.util.List;
