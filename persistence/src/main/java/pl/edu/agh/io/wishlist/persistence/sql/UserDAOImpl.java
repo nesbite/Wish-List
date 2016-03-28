@@ -1,9 +1,8 @@
 package pl.edu.agh.io.wishlist.persistence.sql;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-import pl.edu.agh.io.wishlist.persistence.UserDAO;
 import pl.edu.agh.io.wishlist.domain.User;
+import pl.edu.agh.io.wishlist.persistence.UserDAO;
 
 import javax.sql.DataSource;
 import java.sql.Connection;
@@ -50,7 +49,8 @@ public class UserDAOImpl implements UserDAO {
             ResultSet result = ps.executeQuery();
             Long id = result.getLong(1);
             String password = result.getString(3);
-            user = new User(id, login, password);
+            user = new User(login, password);
+            user.setId(id);
             result.close();
             ps.close();
         } catch (SQLException e){

@@ -1,7 +1,6 @@
 package pl.edu.agh.io.wishlist.persistence.sql;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import pl.edu.agh.io.wishlist.domain.User;
 import pl.edu.agh.io.wishlist.persistence.FriendDAO;
 
@@ -30,15 +29,16 @@ public class FriendDAOImpl implements FriendDAO {
             ResultSet result = ps.executeQuery();
             Long friendId;
             String login, password;
-            while(result.next()){
+            while (result.next()) {
                 friendId = result.getLong(1);
                 PreparedStatement preparedStatement = conn.prepareStatement("SELECT Login, PasswordHash FROM Users WHERE UserID = ?");
                 preparedStatement.setLong(1, friendId);
                 ResultSet resultSet = preparedStatement.executeQuery();
-                if(resultSet.next()){
+                if (resultSet.next()) {
                     login = resultSet.getString(1);
                     password = resultSet.getString(2);
-                    User user = new User(id, login, password);
+                    User user = new User(login, password);
+                    user.setId(id);
                     friends.add(user);
                 }
             }
