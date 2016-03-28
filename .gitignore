@@ -1,7 +1,3 @@
 .idea
 *.iml
-android/target
-domain/target
-persistence/target
-service/target
-web/target
+target/
