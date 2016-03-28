@@ -1,15 +1,15 @@
-package pl.edu.agh.io.wishlist.service.Impl;
+package pl.edu.agh.io.wishlist.service.dao;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.edu.agh.io.wishlist.domain.User;
 import pl.edu.agh.io.wishlist.persistence.dao.FriendDAO;
-import pl.edu.agh.io.wishlist.service.FriendService;
+import pl.edu.agh.io.wishlist.service.IFriendService;
 
 import java.util.List;
 
-@Service("friendService")
-public class FriendServiceImpl implements FriendService {
+@Service("friendDaoService")
+public class FriendDaoService implements IFriendService {
     @Autowired
     FriendDAO friendDAO;
 

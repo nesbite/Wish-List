@@ -4,12 +4,12 @@ import pl.edu.agh.io.wishlist.domain.Gift;
 
 import java.util.List;
 
-public interface GiftService {
+public interface IGiftService {
     Gift getGift(Long id);
 
     List<Gift> getAllGifts(Long id);
 
-    boolean addGift(Gift gift);
+    boolean addGift(Long userId, Gift gift);
 
     boolean removeGift(Long id);
 

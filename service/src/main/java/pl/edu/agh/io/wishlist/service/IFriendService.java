@@ -4,7 +4,7 @@ import pl.edu.agh.io.wishlist.domain.User;
 
 import java.util.List;
 
-public interface FriendService {
+public interface IFriendService {
     List<User> getFriends(Long id);
 
     boolean addFriend(Long userId, Long friendId);

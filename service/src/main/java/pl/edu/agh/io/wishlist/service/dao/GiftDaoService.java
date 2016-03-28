@@ -1,15 +1,15 @@
-package pl.edu.agh.io.wishlist.service.Impl;
+package pl.edu.agh.io.wishlist.service.dao;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.edu.agh.io.wishlist.domain.Gift;
 import pl.edu.agh.io.wishlist.persistence.dao.GiftDAO;
-import pl.edu.agh.io.wishlist.service.GiftService;
+import pl.edu.agh.io.wishlist.service.IGiftService;
 
 import java.util.List;
 
-@Service("giftService")
-public class GiftServiceImpl implements GiftService {
+@Service("giftDaoService")
+public class GiftDaoService implements IGiftService {
     @Autowired
     GiftDAO giftDAO;
 
@@ -25,7 +25,7 @@ public class GiftServiceImpl implements GiftService {
     }
 
     @Override
-    public boolean addGift(Gift gift) {
+    public boolean addGift(Long userId, Gift gift) {
         giftDAO.put(gift);
         return true;
     }
