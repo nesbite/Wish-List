@@ -1,7 +1,6 @@
-package pl.edu.agh.io.wishlist.persistence.mongo;
+package pl.edu.agh.io.wishlist.persistence.dao.mongo;
 
 import com.mongodb.BasicDBObject;
-import com.mongodb.DBCollection;
 import com.mongodb.DBObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
@@ -10,12 +9,12 @@ import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Component;
 import pl.edu.agh.io.wishlist.domain.Gift;
-import pl.edu.agh.io.wishlist.persistence.GiftDAO;
+import pl.edu.agh.io.wishlist.persistence.dao.GiftDAO;
 
 import java.util.List;
 
 @Component
-public class GiftDAOImpl implements GiftDAO {
+public class GiftMongoDAO implements GiftDAO {
 
     @Autowired
     MongoTemplate mongoTemplate;

@@ -1,8 +1,8 @@
-package pl.edu.agh.io.wishlist.persistence.sql;
+package pl.edu.agh.io.wishlist.persistence.dao.sql;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import pl.edu.agh.io.wishlist.domain.User;
-import pl.edu.agh.io.wishlist.persistence.UserDAO;
+import pl.edu.agh.io.wishlist.persistence.dao.UserDAO;
 
 import javax.sql.DataSource;
 import java.sql.Connection;
@@ -10,7 +10,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class UserDAOImpl implements UserDAO {
+public class UserSqlDAO implements UserDAO {
 
     @Autowired
     DataSource dataSource;

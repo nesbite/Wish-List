@@ -3,7 +3,7 @@ package pl.edu.agh.io.wishlist.service.Impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.edu.agh.io.wishlist.domain.User;
-import pl.edu.agh.io.wishlist.persistence.FriendDAO;
+import pl.edu.agh.io.wishlist.persistence.dao.FriendDAO;
 import pl.edu.agh.io.wishlist.service.FriendService;
 
 import java.util.List;

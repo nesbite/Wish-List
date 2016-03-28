@@ -1,4 +1,4 @@
-package pl.edu.agh.io.wishlist.persistence.mongo;
+package pl.edu.agh.io.wishlist.persistence.dao.mongo;
 
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBObject;
@@ -8,12 +8,9 @@ import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Component;
 import pl.edu.agh.io.wishlist.domain.User;
-import pl.edu.agh.io.wishlist.persistence.UserDAO;
-
-import java.net.UnknownServiceException;
-import java.nio.file.attribute.UserDefinedFileAttributeView;
+import pl.edu.agh.io.wishlist.persistence.dao.UserDAO;
 @Component
-public class UserDAOImpl implements UserDAO {
+public class UserMongoDAO implements UserDAO {
     @Autowired
     MongoTemplate mongoTemplate;
 

@@ -1,8 +1,8 @@
-package pl.edu.agh.io.wishlist.persistence.sql;
+package pl.edu.agh.io.wishlist.persistence.dao.sql;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import pl.edu.agh.io.wishlist.domain.User;
-import pl.edu.agh.io.wishlist.persistence.FriendDAO;
+import pl.edu.agh.io.wishlist.persistence.dao.FriendDAO;
 
 import javax.sql.DataSource;
 import java.sql.Connection;
@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class FriendDAOImpl implements FriendDAO {
+public class FriendSqlDAO implements FriendDAO {
     @Autowired
     private DataSource dataSource;
 

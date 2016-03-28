@@ -6,7 +6,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ImportResource;
 import pl.edu.agh.io.wishlist.domain.User;
-import pl.edu.agh.io.wishlist.persistence.mongo.repository.UserRepository;
+import pl.edu.agh.io.wishlist.persistence.repository.mongo.UserRepository;
 
 @SpringBootApplication
 @ImportResource("classpath:pl/edu/agh/io/wishlist/server/beans.xml")

@@ -1,4 +1,4 @@
-package pl.edu.agh.io.wishlist.persistence;
+package pl.edu.agh.io.wishlist.persistence.dao;
 
 import pl.edu.agh.io.wishlist.domain.Gift;
 

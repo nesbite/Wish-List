@@ -3,7 +3,7 @@ package pl.edu.agh.io.wishlist.service.Impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.edu.agh.io.wishlist.domain.Gift;
-import pl.edu.agh.io.wishlist.persistence.GiftDAO;
+import pl.edu.agh.io.wishlist.persistence.dao.GiftDAO;
 import pl.edu.agh.io.wishlist.service.GiftService;
 
 import java.util.List;

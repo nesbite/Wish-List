@@ -1,9 +1,8 @@
-package pl.edu.agh.io.wishlist.persistence.sql;
+package pl.edu.agh.io.wishlist.persistence.dao.sql;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import pl.edu.agh.io.wishlist.domain.Gift;
-import pl.edu.agh.io.wishlist.persistence.GiftDAO;
+import pl.edu.agh.io.wishlist.persistence.dao.GiftDAO;
 
 import javax.sql.DataSource;
 import java.sql.Connection;
@@ -14,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class GiftDAOImpl implements GiftDAO {
+public class GiftSqlDAO implements GiftDAO {
     @Autowired
     private DataSource dataSource;
 
