@@ -6,6 +6,8 @@ import java.util.List;
 
 public interface FriendDAO {
     List<User> getAll(Long id);
+
     boolean add(Long userId, Long friendId);
+
     boolean delete(Long userId, Long friendId);
 }

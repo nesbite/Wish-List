@@ -42,7 +42,7 @@ public class UserSqlDAO implements UserDAO {
 
     public User getUser(String login) {
         User user = null;
-        try{
+        try {
             conn = dataSource.getConnection();
             PreparedStatement ps = conn.prepareStatement("SELECT * FROM Users WHERE login = ?");
             ps.setString(1, login);
@@ -52,13 +52,13 @@ public class UserSqlDAO implements UserDAO {
             user = new User(login, password);
             result.close();
             ps.close();
-        } catch (SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
         } finally {
-            if (conn != null){
-                try{
+            if (conn != null) {
+                try {
                     conn.close();
-                } catch (SQLException e){
+                } catch (SQLException e) {
                     e.printStackTrace();
                 }
             }

@@ -23,13 +23,13 @@ public class FriendController {
 
     @ResponseBody
     @RequestMapping(value = "/add/{userId}", method = RequestMethod.PUT)
-    public boolean addFriend(@PathVariable(value="userId") Long userId, @RequestParam(value="friendId") Long friendId) {
+    public boolean addFriend(@PathVariable(value = "userId") Long userId, @RequestParam(value = "friendId") Long friendId) {
         return friendService.addFriend(userId, friendId);
     }
 
     @ResponseBody
     @RequestMapping(value = "/delete/{userId}", method = RequestMethod.DELETE)
-    public boolean deleteFriend(@PathVariable(value="userId") Long userId, @RequestParam(value="friendId") Long friendId) {
+    public boolean deleteFriend(@PathVariable(value = "userId") Long userId, @RequestParam(value = "friendId") Long friendId) {
         return friendService.deleteFriend(userId, friendId);
     }
 }

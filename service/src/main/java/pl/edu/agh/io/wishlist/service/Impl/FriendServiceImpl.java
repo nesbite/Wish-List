@@ -9,7 +9,7 @@ import pl.edu.agh.io.wishlist.service.FriendService;
 import java.util.List;
 
 @Service("friendService")
-public class FriendServiceImpl implements FriendService{
+public class FriendServiceImpl implements FriendService {
     @Autowired
     FriendDAO friendDAO;
 

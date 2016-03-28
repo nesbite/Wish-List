@@ -9,6 +9,7 @@ import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Component;
 import pl.edu.agh.io.wishlist.domain.User;
 import pl.edu.agh.io.wishlist.persistence.dao.UserDAO;
+
 @Component
 public class UserMongoDAO implements UserDAO {
     @Autowired
@@ -18,10 +19,10 @@ public class UserMongoDAO implements UserDAO {
     public boolean addUser(User user) {
         Query query = new Query();
         query.addCriteria(Criteria.where("login").is(user.getLogin()));
-        if(mongoTemplate.findOne(query, User.class) != null){
+        if (mongoTemplate.findOne(query, User.class) != null) {
             return false;
         }
-        long id =(long)Double.parseDouble(getNextSequence("userID", mongoTemplate).toString());
+        long id = (long) Double.parseDouble(getNextSequence("userID", mongoTemplate).toString());
         mongoTemplate.insert(user);
         return true;
     }

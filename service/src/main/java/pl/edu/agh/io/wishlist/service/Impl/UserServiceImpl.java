@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import pl.edu.agh.io.wishlist.domain.User;
 import pl.edu.agh.io.wishlist.persistence.dao.UserDAO;
 import pl.edu.agh.io.wishlist.service.UserService;
+
 @Service("userService")
 public class UserServiceImpl implements UserService {
     @Autowired

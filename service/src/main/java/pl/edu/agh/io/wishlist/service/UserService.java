@@ -6,5 +6,6 @@ import pl.edu.agh.io.wishlist.domain.User;
 @Service("userService")
 public interface UserService {
     boolean addUser(User user);
+
     User getUser(String login);
 }

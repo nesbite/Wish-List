@@ -1,4 +1,5 @@
 package pl.edu.agh.io.wishlist.server;
+
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.http.HttpEntity;
@@ -59,20 +60,21 @@ public class Client {
     }
 }
 
-class Checker{
+class Checker {
 
 
     List<User> getFriends(long id) throws IOException {
         String url = "http://localhost:8080/friends/get/" + id;
         HttpGet request = new HttpGet(url);
         String response = send(request);
-        if(response.equalsIgnoreCase("")){
+        if (response.equalsIgnoreCase("")) {
             return null;
         }
-        List<User> users = new ObjectMapper().readValue(response, new TypeReference<List<User>>(){});
+        List<User> users = new ObjectMapper().readValue(response, new TypeReference<List<User>>() {
+        });
         System.out.println("----------------------------------------");
         for (User user : users) {
-            System.out.println("Id: "+ user.getId()+"\nLogin: " + user.getLogin() + "\nPassword: "+user.getPassword()+"\nFriends: "+user.getFriends());
+            System.out.println("Id: " + user.getId() + "\nLogin: " + user.getLogin() + "\nPassword: " + user.getPassword() + "\nFriends: " + user.getFriends());
         }
         System.out.println("----------------------------------------");
         return users;
@@ -80,7 +82,7 @@ class Checker{
 
     void addFriend(long userId, long friendId) throws IOException {
 
-        String url = "http://localhost:8080/friends/add/"+userId+"?friendId="+friendId;
+        String url = "http://localhost:8080/friends/add/" + userId + "?friendId=" + friendId;
         System.out.println(url);
         HttpPut request = new HttpPut(url);
         String response = send(request);
@@ -92,7 +94,7 @@ class Checker{
 
     void deleteFriend(long userId, long friendId) throws IOException {
 
-        String url = "http://localhost:8080/friends/delete/"+userId+"?friendId="+friendId;
+        String url = "http://localhost:8080/friends/delete/" + userId + "?friendId=" + friendId;
 
         HttpDelete request = new HttpDelete(url);
         String response = send(request);
@@ -107,7 +109,7 @@ class Checker{
         HttpGet request = new HttpGet(url);
         String response = send(request);
         System.out.println(response);
-        User user= new ObjectMapper().readValue(response, User.class);
+        User user = new ObjectMapper().readValue(response, User.class);
         System.out.println("----------------------------------------");
         System.out.println(user.getLogin());
         System.out.println(user.getPassword());
@@ -139,7 +141,7 @@ class Checker{
         HttpGet request = new HttpGet(url);
         String response = send(request);
         System.out.println(response);
-        if("Operation failed".equalsIgnoreCase(response.subSequence(0,16).toString())){
+        if ("Operation failed".equalsIgnoreCase(response.subSequence(0, 16).toString())) {
             return null;
         }
         Gift gift = new ObjectMapper().readValue(response, Gift.class);
@@ -156,11 +158,12 @@ class Checker{
         HttpGet request = new HttpGet(url);
         String response = send(request);
 
-        List<Gift> giftList = new ObjectMapper().readValue(response, new TypeReference<List<Gift>>(){});
+        List<Gift> giftList = new ObjectMapper().readValue(response, new TypeReference<List<Gift>>() {
+        });
 
         System.out.println("----------------------------------------");
         for (Gift giftTemp : giftList) {
-            System.out.println("Id: "+ giftTemp.getId()+"\nName: " + giftTemp.getName() + "\nDesc: "+giftTemp.getDescription());
+            System.out.println("Id: " + giftTemp.getId() + "\nName: " + giftTemp.getName() + "\nDesc: " + giftTemp.getDescription());
         }
         System.out.println("----------------------------------------");
         return giftList;
@@ -183,8 +186,9 @@ class Checker{
         System.out.println("----------------------------------------");
 
     }
+
     void removeGift(long giftID) throws IOException {
-        String url = "http://localhost:8080/gifts/remove/"+giftID;
+        String url = "http://localhost:8080/gifts/remove/" + giftID;
         HttpDelete request = new HttpDelete(url);
         String response = send(request);
         System.out.println("----------------------------------------");
@@ -210,7 +214,7 @@ class Checker{
 
     }
 
-    private String send(HttpRequestBase request){
+    private String send(HttpRequestBase request) {
         CloseableHttpClient httpClient = HttpClientBuilder.create().build();
         String responseBody = null;
         try {
@@ -225,7 +229,7 @@ class Checker{
                     if (status >= 200 && status < 300) {
                         HttpEntity entity = response.getEntity();
                         return entity != null ? EntityUtils.toString(entity) : null;
-                    } else if(status == HttpStatus.CONFLICT.value() || status == HttpStatus.NOT_FOUND.value()){
+                    } else if (status == HttpStatus.CONFLICT.value() || status == HttpStatus.NOT_FOUND.value()) {
                         return "Operation failed: " + status;
                     } else {
                         throw new ClientProtocolException("Unexpected response status: " + status);
@@ -248,4 +252,4 @@ class Checker{
         }
         return responseBody;
     }
- }
+}
