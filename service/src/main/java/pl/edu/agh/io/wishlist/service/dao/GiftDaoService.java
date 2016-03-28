@@ -31,8 +31,8 @@ public class GiftDaoService implements IGiftService {
     }
 
     @Override
-    public boolean removeGift(Long id) {
-        giftDAO.remove(id);
+    public boolean removeGift(Long userId, Long giftId) {
+        giftDAO.remove(giftId);
         return true;
     }
 

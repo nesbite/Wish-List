@@ -16,7 +16,7 @@ public class FriendController {
     private IFriendService friendService;
 
     @ResponseBody
-    @RequestMapping(value = "/get/{id}", method = RequestMethod.GET, produces = "application/json")
+    @RequestMapping(value = "/getAll/{id}", method = RequestMethod.GET, produces = "application/json")
     public List<User> getFriends(@PathVariable(value = "id") Long id) {
         return friendService.getFriends(id);
     }

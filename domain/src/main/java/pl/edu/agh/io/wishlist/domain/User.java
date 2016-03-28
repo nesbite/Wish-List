@@ -1,9 +1,10 @@
 package pl.edu.agh.io.wishlist.domain;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.util.ArrayList;
 import java.util.List;
-
 public class User {
 
     @Id
@@ -13,11 +14,15 @@ public class User {
     private String password;
 
     private List<Long> friends;
-    private List<Gift> gifts;
+    private List<Long> gifts;
+
+    public User(){}
 
     public User(String login, String password) {
         this.login = login;
         this.password = password;
+        this.friends = new ArrayList<>();
+        this.gifts = new ArrayList<>();
     }
 
     public long getId() {
@@ -40,11 +45,11 @@ public class User {
         this.friends = friends;
     }
 
-    public List<Gift> getGifts() {
+    public List<Long> getGifts() {
         return gifts;
     }
 
-    public void setGifts(List<Gift> gifts) {
+    public void setGifts(List<Long> gifts) {
         this.gifts = gifts;
     }
 
@@ -57,6 +62,10 @@ public class User {
                 ", friends=" + friends +
                 ", gifts=" + gifts +
                 '}';
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 }
 

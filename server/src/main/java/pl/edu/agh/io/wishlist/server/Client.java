@@ -29,31 +29,31 @@ public class Client {
         try {
             Checker checker = new Checker();
             //Users
-            checker.addUser(1, "login1", "password1");
-            checker.addUser(2, "login2", "password2");
-            checker.addUser(3, "login3", "password3");
-            checker.addUser(4, "login4", "password4");
-            checker.getUser("login2");
+//            checker.addUser("login1", "password1");
+//            checker.addUser("login2", "password2");
+//            checker.addUser("login3", "password3");
+//            checker.addUser("login4", "password4");
+//            checker.getUser("login2");
             //Friends
-            checker.addFriend(1, 2);
-            checker.addFriend(1, 3);
-            checker.addFriend(1, 4);
-            checker.addFriend(1, 5);
-            checker.getFriends(1);
-            checker.deleteFriend(1, 2);
-            checker.getFriends(1);
+//            checker.addFriend(1, 2);
+//            checker.addFriend(1, 3);
+//            checker.addFriend(1, 4);
+//            checker.addFriend(1, 5);
+//            checker.getFriends(1);
+//            checker.deleteFriend(1, 2);
+//            checker.getFriends(1);
             //Gifts
-            checker.addGift(1, "auto", "duze");
-            checker.addGift(2, "samolot", "szybki");
-            checker.addGift(3, "statek", "ekskluzywny");
-            checker.addGift(1, "balon", "kolorowy");
-            checker.getAllGifts(1);
-            checker.getGift(1);
-            checker.getGift(119);
-            checker.getGift(120);
-            checker.getGift(121);
-            checker.removeGift(1);
-            checker.updateGift(2, 1, "modified gift", "modified description");
+//            checker.addGift(1, "auto", "duze");
+//            checker.addGift(2, "samolot", "szybki");
+//            checker.addGift(3, "statek", "ekskluzywny");
+//            checker.addGift(1, "balon", "kolorowy");
+//            checker.getAllGifts(1);
+//            checker.getGift(1);
+//            checker.getGift(119);
+//            checker.getGift(120);
+//            checker.getGift(121);
+//            checker.removeGift(1,1);
+            checker.updateGift(2, "modified gift", "modified description");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -64,7 +64,7 @@ class Checker {
 
 
     List<User> getFriends(long id) throws IOException {
-        String url = "http://localhost:8080/friends/get/" + id;
+        String url = "http://localhost:8080/friends/getAll/" + id;
         HttpGet request = new HttpGet(url);
         String response = send(request);
         if (response.equalsIgnoreCase("")) {
@@ -74,7 +74,7 @@ class Checker {
         });
         System.out.println("----------------------------------------");
         for (User user : users) {
-            System.out.println("Id: " + user.getId() + "\nLogin: " + user.getLogin() + "\nPassword: " + user.getPassword() + "\nFriends: " + user.getFriends());
+            System.out.println(user);
         }
         System.out.println("----------------------------------------");
         return users;
@@ -118,7 +118,7 @@ class Checker {
         return user;
     }
 
-    void addUser(long userID, String login, String password) throws IOException {
+    void addUser(String login, String password) throws IOException {
 
         User user = new User(login, password);
         JSONObject jsonObject = new JSONObject(user);
@@ -175,7 +175,7 @@ class Checker {
         JSONObject jsonObject = new JSONObject(gift);
         System.out.println(jsonObject);
         StringEntity params = new StringEntity(jsonObject.toString());
-        String url = "http://localhost:8080/gifts/add";
+        String url = "http://localhost:8080/gifts/add/" + userID;
 
         HttpPost request = new HttpPost(url);
         request.addHeader("content-type", "application/json");
@@ -187,8 +187,8 @@ class Checker {
 
     }
 
-    void removeGift(long giftID) throws IOException {
-        String url = "http://localhost:8080/gifts/remove/" + giftID;
+    void removeGift(long userID, long giftID) throws IOException {
+        String url = "http://localhost:8080/gifts/remove/" + userID +"/" + giftID;
         HttpDelete request = new HttpDelete(url);
         String response = send(request);
         System.out.println("----------------------------------------");
@@ -196,7 +196,7 @@ class Checker {
         System.out.println("----------------------------------------");
     }
 
-    void updateGift(long giftID, long userID, String name, String desc) throws IOException {
+    void updateGift(long giftID, String name, String desc) throws IOException {
         Gift gift = new Gift(name, desc);
         JSONObject jsonObject = new JSONObject(gift);
         System.out.println(jsonObject);

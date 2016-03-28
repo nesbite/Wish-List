@@ -16,8 +16,8 @@ public class FriendRepoService implements IFriendService {
     UserRepository userRepository;
 
     @Override
-    public List<User> getFriends(Long id) {
-        List<Long> friendIdList = userRepository.findOne(id).getFriends();
+    public List<User> getFriends(Long userId) {
+        List<Long> friendIdList = userRepository.findOne(userId).getFriends();
 
         List<User> users = new ArrayList<>();
         userRepository.findAll(friendIdList).forEach(users::add);

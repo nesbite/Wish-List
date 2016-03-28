@@ -22,7 +22,7 @@ public class GiftListController {
     private final AtomicLong counter = new AtomicLong();
 
     @ResponseBody
-    @RequestMapping(value = "/add/{id}", method = RequestMethod.POST, consumes = "application/json")
+    @RequestMapping(value = "/add/{userId}", method = RequestMethod.POST, consumes = "application/json")
     public ResponseEntity<String> addGift(@PathVariable Long userId, @RequestBody Gift gift) {
         System.out.println("Id: " + gift.getId() + "\nName: " + gift.getName() + "\nDesc: " + gift.getDescription());
         if (giftService.addGift(userId, gift))
@@ -31,9 +31,9 @@ public class GiftListController {
     }
 
     @ResponseBody
-    @RequestMapping(value = "/forUser/{id}", method = RequestMethod.GET, produces = "application/json")
-    public ResponseEntity<List<Gift>> getAllGifts(@PathVariable Long id) {
-        return new ResponseEntity<>(giftService.getAllGifts(id), HttpStatus.OK);
+    @RequestMapping(value = "/forUser/{userId}", method = RequestMethod.GET, produces = "application/json")
+    public ResponseEntity<List<Gift>> getAllGifts(@PathVariable Long userId) {
+        return new ResponseEntity<>(giftService.getAllGifts(userId), HttpStatus.OK);
     }
 
     @ResponseBody
@@ -46,9 +46,9 @@ public class GiftListController {
     }
 
     @ResponseBody
-    @RequestMapping(value = "/remove/{id}", method = RequestMethod.DELETE)
-    public ResponseEntity<String> removeGift(@PathVariable Long id) {
-        if (giftService.removeGift(id))
+    @RequestMapping(value = "/remove/{userId}/{giftId}", method = RequestMethod.DELETE)
+    public ResponseEntity<String> removeGift(@PathVariable Long userId, @PathVariable Long giftId) {
+        if (giftService.removeGift(userId, giftId))
             return new ResponseEntity<>("Gift removed", HttpStatus.OK);
         return new ResponseEntity<>("Cannot remove gift", HttpStatus.CONFLICT);
     }

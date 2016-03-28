@@ -11,7 +11,7 @@ public interface IGiftService {
 
     boolean addGift(Long userId, Gift gift);
 
-    boolean removeGift(Long id);
+    boolean removeGift(Long userId, Long giftId);
 
     boolean editGift(Long id, Gift gift);
 }

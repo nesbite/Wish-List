@@ -9,6 +9,8 @@ public class Gift {
     private String name;
     private String description;
 
+    public Gift(){}
+
     public Gift(String name) {
         this.name = name;
     }
@@ -32,5 +34,12 @@ public class Gift {
 
     public void setId(long id) {
         this.id = id;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+    public void setDescription(String desc) {
+        this.description = desc;
     }
 }

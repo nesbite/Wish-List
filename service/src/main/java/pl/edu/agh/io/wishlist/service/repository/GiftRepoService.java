@@ -4,10 +4,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.edu.agh.io.wishlist.domain.Gift;
 import pl.edu.agh.io.wishlist.domain.User;
+import pl.edu.agh.io.wishlist.persistence.dao.SequenceDAO;
 import pl.edu.agh.io.wishlist.persistence.repository.mongo.GiftRepository;
 import pl.edu.agh.io.wishlist.persistence.repository.mongo.UserRepository;
 import pl.edu.agh.io.wishlist.service.IGiftService;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service("giftRepoService")
@@ -19,6 +21,9 @@ public class GiftRepoService implements IGiftService {
     @Autowired
     UserRepository userRepository;
 
+    @Autowired
+    SequenceDAO sequenceDAO;
+
 
     @Override
     public Gift getGift(Long id) {
@@ -27,30 +32,40 @@ public class GiftRepoService implements IGiftService {
 
     @Override
     public List<Gift> getAllGifts(Long userId) {
-        return userRepository.findOne(userId).getGifts();
+        List<Long> giftList = userRepository.findOne(userId).getGifts();
+        List<Gift> gifts = new ArrayList<>();
+        giftRepository.findAll(giftList).forEach(gifts::add);
+        return gifts;
     }
 
     @Override
     public boolean addGift(Long userId, Gift gift) {
+
         if (!userRepository.exists(userId)) {
             return false;
         }
-
+        gift.setId(sequenceDAO.getNextSequenceId("giftID"));
         User user = userRepository.findOne(userId);
-        user.getGifts().add(gift);
-
+        giftRepository.save(gift);
+        user.getGifts().add(gift.getId());
         userRepository.save(user);
 
         return true;
     }
 
     @Override
-    public boolean removeGift(Long id) {
-        if (!giftRepository.exists(id)) {
+    public boolean removeGift(Long userId, Long giftId) {
+        if (!giftRepository.exists(giftId) || !userRepository.exists(userId)) {
             return false;
         }
-
-        giftRepository.delete(id);
+        User user = userRepository.findOne(userId);
+        List<Long> giftIdList = user.getGifts();
+        if(!giftIdList.contains(giftId)){
+            return false;
+        }
+        giftIdList.remove(giftId);
+        userRepository.save(user);
+        giftRepository.delete(giftId);
 
         return true;
     }
@@ -62,7 +77,7 @@ public class GiftRepoService implements IGiftService {
         }
 
         Gift oldGift = giftRepository.findOne(id);
-        gift.setId(oldGift.getId());
+        gift.setId(id);
 
         giftRepository.save(gift);
 

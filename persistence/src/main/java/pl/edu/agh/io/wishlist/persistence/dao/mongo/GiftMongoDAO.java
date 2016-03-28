@@ -36,8 +36,8 @@ public class GiftMongoDAO implements GiftDAO{
 
     @Override
     public boolean put(Gift gift) {
-        long id = (long) Double.parseDouble(getNextSequence("giftID", mongoTemplate).toString());
-        gift.setId(id);
+//        long id = (long) Double.parseDouble(getNextSequence("giftID", mongoTemplate).toString());
+//        gift.setId(id);
         mongoTemplate.insert(gift);
         return true;
     }
