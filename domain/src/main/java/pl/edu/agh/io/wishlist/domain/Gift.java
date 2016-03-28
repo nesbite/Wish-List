@@ -8,25 +8,12 @@ public class Gift {
     private long id;
     private String name;
     private String description;
-    private long userID;
 
-    public Gift(){}
-
-    public Gift(long userID, String name) {
-        this.userID = userID;
+    public Gift(String name) {
         this.name = name;
-        this.description = null;
     }
 
-    public Gift(long userID, String name, String description) {
-        this.userID = userID;
-        this.name = name;
-        this.description = description;
-    }
-
-    public Gift(long giftID, long userID, String name, String description) {
-        this.id = giftID;
-        this.userID = userID;
+    public Gift(String name, String description) {
         this.name = name;
         this.description = description;
     }
@@ -43,24 +30,7 @@ public class Gift {
         return (description == null ? "" : description);
     }
 
-    public void updateName(String name){
-        this.name = name;
-    }
-
-    public void updateDescription(String description){
-        this.description = description;
-    }
-
-    public void updateFields(String name, String description){
-        this.name = name;
-        this.description = description;
-    }
-
-    public long getUserID() {
-        return userID;
-    }
-
-    public void setId(long id){
+    public void setId(long id) {
         this.id = id;
     }
 }

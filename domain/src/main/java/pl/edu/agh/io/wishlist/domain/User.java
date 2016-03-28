@@ -2,7 +2,6 @@ package pl.edu.agh.io.wishlist.domain;
 
 import org.springframework.data.annotation.Id;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class User {
@@ -17,7 +16,6 @@ public class User {
     public User(String login, String password) {
         this.login = login;
         this.password = password;
-        this.friends = new ArrayList<>();
     }
 
     public long getId() {
@@ -38,10 +36,6 @@ public class User {
 
     public void setFriends(List<Long> friends) {
         this.friends = friends;
-    }
-
-    public void setId(long id) {
-        this.id = id;
     }
 
     @Override
