@@ -8,7 +8,7 @@ import pl.edu.agh.io.wishlist.service.IGiftService;
 
 import java.util.List;
 
-@Service("giftDaoService")
+
 public class GiftDaoService implements IGiftService {
     @Autowired
     GiftDAO giftDAO;

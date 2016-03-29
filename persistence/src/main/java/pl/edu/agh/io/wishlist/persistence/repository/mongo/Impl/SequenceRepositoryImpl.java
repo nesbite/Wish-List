@@ -1,4 +1,4 @@
-package pl.edu.agh.io.wishlist.persistence.dao.mongo;
+package pl.edu.agh.io.wishlist.persistence.repository.mongo.Impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.FindAndModifyOptions;
@@ -10,10 +10,10 @@ import org.springframework.stereotype.Repository;
 
 import pl.edu.agh.io.wishlist.domain.SequenceId;
 import pl.edu.agh.io.wishlist.domain.exception.SequenceException;
-import pl.edu.agh.io.wishlist.persistence.dao.SequenceDAO;
+import pl.edu.agh.io.wishlist.persistence.repository.mongo.SequenceRepository;
 
 @Repository
-public class SequenceMongoDAO implements SequenceDAO {
+public class SequenceRepositoryImpl implements SequenceRepository {
 
     @Autowired
     private MongoOperations mongoOperation;

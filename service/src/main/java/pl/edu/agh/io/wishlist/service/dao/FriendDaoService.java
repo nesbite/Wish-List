@@ -8,7 +8,7 @@ import pl.edu.agh.io.wishlist.service.IFriendService;
 
 import java.util.List;
 
-@Service("friendDaoService")
+
 public class FriendDaoService implements IFriendService {
     @Autowired
     FriendDAO friendDAO;

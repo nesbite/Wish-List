@@ -6,7 +6,7 @@ import pl.edu.agh.io.wishlist.domain.User;
 import pl.edu.agh.io.wishlist.persistence.dao.UserDAO;
 import pl.edu.agh.io.wishlist.service.IUserService;
 
-@Service("userDaoService")
+
 public class UserDaoService implements IUserService {
     @Autowired
     UserDAO userDAO;

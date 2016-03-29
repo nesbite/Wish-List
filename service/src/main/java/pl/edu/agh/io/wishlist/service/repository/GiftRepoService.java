@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.edu.agh.io.wishlist.domain.Gift;
 import pl.edu.agh.io.wishlist.domain.User;
-import pl.edu.agh.io.wishlist.persistence.dao.SequenceDAO;
+import pl.edu.agh.io.wishlist.persistence.repository.mongo.SequenceRepository;
 import pl.edu.agh.io.wishlist.persistence.repository.mongo.GiftRepository;
 import pl.edu.agh.io.wishlist.persistence.repository.mongo.UserRepository;
 import pl.edu.agh.io.wishlist.service.IGiftService;
@@ -12,7 +12,7 @@ import pl.edu.agh.io.wishlist.service.IGiftService;
 import java.util.ArrayList;
 import java.util.List;
 
-@Service("giftRepoService")
+
 public class GiftRepoService implements IGiftService {
 
     @Autowired
@@ -22,7 +22,7 @@ public class GiftRepoService implements IGiftService {
     UserRepository userRepository;
 
     @Autowired
-    SequenceDAO sequenceDAO;
+    SequenceRepository sequenceRepository;
 
 
     @Override
@@ -44,7 +44,7 @@ public class GiftRepoService implements IGiftService {
         if (!userRepository.exists(userId)) {
             return false;
         }
-        gift.setId(sequenceDAO.getNextSequenceId("giftID"));
+        gift.setId(sequenceRepository.getNextSequenceId("giftID"));
         User user = userRepository.findOne(userId);
         giftRepository.save(gift);
         user.getGifts().add(gift.getId());

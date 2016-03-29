@@ -9,7 +9,7 @@ import pl.edu.agh.io.wishlist.service.IFriendService;
 import java.util.ArrayList;
 import java.util.List;
 
-@Service("friendRepoService")
+
 public class FriendRepoService implements IFriendService {
 
     @Autowired

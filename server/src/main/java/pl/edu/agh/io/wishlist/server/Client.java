@@ -29,30 +29,30 @@ public class Client {
         try {
             Checker checker = new Checker();
             //Users
-//            checker.addUser("login1", "password1");
-//            checker.addUser("login2", "password2");
-//            checker.addUser("login3", "password3");
-//            checker.addUser("login4", "password4");
-//            checker.getUser("login2");
+            checker.addUser("login5", "password1");
+            checker.addUser("login2", "password2");
+            checker.addUser("login3", "password3");
+            checker.addUser("login4", "password4");
+            checker.getUser("login2");
             //Friends
-//            checker.addFriend(1, 2);
-//            checker.addFriend(1, 3);
-//            checker.addFriend(1, 4);
-//            checker.addFriend(1, 5);
-//            checker.getFriends(1);
-//            checker.deleteFriend(1, 2);
-//            checker.getFriends(1);
+            checker.addFriend(1, 2);
+            checker.addFriend(1, 3);
+            checker.addFriend(1, 4);
+            checker.addFriend(1, 5);
+            checker.getFriends(1);
+            checker.deleteFriend(1, 2);
+            checker.getFriends(1);
             //Gifts
-//            checker.addGift(1, "auto", "duze");
-//            checker.addGift(2, "samolot", "szybki");
-//            checker.addGift(3, "statek", "ekskluzywny");
-//            checker.addGift(1, "balon", "kolorowy");
-//            checker.getAllGifts(1);
-//            checker.getGift(1);
-//            checker.getGift(119);
-//            checker.getGift(120);
-//            checker.getGift(121);
-//            checker.removeGift(1,1);
+            checker.addGift(1, "auto", "duze");
+            checker.addGift(2, "samolot", "szybki");
+            checker.addGift(3, "statek", "ekskluzywny");
+            checker.addGift(1, "balon", "kolorowy");
+            checker.getAllGifts(1);
+            checker.getGift(1);
+            checker.getGift(119);
+            checker.getGift(120);
+            checker.getGift(121);
+            checker.removeGift(1,1);
             checker.updateGift(2, "modified gift", "modified description");
         } catch (IOException e) {
             e.printStackTrace();

@@ -1,4 +1,4 @@
-package pl.edu.agh.io.wishlist.web;
+package pl.edu.agh.io.wishlist.web.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
