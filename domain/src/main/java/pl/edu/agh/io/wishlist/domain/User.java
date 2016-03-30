@@ -1,6 +1,5 @@
 package pl.edu.agh.io.wishlist.domain;
 
-import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 
 import java.util.List;
@@ -8,7 +7,7 @@ import java.util.List;
 public class User {
 
     @Id
-    private ObjectId id;
+    private String id;
 
     private String login;
     private String password;
@@ -24,7 +23,7 @@ public class User {
         this.password = password;
     }
 
-    public ObjectId getId() {
+    public String getId() {
         return id;
     }
 

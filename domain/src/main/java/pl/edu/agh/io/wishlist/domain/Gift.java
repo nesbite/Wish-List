@@ -1,13 +1,12 @@
 package pl.edu.agh.io.wishlist.domain;
 
 
-import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 
 public class Gift {
 
     @Id
-    private ObjectId id;
+    private String id;
 
     private String name;
     private String description;
@@ -24,7 +23,7 @@ public class Gift {
         this.description = description;
     }
 
-    public ObjectId getId() {
+    public String getId() {
         return id;
     }
 
