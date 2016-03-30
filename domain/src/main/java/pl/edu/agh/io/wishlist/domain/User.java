@@ -1,14 +1,14 @@
 package pl.edu.agh.io.wishlist.domain;
 
+import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.util.ArrayList;
 import java.util.List;
+
 public class User {
 
     @Id
-    private long id;
+    private ObjectId id;
 
     private String login;
     private String password;
@@ -16,16 +16,15 @@ public class User {
     private List<Long> friends;
     private List<Long> gifts;
 
-    public User(){}
+    public User() {
+    }
 
     public User(String login, String password) {
         this.login = login;
         this.password = password;
-        this.friends = new ArrayList<>();
-        this.gifts = new ArrayList<>();
     }
 
-    public long getId() {
+    public ObjectId getId() {
         return id;
     }
 
@@ -62,10 +61,6 @@ public class User {
                 ", friends=" + friends +
                 ", gifts=" + gifts +
                 '}';
-    }
-
-    public void setId(long id) {
-        this.id = id;
     }
 }
 

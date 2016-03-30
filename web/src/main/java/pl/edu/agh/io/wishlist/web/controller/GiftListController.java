@@ -1,7 +1,6 @@
 package pl.edu.agh.io.wishlist.web.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,7 +15,6 @@ import java.util.concurrent.atomic.AtomicLong;
 public class GiftListController {
 
     @Autowired
-    @Qualifier("giftService")
     private IGiftService giftService;
 
     private final AtomicLong counter = new AtomicLong();

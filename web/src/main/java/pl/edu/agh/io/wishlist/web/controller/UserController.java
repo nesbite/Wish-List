@@ -1,7 +1,6 @@
 package pl.edu.agh.io.wishlist.web.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.*;
 import pl.edu.agh.io.wishlist.domain.User;
 import pl.edu.agh.io.wishlist.service.IUserService;
@@ -10,7 +9,6 @@ import pl.edu.agh.io.wishlist.service.IUserService;
 @RequestMapping("/users")
 public class UserController {
     @Autowired
-    @Qualifier("userService")
     private IUserService userService;
 
     @ResponseBody

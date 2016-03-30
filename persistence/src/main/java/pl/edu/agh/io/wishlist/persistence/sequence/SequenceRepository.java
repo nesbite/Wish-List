@@ -1,4 +1,4 @@
-package pl.edu.agh.io.wishlist.persistence.repository.mongo.Impl;
+package pl.edu.agh.io.wishlist.persistence.sequence;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.FindAndModifyOptions;
@@ -7,18 +7,19 @@ import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Repository;
+import pl.edu.agh.io.wishlist.domain.sequence.SequenceException;
+import pl.edu.agh.io.wishlist.domain.sequence.SequenceId;
 
-import pl.edu.agh.io.wishlist.domain.SequenceId;
-import pl.edu.agh.io.wishlist.domain.exception.SequenceException;
-import pl.edu.agh.io.wishlist.persistence.repository.mongo.SequenceRepository;
+
+//Execute this in mongo shell before running the application:
+//db.sequence.insert({_id: "userID",seq: 0})
 
 @Repository
-public class SequenceRepositoryImpl implements SequenceRepository {
+public class SequenceRepository {
 
     @Autowired
     private MongoOperations mongoOperation;
 
-    @Override
     public long getNextSequenceId(String key) throws SequenceException {
 
         //get sequence id

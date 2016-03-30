@@ -3,8 +3,4 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans
 	http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
 
-    <bean id="friendService" class="pl.edu.agh.io.wishlist.service.repository.FriendRepoService"/>
-    <bean id="giftService" class="pl.edu.agh.io.wishlist.service.repository.GiftRepoService"/>
-    <bean id="userService" class="pl.edu.agh.io.wishlist.service.repository.UserRepoService"/>
-
 </beans>

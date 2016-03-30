@@ -25,7 +25,7 @@
 
     <properties>
         <!-- The main class to start by executing java -jar -->
-        <start-class>pl.edu.agh.io.wishlist.server.MongoApplication</start-class>
+        <start-class>pl.edu.agh.io.wishlist.server.Application</start-class>
     </properties>
 
     <build>

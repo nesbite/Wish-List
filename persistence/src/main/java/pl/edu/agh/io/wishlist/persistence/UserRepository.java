@@ -1,4 +1,4 @@
-package pl.edu.agh.io.wishlist.persistence.repository.mongo;
+package pl.edu.agh.io.wishlist.persistence;
 
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;

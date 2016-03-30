@@ -1,4 +1,4 @@
-package pl.edu.agh.io.wishlist.domain.exception;
+package pl.edu.agh.io.wishlist.domain.sequence;
 
 public class SequenceException extends RuntimeException {
 

@@ -3,11 +3,11 @@ package pl.edu.agh.io.wishlist.service.repository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.edu.agh.io.wishlist.domain.User;
-import pl.edu.agh.io.wishlist.persistence.repository.mongo.SequenceRepository;
-import pl.edu.agh.io.wishlist.persistence.repository.mongo.UserRepository;
+import pl.edu.agh.io.wishlist.persistence.UserRepository;
+import pl.edu.agh.io.wishlist.persistence.sequence.SequenceRepository;
 import pl.edu.agh.io.wishlist.service.IUserService;
 
-
+@Service
 public class UserRepoService implements IUserService {
 
     @Autowired
@@ -21,7 +21,7 @@ public class UserRepoService implements IUserService {
         if (repository.findByLogin(user.getLogin()) != null) {
             return false;
         }
-        user.setId(sequenceRepository.getNextSequenceId("userID"));
+//        user.setId(sequenceRepository.getNextSequenceId("userID"));
         repository.save(user);
         return true;
     }

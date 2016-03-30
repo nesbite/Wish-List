@@ -1,15 +1,19 @@
 package pl.edu.agh.io.wishlist.domain;
 
 
+import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 
 public class Gift {
+
     @Id
-    private long id;
+    private ObjectId id;
+
     private String name;
     private String description;
 
-    public Gift(){}
+    public Gift() {
+    }
 
     public Gift(String name) {
         this.name = name;
@@ -20,7 +24,7 @@ public class Gift {
         this.description = description;
     }
 
-    public long getId() {
+    public ObjectId getId() {
         return id;
     }
 
@@ -32,14 +36,11 @@ public class Gift {
         return (description == null ? "" : description);
     }
 
-    public void setId(long id) {
-        this.id = id;
-    }
-
     public void setName(String name) {
         this.name = name;
     }
-    public void setDescription(String desc) {
-        this.description = desc;
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

@@ -13,7 +13,7 @@
         <constructor-arg name="databaseName" value="wishlist"/>
     </bean>
 
-    <mongo:repositories base-package="pl.edu.agh.io.wishlist.persistence.repository.mongo"/>
+    <mongo:repositories base-package="pl.edu.agh.io.wishlist.persistence"/>
 
     <bean class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor"/>
 </beans>
