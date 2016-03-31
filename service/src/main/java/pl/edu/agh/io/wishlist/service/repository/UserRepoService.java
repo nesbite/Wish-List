@@ -18,7 +18,7 @@ public class UserRepoService implements IUserService {
 
     @Override
     public boolean addUser(User user) {
-        if (repository.findByLogin(user.getLogin()) != null) {
+        if (repository.findByUsername(user.getUsername()) != null) {
             return false;
         }
 //        user.setId(sequenceRepository.getNextSequenceId("userID"));
@@ -28,7 +28,7 @@ public class UserRepoService implements IUserService {
 
     @Override
     public User getUser(String login) {
-        return repository.findByLogin(login);
+        return repository.findByUsername(login);
     }
 
 }

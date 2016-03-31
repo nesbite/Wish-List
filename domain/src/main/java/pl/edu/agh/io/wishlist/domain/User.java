@@ -2,6 +2,7 @@ package pl.edu.agh.io.wishlist.domain;
 
 import org.springframework.data.annotation.Id;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class User {
@@ -9,45 +10,41 @@ public class User {
     @Id
     private String id;
 
-    private String login;
-    private String password;
+    private String username;
 
-    private List<Long> friends;
-    private List<Long> gifts;
+    private List<String> friends;
+    private List<String> gifts;
 
     public User() {
     }
 
-    public User(String login, String password) {
-        this.login = login;
-        this.password = password;
+    public User(String username) {
+        this.username = username;
+        this.friends = new ArrayList<>();
+        this.gifts = new ArrayList<>();
     }
 
     public String getId() {
         return id;
     }
 
-    public String getLogin() {
-        return login;
+    public String getUsername() {
+        return username;
     }
 
-    public String getPassword() {
-        return password;
-    }
-
-    public List<Long> getFriends() {
+    public List<String> getFriends() {
         return friends;
     }
 
-    public void setFriends(List<Long> friends) {
+    public void setFriends(List<String> friends) {
         this.friends = friends;
     }
 
-    public List<Long> getGifts() {
+    public List<String> getGifts() {
         return gifts;
     }
 
-    public void setGifts(List<Long> gifts) {
+    public void setGifts(List<String> gifts) {
         this.gifts = gifts;
     }
 
@@ -55,8 +52,7 @@ public class User {
     public String toString() {
         return "User{" +
                 "id=" + id +
-                ", login='" + login + '\'' +
-                ", password='" + password + '\'' +
+                ", login='" + username + '\'' +
                 ", friends=" + friends +
                 ", gifts=" + gifts +
                 '}';

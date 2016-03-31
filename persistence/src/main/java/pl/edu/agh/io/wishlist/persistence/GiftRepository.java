@@ -5,6 +5,6 @@ import org.springframework.stereotype.Repository;
 import pl.edu.agh.io.wishlist.domain.Gift;
 
 @Repository
-public interface GiftRepository extends MongoRepository<Gift, Long> {
+public interface GiftRepository extends MongoRepository<Gift, String> {
 
 }

@@ -31,13 +31,12 @@ public class FriendSqlDAO implements FriendDAO {
             String login, password;
             while (result.next()) {
                 friendId = result.getLong(1);
-                PreparedStatement preparedStatement = conn.prepareStatement("SELECT Login, PasswordHash FROM Users WHERE UserID = ?");
+                PreparedStatement preparedStatement = conn.prepareStatement("SELECT Login FROM Users WHERE UserID = ?");
                 preparedStatement.setLong(1, friendId);
                 ResultSet resultSet = preparedStatement.executeQuery();
                 if (resultSet.next()) {
                     login = resultSet.getString(1);
-                    password = resultSet.getString(2);
-                    User user = new User(login, password);
+                    User user = new User(login);
                     friends.add(user);
                 }
             }

@@ -2,6 +2,7 @@ package pl.edu.agh.io.wishlist.persistence.dao.sql;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import pl.edu.agh.io.wishlist.domain.User;
+import pl.edu.agh.io.wishlist.domain.UserDetails;
 import pl.edu.agh.io.wishlist.persistence.dao.UserDAO;
 
 import javax.sql.DataSource;
@@ -17,13 +18,12 @@ public class UserSqlDAO implements UserDAO {
 
     private Connection conn = null;
 
-    public boolean addUser(User user) {
+    public boolean addUser(UserDetails user) {
         int result = -1;
         try {
             conn = dataSource.getConnection();
-            PreparedStatement ps = conn.prepareStatement("INSERT INTO Users VALUES (null, ?, ?)");
-            ps.setString(1, user.getLogin());
-            ps.setString(2, user.getPassword());
+            PreparedStatement ps = conn.prepareStatement("INSERT INTO Users VALUES (null, ?)");
+            ps.setString(1, user.getUsername());
             result = ps.executeUpdate();
             ps.close();
         } catch (SQLException e) {
@@ -48,8 +48,7 @@ public class UserSqlDAO implements UserDAO {
             ps.setString(1, login);
             ResultSet result = ps.executeQuery();
             Long id = result.getLong(1);
-            String password = result.getString(3);
-            user = new User(login, password);
+            user = new User(login);
             result.close();
             ps.close();
         } catch (SQLException e) {

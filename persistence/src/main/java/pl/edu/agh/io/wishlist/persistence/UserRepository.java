@@ -5,6 +5,6 @@ import org.springframework.stereotype.Repository;
 import pl.edu.agh.io.wishlist.domain.User;
 
 @Repository
-public interface UserRepository extends MongoRepository<User, Long> {
-    User findByLogin(String login);
+public interface UserRepository extends MongoRepository<User, String> {
+    User findByUsername(String username);
 }

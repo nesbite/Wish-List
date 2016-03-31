@@ -42,4 +42,13 @@ public class Gift {
     public void setDescription(String description) {
         this.description = description;
     }
+
+    @Override
+    public String toString() {
+        return "Gift{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", description=" + description +
+                '}';
+    }
 }

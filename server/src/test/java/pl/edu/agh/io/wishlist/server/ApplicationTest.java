@@ -34,7 +34,7 @@ public class ApplicationTest {
     public void setUp() throws Exception {
         RestAssured.port = port;
 
-        User user = new User("jan", "pass_jan");
+        User user = new User("jan");
 
         repository.deleteAll();
         repository.save(user);

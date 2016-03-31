@@ -21,39 +21,39 @@ public class GiftRepoService implements IGiftService {
     UserRepository userRepository;
 
     @Override
-    public Gift getGift(Long id) {
+    public Gift getGift(String id) {
         return giftRepository.findOne(id);
     }
 
     @Override
-    public List<Gift> getAllGifts(Long userId) {
-        List<Long> giftList = userRepository.findOne(userId).getGifts();
+    public List<Gift> getAllGifts(String userId) {
+        List<String> giftList = userRepository.findOne(userId).getGifts();
         List<Gift> gifts = new ArrayList<>();
         giftRepository.findAll(giftList).forEach(gifts::add);
         return gifts;
     }
 
     @Override
-    public boolean addGift(Long userId, Gift gift) {
+    public boolean addGift(String userId, Gift gift) {
 
         if (!userRepository.exists(userId)) {
             return false;
         }
         User user = userRepository.findOne(userId);
         giftRepository.save(gift);
-//        user.getGifts().add(gift.getId());
+        user.getGifts().add(gift.getId());
         userRepository.save(user);
 
         return true;
     }
 
     @Override
-    public boolean removeGift(Long userId, Long giftId) {
+    public boolean removeGift(String userId, String giftId) {
         if (!giftRepository.exists(giftId) || !userRepository.exists(userId)) {
             return false;
         }
         User user = userRepository.findOne(userId);
-        List<Long> giftIdList = user.getGifts();
+        List<String> giftIdList = user.getGifts();
         if(!giftIdList.contains(giftId)){
             return false;
         }
@@ -65,15 +65,16 @@ public class GiftRepoService implements IGiftService {
     }
 
     @Override
-    public boolean editGift(Long id, Gift gift) {
+    public boolean editGift(String id, Gift gift) {
         if (!giftRepository.exists(id)) {
             return false;
         }
 
         Gift oldGift = giftRepository.findOne(id);
-//        gift.setId(id);
+        oldGift.setName(gift.getName());
+        oldGift.setDescription((gift.getDescription()));
 
-        giftRepository.save(gift);
+        giftRepository.save(oldGift);
 
         return true;
     }

@@ -21,7 +21,7 @@ public class GiftListController {
 
     @ResponseBody
     @RequestMapping(value = "/add/{userId}", method = RequestMethod.POST, consumes = "application/json")
-    public ResponseEntity<String> addGift(@PathVariable Long userId, @RequestBody Gift gift) {
+    public ResponseEntity<String> addGift(@PathVariable String userId, @RequestBody Gift gift) {
         System.out.println("Id: " + gift.getId() + "\nName: " + gift.getName() + "\nDesc: " + gift.getDescription());
         if (giftService.addGift(userId, gift))
             return new ResponseEntity<>("Gift added", HttpStatus.OK);
@@ -30,13 +30,13 @@ public class GiftListController {
 
     @ResponseBody
     @RequestMapping(value = "/forUser/{userId}", method = RequestMethod.GET, produces = "application/json")
-    public ResponseEntity<List<Gift>> getAllGifts(@PathVariable Long userId) {
+    public ResponseEntity<List<Gift>> getAllGifts(@PathVariable String userId) {
         return new ResponseEntity<>(giftService.getAllGifts(userId), HttpStatus.OK);
     }
 
     @ResponseBody
     @RequestMapping(value = "/getGift/{id}", method = RequestMethod.GET, produces = "application/json")
-    public ResponseEntity<Gift> getGift(@PathVariable Long id) {
+    public ResponseEntity<Gift> getGift(@PathVariable String id) {
         Gift gift = giftService.getGift(id);
         if (gift == null)
             return new ResponseEntity<>((Gift) null, HttpStatus.NOT_FOUND);
@@ -45,7 +45,7 @@ public class GiftListController {
 
     @ResponseBody
     @RequestMapping(value = "/remove/{userId}/{giftId}", method = RequestMethod.DELETE)
-    public ResponseEntity<String> removeGift(@PathVariable Long userId, @PathVariable Long giftId) {
+    public ResponseEntity<String> removeGift(@PathVariable String userId, @PathVariable String giftId) {
         if (giftService.removeGift(userId, giftId))
             return new ResponseEntity<>("Gift removed", HttpStatus.OK);
         return new ResponseEntity<>("Cannot remove gift", HttpStatus.CONFLICT);
@@ -53,7 +53,7 @@ public class GiftListController {
 
     @ResponseBody
     @RequestMapping(value = "/update/{id}", method = RequestMethod.PUT, consumes = "application/json")
-    public ResponseEntity<String> updateGift(@PathVariable Long id, @RequestBody Gift gift) {
+    public ResponseEntity<String> updateGift(@PathVariable String id, @RequestBody Gift gift) {
         if (giftService.editGift(id, gift))
             return new ResponseEntity<>("Gift updated", HttpStatus.OK);
         return new ResponseEntity<>("Cannot update gift", HttpStatus.CONFLICT);

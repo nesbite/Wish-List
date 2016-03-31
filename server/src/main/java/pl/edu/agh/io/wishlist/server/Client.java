@@ -15,6 +15,7 @@ import org.json.JSONObject;
 import org.springframework.http.HttpStatus;
 import pl.edu.agh.io.wishlist.domain.Gift;
 import pl.edu.agh.io.wishlist.domain.User;
+import pl.edu.agh.io.wishlist.domain.UserDetails;
 
 import java.io.IOException;
 import java.util.List;
@@ -29,41 +30,52 @@ public class Client {
         try {
             Checker checker = new Checker();
             //Users
-            checker.addUser("login5", "password1");
-            checker.addUser("login2", "password2");
-            checker.addUser("login3", "password3");
-            checker.addUser("login4", "password4");
-            checker.getUser("login2");
-            //Friends
-            checker.addFriend(1, 2);
-            checker.addFriend(1, 3);
-            checker.addFriend(1, 4);
-            checker.addFriend(1, 5);
-            checker.getFriends(1);
-            checker.deleteFriend(1, 2);
-            checker.getFriends(1);
-            //Gifts
-            checker.addGift(1, "auto", "duze");
-            checker.addGift(2, "samolot", "szybki");
-            checker.addGift(3, "statek", "ekskluzywny");
-            checker.addGift(1, "balon", "kolorowy");
-            checker.getAllGifts(1);
-            checker.getGift(1);
-            checker.getGift(119);
-            checker.getGift(120);
-            checker.getGift(121);
-            checker.removeGift(1,1);
-            checker.updateGift(2, "modified gift", "modified description");
+//            checker.registerUser("login5", "password1", "asda@asda");
+//            checker.registerUser("login2", "password2", "asda@asda");
+//            checker.registerUser("login3", "password3", "asda@asda");
+//            checker.registerUser("login4", "password4", "asda@asda");
+//            checker.getUser("login2");
+            String id1 = checker.getUser("login2").getId();
+            String id2 = checker.getUser("login3").getId();
+            String id3 = checker.getUser("login4").getId();
+            String id4 = checker.getUser("login5").getId();
+//            //Friends
+//            checker.addFriend(id1, id2);
+//            checker.addFriend(id1, id3);
+//            checker.addFriend(id1, id4);
+////            checker.addFriend(id1, id5);
+//            checker.getFriends(id1);
+//            checker.deleteFriend(id1, id2);
+//            checker.getFriends(id1);
+//            //Gifts
+            checker.addGift(id1, "auto", "duze");
+            checker.addGift(id2, "samolot", "szybki");
+            checker.addGift(id3, "statek", "ekskluzywny");
+            checker.addGift(id1, "balon", "kolorowy");
+            List<Gift> gifts = checker.getAllGifts(id1);
+            for (Gift gift : gifts) {
+                System.out.println(gift);
+            }
+            checker.getGift(gifts.get(0).getId());
+            checker.getGift(gifts.get(1).getId());
+//            checker.getGift(120);
+//            checker.getGift(121);
+            checker.removeGift(id1,gifts.get(0).getId());
+            checker.updateGift(gifts.get(1).getId(), "modified gift", "modified description");
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+
+
 }
 
 class Checker {
+    public Long toLong(String s){
+        return Long.parseLong(s);
+    }
 
-
-    List<User> getFriends(long id) throws IOException {
+    List<User> getFriends(String id) throws IOException {
         String url = "http://localhost:8080/friends/getAll/" + id;
         HttpGet request = new HttpGet(url);
         String response = send(request);
@@ -80,7 +92,7 @@ class Checker {
         return users;
     }
 
-    void addFriend(long userId, long friendId) throws IOException {
+    void addFriend(String userId, String friendId) throws IOException {
 
         String url = "http://localhost:8080/friends/add/" + userId + "?friendId=" + friendId;
         System.out.println(url);
@@ -92,7 +104,7 @@ class Checker {
 
     }
 
-    void deleteFriend(long userId, long friendId) throws IOException {
+    void deleteFriend(String userId, String friendId) throws IOException {
 
         String url = "http://localhost:8080/friends/delete/" + userId + "?friendId=" + friendId;
 
@@ -105,26 +117,24 @@ class Checker {
     }
 
     User getUser(String login) throws IOException {
-        String url = "http://localhost:8080/users/get/" + login;
+        String url = "http://localhost:8080/users/" + login;
         HttpGet request = new HttpGet(url);
         String response = send(request);
         System.out.println(response);
         User user = new ObjectMapper().readValue(response, User.class);
         System.out.println("----------------------------------------");
-        System.out.println(user.getLogin());
-        System.out.println(user.getPassword());
-        System.out.println(user.getFriends());
+        System.out.println(user);
         System.out.println("----------------------------------------");
         return user;
     }
 
-    void addUser(String login, String password) throws IOException {
+    void registerUser(String login, String password, String email) throws IOException {
 
-        User user = new User(login, password);
+        UserDetails user = new UserDetails(login, password, email);
         JSONObject jsonObject = new JSONObject(user);
         System.out.println(jsonObject);
         StringEntity params = new StringEntity(jsonObject.toString());
-        String url = "http://localhost:8080/users/add";
+        String url = "http://localhost:8080/users/register";
 
         HttpPost request = new HttpPost(url);
         request.addHeader("content-type", "application/json");
@@ -133,10 +143,9 @@ class Checker {
         System.out.println("----------------------------------------");
         System.out.println(response);
         System.out.println("----------------------------------------");
-
     }
 
-    Gift getGift(long giftID) throws IOException {
+    Gift getGift(String giftID) throws IOException {
         String url = "http://localhost:8080/gifts/getGift/" + giftID;
         HttpGet request = new HttpGet(url);
         String response = send(request);
@@ -152,7 +161,7 @@ class Checker {
         return gift;
     }
 
-    List<Gift> getAllGifts(long userID) throws IOException {
+    List<Gift> getAllGifts(String userID) throws IOException {
 
         String url = "http://localhost:8080/gifts/forUser/" + userID;
         HttpGet request = new HttpGet(url);
@@ -169,7 +178,7 @@ class Checker {
         return giftList;
     }
 
-    void addGift(long userID, String name, String desc) throws IOException {
+    void addGift(String userID, String name, String desc) throws IOException {
 
         Gift gift = new Gift(name, desc);
         JSONObject jsonObject = new JSONObject(gift);
@@ -187,7 +196,7 @@ class Checker {
 
     }
 
-    void removeGift(long userID, long giftID) throws IOException {
+    void removeGift(String userID, String giftID) throws IOException {
         String url = "http://localhost:8080/gifts/remove/" + userID +"/" + giftID;
         HttpDelete request = new HttpDelete(url);
         String response = send(request);
@@ -196,7 +205,7 @@ class Checker {
         System.out.println("----------------------------------------");
     }
 
-    void updateGift(long giftID, String name, String desc) throws IOException {
+    void updateGift(String giftID, String name, String desc) throws IOException {
         Gift gift = new Gift(name, desc);
         JSONObject jsonObject = new JSONObject(gift);
         System.out.println(jsonObject);
