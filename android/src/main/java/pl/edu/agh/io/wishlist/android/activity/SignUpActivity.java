@@ -1,9 +1,9 @@
-package pl.edu.agh.io.wishlist.android;
+package pl.edu.agh.io.wishlist.android.activity;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.os.Bundle;
-import android.util.Log;
+import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -11,9 +11,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import pl.edu.agh.io.wishlist.android.R;
 
-public class SignupActivity extends Activity {
-    private static final String TAG = "SignupActivity";
+public class SignUpActivity extends Activity {
 
     @Bind(R.id.input_name)
     EditText nameText;
@@ -25,7 +25,7 @@ public class SignupActivity extends Activity {
     EditText passwordText;
 
     @Bind(R.id.btn_signup)
-    Button signupButton;
+    Button signUpButton;
 
     @Bind(R.id.link_login)
     TextView loginLinkText;
@@ -33,36 +33,26 @@ public class SignupActivity extends Activity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_signup);
+        setContentView(R.layout.activity_sign_up);
         ButterKnife.bind(this);
-
-        signupButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                signup();
-            }
-        });
-
-        loginLinkText.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Finish the registration screen and return to the Login activity
-                finish();
-            }
-        });
     }
 
-    public void signup() {
-        Log.d(TAG, "Signup");
+    // already registered - onClick
+    public void back(View view) {
+        // Finish the registration screen and return to the Login activity
+        finish();
+    }
 
+    // signUpButton - onClick
+    public void signUp(View view) {
         if (!validate()) {
             onSignupFailed();
             return;
         }
 
-        signupButton.setEnabled(false);
+        signUpButton.setEnabled(false);
 
-        final ProgressDialog progressDialog = new ProgressDialog(SignupActivity.this);
+        final ProgressDialog progressDialog = new ProgressDialog(SignUpActivity.this);
         progressDialog.setIndeterminate(true);
         progressDialog.setMessage("Creating Account...");
         progressDialog.show();
@@ -71,9 +61,9 @@ public class SignupActivity extends Activity {
         String email = emailText.getText().toString();
         String password = passwordText.getText().toString();
 
-        // TODO: Implement your own signup logic here.
+        // TODO: Implement your own signUp logic here.
 
-        new android.os.Handler().postDelayed(
+        new Handler().postDelayed(
                 new Runnable() {
                     public void run() {
                         // On complete call either onSignupSuccess or onSignupFailed 
@@ -86,19 +76,19 @@ public class SignupActivity extends Activity {
     }
 
 
-    public void onSignupSuccess() {
-        signupButton.setEnabled(true);
+    private void onSignupSuccess() {
+        signUpButton.setEnabled(true);
         setResult(RESULT_OK, null);
         finish();
     }
 
-    public void onSignupFailed() {
+    private void onSignupFailed() {
         Toast.makeText(getBaseContext(), "Login failed", Toast.LENGTH_LONG).show();
 
-        signupButton.setEnabled(true);
+        signUpButton.setEnabled(true);
     }
 
-    public boolean validate() {
+    private boolean validate() {
         boolean valid = true;
 
         String name = nameText.getText().toString();

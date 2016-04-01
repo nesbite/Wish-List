@@ -1,25 +1,29 @@
-package pl.edu.agh.io.wishlist.android;
+package pl.edu.agh.io.wishlist.android.activity;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Patterns;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
+import pl.edu.agh.io.wishlist.android.DaggerApplication;
+import pl.edu.agh.io.wishlist.android.R;
+import pl.edu.agh.io.wishlist.android.validator.Validator;
 
-@SuppressWarnings("WeakerAccess")
+import javax.inject.Inject;
+
+@SuppressWarnings({"unused", "WeakerAccess"})
 public class LoginActivity extends Activity {
 
     private static final int REQUEST_SIGN_UP = 0;
 
     @Bind(R.id.input_login)
-    EditText emailText;
+    EditText loginText;
 
     @Bind(R.id.input_password)
     EditText passwordText;
@@ -27,21 +31,29 @@ public class LoginActivity extends Activity {
     @Bind(R.id.btn_login)
     Button loginButton;
 
+    @Inject
+    Validator validator;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        // ButterKnife
         ButterKnife.bind(this);
+
+        // Dagger - injection
+        ((DaggerApplication) getApplication()).inject(this);
     }
 
-    // signUp - onClick
-    public void signUp(View view) {
-        Intent intent = new Intent(getApplicationContext(), SignupActivity.class);
+    @OnClick(R.id.link_signup)
+    public void signUp() {
+        Intent intent = new Intent(getApplicationContext(), SignUpActivity.class);
         startActivityForResult(intent, REQUEST_SIGN_UP);
     }
 
-    // loginButton - onClick
-    public void login(View view) {
+    @OnClick(R.id.btn_login)
+    public void login() {
         if (!validate()) {
             onLoginFailed();
             return;
@@ -54,7 +66,7 @@ public class LoginActivity extends Activity {
         progressDialog.setMessage("Authenticating...");
         progressDialog.show();
 
-        String email = emailText.getText().toString();
+        String email = loginText.getText().toString();
         String password = passwordText.getText().toString();
 
         // TODO: Implement your own authentication logic here.
@@ -75,7 +87,7 @@ public class LoginActivity extends Activity {
         if (requestCode == REQUEST_SIGN_UP) {
             if (resultCode == RESULT_OK) {
 
-                // TODO: Implement successful signup logic here
+                // TODO: Implement successful signUp logic here
                 // By default we just finish the Activity and log them in automatically
                 this.finish();
             }
@@ -102,18 +114,18 @@ public class LoginActivity extends Activity {
     private boolean validate() {
         boolean valid = true;
 
-        String email = emailText.getText().toString();
+        String login = loginText.getText().toString();
         String password = passwordText.getText().toString();
 
-        if (email.isEmpty() || !Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-            emailText.setError("invalid email address");
+        if (validator.isLoginValid(login)) {
+            loginText.setError("login is invalid");
             valid = false;
         } else {
-            emailText.setError(null);
+            loginText.setError(null);
         }
 
-        if (password.isEmpty() || password.length() < 6 || password.length() > 16) {
-            passwordText.setError("password length should be between 6 and 16");
+        if (validator.isPasswordValid(password)) {
+            passwordText.setError("password is invalid");
             valid = false;
         } else {
             passwordText.setError(null);
