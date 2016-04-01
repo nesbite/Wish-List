@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:descendantFocusability="beforeDescendants"
+        android:focusableInTouchMode="true"
+        android:paddingTop="56dp"
+        android:paddingLeft="24dp"
+        android:paddingRight="24dp"
+        android:paddingBottom="56dp">
+
+    <ImageView
+            android:src="@drawable/icon_wishlist"
+            android:layout_width="wrap_content"
+            android:layout_height="120dp"
+            android:layout_marginBottom="24dp"
+            android:layout_gravity="center_horizontal"
+            android:contentDescription="@string/logo"
+            android:id="@+id/logo"/>
+
+    <EditText
+            android:id="@+id/input_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/rounded"
+            android:inputType="textCapWords"
+            android:hint="@string/name"
+            android:layout_below="@+id/logo"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:padding="5dp"
+            android:gravity="center"
+            android:layout_marginTop="20sp"/>
+
+    <EditText
+            android:id="@+id/input_login"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textEmailAddress"
+            android:background="@drawable/rounded"
+            android:hint="@string/email"
+            android:layout_below="@+id/input_name"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:padding="5dp"
+            android:gravity="center"
+            android:layout_marginTop="20sp"/>
+
+    <EditText
+            android:id="@+id/input_password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/rounded"
+            android:inputType="textPassword"
+            android:hint="@string/password"
+            android:layout_below="@+id/input_login"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:padding="5dp"
+            android:gravity="center"
+            android:layout_marginTop="20sp"/>
+
+    <Button
+            android:id="@+id/btn_signup"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:padding="12dp"
+            android:text="@string/create_account"
+            android:layout_above="@+id/link_login"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginBottom="20sp"/>
+
+    <TextView
+            android:id="@+id/link_login"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/already_member"
+            android:textSize="16sp"
+            android:gravity="bottom|center"
+            android:layout_gravity="bottom"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"/>
+
+</RelativeLayout>
