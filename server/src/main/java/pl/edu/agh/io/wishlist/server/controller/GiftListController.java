@@ -1,4 +1,4 @@
-package pl.edu.agh.io.wishlist.web.controller;
+package pl.edu.agh.io.wishlist.server.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

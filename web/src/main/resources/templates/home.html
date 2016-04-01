@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Hello World!</title>
+    <link rel="stylesheet" href="/css/style.css"/>
+    <script src="/js/script.js"></script>
+</head>
+<body>
+<h1>Welcome!</h1>
+
+Nice to see you! <br/>
+<p th:text="${#httpServletRequest.requestURI}"></p>
+<div th:switch="${#httpServletRequest.requestURI}">
+    <p th:case="'/home'"><a href="/greeting">Greeting</a></p>
+    <p th:case="*"><a href="/home">Look, at the URL!</a></p>
+
+</div>
+</body>
+</html>
