@@ -30,23 +30,23 @@ public class Client {
         try {
             Checker checker = new Checker();
             //Users
-//            checker.registerUser("login5", "password1", "asda@asda");
-//            checker.registerUser("login2", "password2", "asda@asda");
-//            checker.registerUser("login3", "password3", "asda@asda");
-//            checker.registerUser("login4", "password4", "asda@asda");
-//            checker.getUser("login2");
+            checker.registerUser("login5", "password1", "asda@asda");
+            checker.registerUser("login2", "password2", "asda@asda");
+            checker.registerUser("login3", "password3", "asda@asda");
+            checker.registerUser("login4", "password4", "asda@asda");
+            checker.getUser("login2");
             String id1 = checker.getUser("login2").getId();
             String id2 = checker.getUser("login3").getId();
             String id3 = checker.getUser("login4").getId();
             String id4 = checker.getUser("login5").getId();
 //            //Friends
-//            checker.addFriend(id1, id2);
-//            checker.addFriend(id1, id3);
-//            checker.addFriend(id1, id4);
+            checker.addFriend(id1, id2);
+            checker.addFriend(id1, id3);
+            checker.addFriend(id1, id4);
 ////            checker.addFriend(id1, id5);
-//            checker.getFriends(id1);
-//            checker.deleteFriend(id1, id2);
-//            checker.getFriends(id1);
+            checker.getFriends(id1);
+            checker.deleteFriend(id1, id2);
+            checker.getFriends(id1);
 //            //Gifts
             checker.addGift(id1, "auto", "duze");
             checker.addGift(id2, "samolot", "szybki");
@@ -76,7 +76,7 @@ class Checker {
     }
 
     List<User> getFriends(String id) throws IOException {
-        String url = "http://localhost:8080/friends/getAll/" + id;
+        String url = "http://localhost:80/friends/getAll/" + id;
         HttpGet request = new HttpGet(url);
         String response = send(request);
         if (response.equalsIgnoreCase("")) {
@@ -94,7 +94,7 @@ class Checker {
 
     void addFriend(String userId, String friendId) throws IOException {
 
-        String url = "http://localhost:8080/friends/add/" + userId + "?friendId=" + friendId;
+        String url = "http://localhost:80/friends/add/" + userId + "?friendId=" + friendId;
         System.out.println(url);
         HttpPut request = new HttpPut(url);
         String response = send(request);
@@ -106,7 +106,7 @@ class Checker {
 
     void deleteFriend(String userId, String friendId) throws IOException {
 
-        String url = "http://localhost:8080/friends/delete/" + userId + "?friendId=" + friendId;
+        String url = "http://localhost:80/friends/delete/" + userId + "?friendId=" + friendId;
 
         HttpDelete request = new HttpDelete(url);
         String response = send(request);
@@ -117,7 +117,7 @@ class Checker {
     }
 
     User getUser(String login) throws IOException {
-        String url = "http://localhost:8080/users/" + login;
+        String url = "http://localhost:80/users/" + login;
         HttpGet request = new HttpGet(url);
         String response = send(request);
         System.out.println(response);
@@ -134,7 +134,7 @@ class Checker {
         JSONObject jsonObject = new JSONObject(user);
         System.out.println(jsonObject);
         StringEntity params = new StringEntity(jsonObject.toString());
-        String url = "http://localhost:8080/users/register";
+        String url = "http://localhost:80/users/register";
 
         HttpPost request = new HttpPost(url);
         request.addHeader("content-type", "application/json");
@@ -146,7 +146,7 @@ class Checker {
     }
 
     Gift getGift(String giftID) throws IOException {
-        String url = "http://localhost:8080/gifts/getGift/" + giftID;
+        String url = "http://localhost:80/gifts/getGift/" + giftID;
         HttpGet request = new HttpGet(url);
         String response = send(request);
         System.out.println(response);
@@ -163,7 +163,7 @@ class Checker {
 
     List<Gift> getAllGifts(String userID) throws IOException {
 
-        String url = "http://localhost:8080/gifts/forUser/" + userID;
+        String url = "http://localhost:80/gifts/forUser/" + userID;
         HttpGet request = new HttpGet(url);
         String response = send(request);
 
@@ -184,7 +184,7 @@ class Checker {
         JSONObject jsonObject = new JSONObject(gift);
         System.out.println(jsonObject);
         StringEntity params = new StringEntity(jsonObject.toString());
-        String url = "http://localhost:8080/gifts/add/" + userID;
+        String url = "http://localhost:80/gifts/add/" + userID;
 
         HttpPost request = new HttpPost(url);
         request.addHeader("content-type", "application/json");
@@ -197,7 +197,7 @@ class Checker {
     }
 
     void removeGift(String userID, String giftID) throws IOException {
-        String url = "http://localhost:8080/gifts/remove/" + userID +"/" + giftID;
+        String url = "http://localhost:80/gifts/remove/" + userID +"/" + giftID;
         HttpDelete request = new HttpDelete(url);
         String response = send(request);
         System.out.println("----------------------------------------");
@@ -210,7 +210,7 @@ class Checker {
         JSONObject jsonObject = new JSONObject(gift);
         System.out.println(jsonObject);
         StringEntity params = new StringEntity(jsonObject.toString());
-        String url = "http://localhost:8080/gifts/update/" + giftID;
+        String url = "http://localhost:80/gifts/update/" + giftID;
 
         System.out.println(url);
         HttpPut request = new HttpPut(url);

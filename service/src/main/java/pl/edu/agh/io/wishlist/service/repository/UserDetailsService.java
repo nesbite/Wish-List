@@ -20,6 +20,7 @@ public class UserDetailsService implements IUserDetailsService {
         if ((userDetailsRepository.findByUsername(userDetails.getUsername()) != null) || (userRepoService.getUser(userDetails.getUsername()) != null)) {
             return false;
         }
+        userDetails.addRole("USER");
         userDetailsRepository.save(userDetails);
         userRepoService.addUser(new User(userDetails.getUsername()));
         return true;
