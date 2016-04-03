@@ -1,4 +1,4 @@
-package pl.edu.agh.io.wishlist.android;
+package pl.edu.agh.io.wishlist.android.dagger;
 
 import dagger.Module;
 import dagger.Provides;
@@ -8,7 +8,7 @@ import pl.edu.agh.io.wishlist.android.validator.Validator;
 import javax.inject.Singleton;
 
 @Module(injects = LoginActivity.class)
-public class DaggerModule {
+class DaggerModule {
 
     @Provides
     @Singleton

@@ -46,7 +46,7 @@ public class SignUpActivity extends Activity {
     // signUpButton - onClick
     public void signUp(View view) {
         if (!validate()) {
-            onSignupFailed();
+            onSignUpFailed();
             return;
         }
 
@@ -66,23 +66,23 @@ public class SignUpActivity extends Activity {
         new Handler().postDelayed(
                 new Runnable() {
                     public void run() {
-                        // On complete call either onSignupSuccess or onSignupFailed 
+                        // On complete call either onSignUpSuccess or onSignUpFailed
                         // depending on success
-                        onSignupSuccess();
-                        // onSignupFailed();
+                        onSignUpSuccess();
+                        // onSignUpFailed();
                         progressDialog.dismiss();
                     }
                 }, 3000);
     }
 
 
-    private void onSignupSuccess() {
+    private void onSignUpSuccess() {
         signUpButton.setEnabled(true);
         setResult(RESULT_OK, null);
         finish();
     }
 
-    private void onSignupFailed() {
+    private void onSignUpFailed() {
         Toast.makeText(getBaseContext(), "Login failed", Toast.LENGTH_LONG).show();
 
         signUpButton.setEnabled(true);

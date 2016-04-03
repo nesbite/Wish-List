@@ -15,7 +15,7 @@
 
     <application
             android:label="@string/app_name"
-            android:name=".DaggerApplication"
+            android:name=".dagger.DaggerApplication"
             android:allowBackup="true"
             android:icon="@drawable/icon_launcher"
             android:theme="@android:style/Theme.Holo.NoActionBar"

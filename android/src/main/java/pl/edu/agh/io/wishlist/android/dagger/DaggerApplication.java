@@ -1,11 +1,11 @@
-package pl.edu.agh.io.wishlist.android;
+package pl.edu.agh.io.wishlist.android.dagger;
 
 import android.app.Application;
 import dagger.ObjectGraph;
 
 public class DaggerApplication extends Application {
 
-    private ObjectGraph graph;
+    private static ObjectGraph graph;
 
     @Override
     public void onCreate() {
@@ -14,7 +14,7 @@ public class DaggerApplication extends Application {
         graph = ObjectGraph.create(new DaggerModule());
     }
 
-    public void inject(Object object) {
+    public static void inject(Object object) {
         graph.inject(object);
     }
 

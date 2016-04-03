@@ -11,13 +11,13 @@ import android.widget.Toast;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import pl.edu.agh.io.wishlist.android.DaggerApplication;
 import pl.edu.agh.io.wishlist.android.R;
+import pl.edu.agh.io.wishlist.android.dagger.DaggerApplication;
 import pl.edu.agh.io.wishlist.android.validator.Validator;
 
 import javax.inject.Inject;
 
-@SuppressWarnings({"unused", "WeakerAccess"})
+@SuppressWarnings("WeakerAccess")
 public class LoginActivity extends Activity {
 
     private static final int REQUEST_SIGN_UP = 0;
@@ -42,8 +42,8 @@ public class LoginActivity extends Activity {
         // ButterKnife
         ButterKnife.bind(this);
 
-        // Dagger - injection
-        ((DaggerApplication) getApplication()).inject(this);
+        // Dagger
+        DaggerApplication.inject(this);
     }
 
     @OnClick(R.id.link_signup)
@@ -54,12 +54,12 @@ public class LoginActivity extends Activity {
 
     @OnClick(R.id.btn_login)
     public void login() {
+        loginButton.setEnabled(false);
+
         if (!validate()) {
             onLoginFailed();
             return;
         }
-
-        loginButton.setEnabled(false);
 
         final ProgressDialog progressDialog = new ProgressDialog(LoginActivity.this);
         progressDialog.setIndeterminate(true);
@@ -70,6 +70,8 @@ public class LoginActivity extends Activity {
         String password = passwordText.getText().toString();
 
         // TODO: Implement your own authentication logic here.
+        // AsyncTask
+
 
         new Handler().postDelayed(new Runnable() {
             public void run() {
