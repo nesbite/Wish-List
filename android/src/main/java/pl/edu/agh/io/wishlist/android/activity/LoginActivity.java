@@ -117,14 +117,14 @@ public class LoginActivity extends Activity {
         String login = loginText.getText().toString();
         String password = passwordText.getText().toString();
 
-        if (validator.isLoginValid(login)) {
+        if (!validator.isLoginValid(login)) {
             loginText.setError("login is invalid");
             valid = false;
         } else {
             loginText.setError(null);
         }
 
-        if (validator.isPasswordValid(password)) {
+        if (!validator.isPasswordValid(password)) {
             passwordText.setError("password is invalid");
             valid = false;
         } else {
