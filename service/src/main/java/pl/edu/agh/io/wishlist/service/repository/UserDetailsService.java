@@ -2,7 +2,6 @@ package pl.edu.agh.io.wishlist.service.repository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import pl.edu.agh.io.wishlist.domain.User;
 import pl.edu.agh.io.wishlist.domain.UserDetails;
 import pl.edu.agh.io.wishlist.persistence.UserDetailsRepository;
 import pl.edu.agh.io.wishlist.service.IUserDetailsService;
@@ -21,7 +20,7 @@ public class UserDetailsService implements IUserDetailsService {
             return false;
         }
         userDetailsRepository.save(userDetails);
-        userRepoService.addUser(new User(userDetails.getUsername()));
+//        userRepoService.addUser(new User(userDetails.getUsername()));
         return true;
     }
 
