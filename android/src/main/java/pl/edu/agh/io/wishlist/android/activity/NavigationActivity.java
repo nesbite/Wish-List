@@ -8,22 +8,33 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ListView;
 import android.widget.Toast;
 import pl.edu.agh.io.wishlist.android.R;
+import pl.edu.agh.io.wishlist.android.fragment.FragmentHandler;
 import pl.edu.agh.io.wishlist.android.ui.drawer.Drawer;
 
 public class NavigationActivity extends Activity {
 
-    // save title of activity for a drawer
     private Drawer drawer;
+
+    private FragmentHandler fragmentHandler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_navigation);
 
+        // initialize drawer
         drawer = new Drawer(this);
-        drawer.onCreate(savedInstanceState);
+        drawer.setOnItemClickListener(new DrawerItemClickListener());
+        drawer.update(savedInstanceState);
+
+        // fragment handler
+        fragmentHandler = new FragmentHandler(getFragmentManager(), drawer.getDrawerMenu());
+        fragmentHandler.update(savedInstanceState);
     }
 
     @Override
@@ -58,7 +69,7 @@ public class NavigationActivity extends Activity {
                 if (intent.resolveActivity(getPackageManager()) != null) {
                     startActivity(intent);
                 } else {
-                    Toast.makeText(this, R.string.app_not_available, Toast.LENGTH_LONG).show();
+                    Toast.makeText(this, R.string.web_browser_not_available, Toast.LENGTH_LONG).show();
                 }
                 return true;
             default:
@@ -85,6 +96,15 @@ public class NavigationActivity extends Activity {
 
         // Pass any configuration change to the drawer toggles
         drawer.getToggle().onConfigurationChanged(newConfig);
+    }
+
+    /* The click listener for ListView in the navigation drawer */
+    private class DrawerItemClickListener implements ListView.OnItemClickListener {
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            drawer.selectItem(position);
+            fragmentHandler.updateContent(position);
+        }
     }
 
 }
