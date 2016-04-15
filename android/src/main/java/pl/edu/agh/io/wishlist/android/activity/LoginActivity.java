@@ -18,7 +18,7 @@ import org.springframework.web.client.RestTemplate;
 import pl.edu.agh.io.wishlist.android.Greeting;
 import pl.edu.agh.io.wishlist.android.R;
 import pl.edu.agh.io.wishlist.android.dagger.DaggerApplication;
-import pl.edu.agh.io.wishlist.android.validator.Validator;
+import pl.edu.agh.io.wishlist.android.validator.FieldValidator;
 
 import javax.inject.Inject;
 
@@ -37,7 +37,7 @@ public class LoginActivity extends Activity {
     Button loginButton;
 
     @Inject
-    Validator validator;
+    FieldValidator validator;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -59,11 +59,6 @@ public class LoginActivity extends Activity {
 
     @OnClick(R.id.btn_login)
     public void login() {
-        new HttpRequestTask().execute();
-
-        // TODO delete it
-        if(true) return;
-
         loginButton.setEnabled(false);
 
         if (!validate()) {
@@ -76,7 +71,7 @@ public class LoginActivity extends Activity {
         progressDialog.setMessage("Authenticating...");
         progressDialog.show();
 
-        String email = loginText.getText().toString();
+        String login = loginText.getText().toString();
         String password = passwordText.getText().toString();
 
         // TODO: Implement your own authentication logic here.
@@ -90,7 +85,7 @@ public class LoginActivity extends Activity {
                 // onLoginFailed();
                 progressDialog.dismiss();
             }
-        }, 3000);
+        }, 1000);
     }
 
 
@@ -114,6 +109,10 @@ public class LoginActivity extends Activity {
 
     private void onLoginSuccess() {
         loginButton.setEnabled(true);
+
+        Intent intent = new Intent(getApplicationContext(), NavigationActivity.class);
+        startActivity(intent);
+
         finish();
     }
 
@@ -129,7 +128,7 @@ public class LoginActivity extends Activity {
         String login = loginText.getText().toString();
         String password = passwordText.getText().toString();
 
-        if (!validator.isLoginValid(login)) {
+/*        if (!validator.isLoginValid(login)) {
             loginText.setError("login is invalid");
             valid = false;
         } else {
@@ -141,7 +140,7 @@ public class LoginActivity extends Activity {
             valid = false;
         } else {
             passwordText.setError(null);
-        }
+        }*/
 
         return valid;
     }

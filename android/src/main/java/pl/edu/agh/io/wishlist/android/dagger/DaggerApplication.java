@@ -11,7 +11,7 @@ public class DaggerApplication extends Application {
     public void onCreate() {
         super.onCreate();
 
-        graph = ObjectGraph.create(new DaggerModule());
+        graph = ObjectGraph.create(new DaggerModule(this));
     }
 
     public static void inject(Object object) {
