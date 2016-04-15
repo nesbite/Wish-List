@@ -7,4 +7,5 @@ import pl.edu.agh.io.wishlist.domain.UserDetails;
 @Repository
 public interface UserDetailsRepository extends MongoRepository<UserDetails, String> {
     UserDetails findByUsername(String username);
+    UserDetails findByUsernameAndPassword(String username, String password);
 }
