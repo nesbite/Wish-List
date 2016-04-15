@@ -10,6 +10,9 @@ import pl.edu.agh.io.wishlist.service.IGiftService;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
 
+// TODO: 12/04/2016
+// refactor it with a REST-friendly way
+
 @RestController
 @RequestMapping("/gifts")
 public class GiftListController {
