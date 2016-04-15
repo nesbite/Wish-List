@@ -20,7 +20,7 @@ public class UserDetailsService implements IUserDetailsService {
         if ((userDetailsRepository.findByUsername(userDetails.getUsername()) != null) || (userRepoService.getUser(userDetails.getUsername()) != null)) {
             return false;
         }
-        userDetails.addRole("USER");
+//        userDetails.addRole("USER");
         userDetailsRepository.save(userDetails);
         userRepoService.addUser(new User(userDetails.getUsername()));
         return true;
@@ -47,4 +47,18 @@ public class UserDetailsService implements IUserDetailsService {
         userDetailsRepository.save(user);
         return true;
     }
+
+    public UserDetails findByUsername(String username){
+        return userDetailsRepository.findByUsername(username);
+    }
+
+    @Override
+    public void save(UserDetails user) {
+        userDetailsRepository.save(user);
+    }
+
+    public void deleteAll() {
+        userDetailsRepository.deleteAll();
+    }
+
 }
