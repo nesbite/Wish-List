@@ -46,8 +46,7 @@ public class ApplicationTest {
                 get("/users/jan").
                 then().
                 statusCode(HttpStatus.SC_OK).
-                body("login", Matchers.is("jan")).
-                body("password", Matchers.is("pass_jan"));
+                body("username", Matchers.is("jan"));
     }
 
     // TODO write more tests here or create another, similar test-class
