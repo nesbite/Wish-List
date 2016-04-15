@@ -19,11 +19,6 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>com.google.android</groupId>
-            <artifactId>support-v4</artifactId>
-            <version>r7</version>
-        </dependency>
-        <dependency>
             <groupId>com.jakewharton</groupId>
             <artifactId>butterknife</artifactId>
             <version>7.0.1</version>
@@ -49,6 +44,12 @@
             <artifactId>jackson-databind</artifactId>
             <version>2.3.2</version>
         </dependency>
+        <dependency>
+            <groupId>com.android.support</groupId>
+            <artifactId>support-v4</artifactId>
+            <version>19.0.1</version>
+        </dependency>
+
     </dependencies>
 
     <build>
@@ -69,6 +70,4 @@
             </plugin>
         </plugins>
     </build>
-
-
 </project>
