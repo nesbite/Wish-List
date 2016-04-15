@@ -7,6 +7,7 @@
 
     <uses-permission android:name="android.permission.INTERNET"/>
 
+
     <uses-sdk
             android:minSdkVersion="16"
             android:targetSdkVersion="22"
@@ -21,6 +22,14 @@
             android:icon="@drawable/icon_launcher"
             android:theme="@android:style/Theme.Holo.NoActionBar"
             tools:ignore="GoogleAppIndexingWarning,HardcodedDebugMode">
+
+        <meta-data
+                android:name="server_host"
+                android:value="http://wishlist.sytes.net"/>
+        <meta-data
+                android:name="server_port"
+                android:value="8080"/>
+
         <activity
                 android:name=".activity.LoginActivity"
                 android:label="@string/app_name">
