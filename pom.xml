@@ -12,7 +12,7 @@
         <module>persistence</module>
         <module>web</module>
         <module>service</module>
-        <module>android</module>
+        <!--<module>android</module>-->
         <module>domain</module>
         <module>server</module>
     </modules>
