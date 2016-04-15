@@ -1,6 +1,7 @@
 package pl.edu.agh.io.wishlist.domain;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.Indexed;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,7 +10,6 @@ public class User {
 
     @Id
     private String id;
-
     private String username;
 
     private List<String> friends;
