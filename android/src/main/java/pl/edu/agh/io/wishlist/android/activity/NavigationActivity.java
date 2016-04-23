@@ -3,7 +3,6 @@ package pl.edu.agh.io.wishlist.android.activity;
 import android.app.Activity;
 import android.content.res.Configuration;
 import android.os.Bundle;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -31,13 +30,6 @@ public class NavigationActivity extends Activity {
         // fragment handler
         fragmentHandler = new FragmentHandler(getFragmentManager(), drawer.getDrawerMenu());
         fragmentHandler.update(savedInstanceState);
-    }
-
-    /* Called whenever we call invalidateOptionsMenu() */
-    @Override
-    public boolean onPrepareOptionsMenu(Menu menu) {
-        drawer.onPrepareOptionsMenu(menu);
-        return super.onPrepareOptionsMenu(menu);
     }
 
     @Override

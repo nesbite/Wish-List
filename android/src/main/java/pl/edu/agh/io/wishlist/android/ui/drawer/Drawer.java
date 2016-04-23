@@ -97,12 +97,6 @@ public class Drawer {
         }
     }
 
-    public void onPrepareOptionsMenu(Menu menu) {
-        // If the nav drawer is open, hide action items related to the content view
-        boolean drawerOpen = drawerLayout.isDrawerOpen(drawerView);
-        menu.findItem(R.id.action_websearch).setVisible(!drawerOpen);
-    }
-
     public void onBackPressed() {
         if (drawerLayout.isDrawerOpen(drawerView)) {
             drawerLayout.closeDrawer(drawerView);
