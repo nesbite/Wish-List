@@ -65,6 +65,12 @@
         </dependency>
         <dependency>
             <groupId>com.android.support</groupId>
+            <artifactId>support-v4</artifactId>
+            <version>23.3.0</version>
+            <type>aar</type>
+        </dependency>
+        <dependency>
+            <groupId>com.android.support</groupId>
             <artifactId>appcompat-v7</artifactId>
             <version>23.3.0</version>
             <type>aar</type>
@@ -75,14 +81,6 @@
             <version>23.3.0</version>
             <type>aar</type>
         </dependency>
-        <dependency>
-            <groupId>com.android.support</groupId>
-            <artifactId>support-v4</artifactId>
-            <version>23.3.0</version>
-            <type>aar</type>
-        </dependency>
-
-
     </dependencies>
 
 </project>
