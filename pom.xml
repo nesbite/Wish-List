@@ -15,6 +15,7 @@
         <!--<module>android</module>-->
         <module>domain</module>
         <module>server</module>
+        <module>web</module>
     </modules>
 
     <parent>
