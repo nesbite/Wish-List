@@ -4,10 +4,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import pl.edu.agh.io.wishlist.domain.User;
 
-@ResponseStatus(HttpStatus.NOT_FOUND)
-public class UserNotFoundException extends RuntimeException {
+@ResponseStatus(HttpStatus.CONFLICT)
+public class UserAlreadyExistsException extends RuntimeException {
 
-    public UserNotFoundException(User user) {
-        super("user does not exist: " + user.getUsername());
+    public UserAlreadyExistsException(User user) {
+        super("user already exists: " + user.getUsername());
     }
 }

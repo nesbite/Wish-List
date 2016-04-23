@@ -1,13 +1,10 @@
 package pl.edu.agh.io.wishlist.server.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.edu.agh.io.wishlist.domain.User;
 import pl.edu.agh.io.wishlist.domain.UserDetails;
 import pl.edu.agh.io.wishlist.service.IUserService;
-import pl.edu.agh.io.wishlist.service.exceptions.UserNotFoundException;
 import pl.edu.agh.io.wishlist.service.repository.UserDetailsService;
 
 import java.util.Collection;
@@ -23,31 +20,32 @@ public class UserController {
 
     @ResponseBody
     @RequestMapping(method = RequestMethod.GET)
-    public ResponseEntity<Collection<User>> getUsers() {
-        return new ResponseEntity<>(userService.getUsers(), HttpStatus.OK);
+    public Collection<User> getUsers() {
+        return userService.getUsers();
     }
 
     @ResponseBody
     @RequestMapping(value = "/{username}", method = RequestMethod.GET)
-    public ResponseEntity<User> getUser(@PathVariable(value = "username") String username) {
-        return new ResponseEntity<>(userService.getUser(username), HttpStatus.OK);
+    public User getUser(@PathVariable(value = "username") String username) {
+        return userService.getUser(username);
     }
 
     @ResponseBody
     @RequestMapping(method = RequestMethod.PUT)
-    public ResponseEntity<?> updateUser(@RequestBody User user) {
-        try {
-            userService.update(user);
+    public void updateUser(@RequestBody User user) {
+        userService.update(user);
+    }
 
-            return new ResponseEntity<>(null, HttpStatus.OK);
-        } catch (UserNotFoundException e) {
-            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
-        }
+    @ResponseBody
+    @RequestMapping(method = RequestMethod.POST)
+    public void addUser(@RequestBody User user) {
+        userService.addUser(user);
     }
 
 
     @ResponseBody
     @RequestMapping(value = "/register", method = RequestMethod.POST, consumes = "application/json")
+    // TODO do not response with boolean
     public boolean addUser(@RequestBody UserDetails user) {
         return userDetailsService.registerUser(user);
     }

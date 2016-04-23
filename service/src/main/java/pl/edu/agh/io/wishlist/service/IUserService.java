@@ -6,7 +6,7 @@ import pl.edu.agh.io.wishlist.service.exceptions.UserNotFoundException;
 import java.util.Collection;
 
 public interface IUserService {
-    void addUser(User user) throws UserNotFoundException;
+    void addUser(User user);
 
     User getUser(String username);
 

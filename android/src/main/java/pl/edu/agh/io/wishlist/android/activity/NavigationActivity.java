@@ -1,17 +1,13 @@
 package pl.edu.agh.io.wishlist.android.activity;
 
 import android.app.Activity;
-import android.app.SearchManager;
-import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.Toast;
 import pl.edu.agh.io.wishlist.android.R;
 import pl.edu.agh.io.wishlist.android.fragment.FragmentHandler;
 import pl.edu.agh.io.wishlist.android.ui.drawer.Drawer;
@@ -37,13 +33,6 @@ public class NavigationActivity extends Activity {
         fragmentHandler.update(savedInstanceState);
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.main, menu);
-        return super.onCreateOptionsMenu(menu);
-    }
-
     /* Called whenever we call invalidateOptionsMenu() */
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
@@ -59,22 +48,7 @@ public class NavigationActivity extends Activity {
             return true;
         }
 
-        // Handle action buttons
-        switch (item.getItemId()) {
-            case R.id.action_websearch:
-                // create intent to perform web search for this planet
-                Intent intent = new Intent(Intent.ACTION_WEB_SEARCH);
-                intent.putExtra(SearchManager.QUERY, drawer.getDrawerTitle());
-                // catch event that there's no activity to handle intent
-                if (intent.resolveActivity(getPackageManager()) != null) {
-                    startActivity(intent);
-                } else {
-                    Toast.makeText(this, R.string.web_browser_not_available, Toast.LENGTH_LONG).show();
-                }
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
+        return super.onOptionsItemSelected(item);
     }
 
     /**
@@ -107,4 +81,8 @@ public class NavigationActivity extends Activity {
         }
     }
 
+    @Override
+    public void onBackPressed() {
+        drawer.onBackPressed();
+    }
 }

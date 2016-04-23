@@ -2,11 +2,15 @@ package pl.edu.agh.io.wishlist.android.dagger;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageManager;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.widget.PopupMenu;
 import dagger.Module;
 import dagger.Provides;
+import pl.edu.agh.io.wishlist.android.ServerCredentials;
 import pl.edu.agh.io.wishlist.android.activity.LoginActivity;
 import pl.edu.agh.io.wishlist.android.activity.NavigationActivity;
 import pl.edu.agh.io.wishlist.android.fragment.FragmentHandler;
@@ -48,6 +52,23 @@ class DaggerModule {
     @Provides
     Menu provideMenu() {
         return new PopupMenu(application.getApplicationContext(), null).getMenu();
+    }
+
+    @Provides
+    @Singleton
+    ServerCredentials provideServerCredentials() {
+        try {
+            ApplicationInfo ai = application.getPackageManager().getApplicationInfo(application.getPackageName(), PackageManager.GET_META_DATA);
+            Bundle bundle = ai.metaData;
+
+            String host = bundle.getString("server_host");
+            int port = bundle.getInt("server_port");
+
+            return new ServerCredentials(host, port);
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+            return new ServerCredentials();
+        }
     }
 
     @Provides

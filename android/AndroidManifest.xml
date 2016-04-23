@@ -25,7 +25,8 @@
 
         <meta-data
                 android:name="server_host"
-                android:value="http://wishlist.sytes.net"/>
+                android:value="http://10.15.41.116"/>
+                <!--android:value="http://wishlist.sytes.net"/>-->
         <meta-data
                 android:name="server_port"
                 android:value="8080"/>

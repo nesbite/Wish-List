@@ -103,6 +103,14 @@ public class Drawer {
         menu.findItem(R.id.action_websearch).setVisible(!drawerOpen);
     }
 
+    public void onBackPressed() {
+        if (drawerLayout.isDrawerOpen(drawerView)) {
+            drawerLayout.closeDrawer(drawerView);
+        } else {
+            activity.finish();
+        }
+    }
+
     /* Toggle for a navigation drawer, triggers activityTitle changes */
     private class DrawerToggle extends ActionBarDrawerToggle {
 
@@ -141,4 +149,5 @@ public class Drawer {
     public Menu getDrawerMenu() {
         return drawerMenu;
     }
+
 }

@@ -13,26 +13,33 @@
 
 
         <ImageView
-                android:layout_width="150dp"
-                android:layout_height="150dp"
-                android:layout_centerVertical="true"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
                 android:layout_centerHorizontal="true"
                 android:src="@drawable/user_avatar_below"/>
 
         <ImageView
-                android:layout_width="150dp"
-                android:layout_height="150dp"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
                 android:id="@+id/user_avatar"
-                android:layout_centerInParent="true"
-                android:src="@drawable/icon_user_default"/>
+                android:src="@drawable/icon_user_default"
+                android:layout_centerHorizontal="true"/>
 
         <ImageView
-                android:layout_width="150dp"
-                android:layout_height="150dp"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
                 android:id="@+id/user_avatar_hover"
-                android:layout_centerVertical="true"
                 android:layout_centerHorizontal="true"
                 android:src="@drawable/user_avatar_hover"/>
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="username"
+                android:id="@+id/username"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@+id/user_avatar"/>
 
     </RelativeLayout>
 
@@ -51,7 +58,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/users_list"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginBottom="40dp"/>
+                android:layout_marginBottom="50dp"/>
 
         <View
                 android:layout_width="match_parent"
@@ -62,12 +69,11 @@
         <LinearLayout
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
+                android:layout_height="50dp"
                 android:layout_alignParentBottom="true"
                 android:layout_centerHorizontal="true"
                 android:background="#b3c6c6c6"
-                android:paddingLeft="5dp"
-                android:paddingRight="5dp">
+                android:padding="5dp">
 
             <EditText
                     android:layout_width="0dp"
