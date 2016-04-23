@@ -1,2 +1,3 @@
-gen/
-gen-external-apklibs/
+build/
+.idea/
+.gradle/

@@ -1,12 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           xmlns:tools="http://schemas.android.com/tools"
-          package="pl.edu.agh.io.wishlist.android"
-          android:versionCode="1"
-          android:versionName="1.0.0">
+          package="pl.edu.agh.io.wishlist.android">
 
     <uses-permission android:name="android.permission.INTERNET"/>
-
 
     <uses-sdk
             android:minSdkVersion="16"
@@ -26,7 +23,7 @@
         <meta-data
                 android:name="server_host"
                 android:value="http://10.15.41.116"/>
-                <!--android:value="http://wishlist.sytes.net"/>-->
+        <!--android:value="http://wishlist.sytes.net"/>-->
         <meta-data
                 android:name="server_port"
                 android:value="8080"/>
