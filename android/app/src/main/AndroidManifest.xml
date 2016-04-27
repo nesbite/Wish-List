@@ -17,13 +17,13 @@
             android:name=".dagger.DaggerApplication"
             android:allowBackup="true"
             android:icon="@drawable/icon_launcher"
-            android:theme="@android:style/Theme.Holo.NoActionBar"
+            android:theme="@android:style/Theme.Holo.Light.NoActionBar"
             tools:ignore="GoogleAppIndexingWarning,HardcodedDebugMode">
 
         <meta-data
                 android:name="server_host"
-                android:value="http://10.15.41.116"/>
-        <!--android:value="http://wishlist.sytes.net"/>-->
+                android:value="http://wishlist.sytes.net"/>
+        <!--android:value="http://10.15.41.116"/>-->
         <meta-data
                 android:name="server_port"
                 android:value="8080"/>
@@ -40,7 +40,7 @@
                 android:name=".activity.SignUpActivity"/>
         <activity
                 android:name=".activity.NavigationActivity"
-                android:theme="@android:style/Theme.Holo.Light.DarkActionBar"/>
+                android:theme="@android:style/Theme.Holo.Light"/>
     </application>
 
 </manifest>

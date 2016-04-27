@@ -3,6 +3,7 @@ package pl.edu.agh.io.wishlist.android.ui.drawer;
 import android.view.*;
 import android.widget.BaseAdapter;
 import pl.edu.agh.io.wishlist.android.R;
+import pl.edu.agh.io.wishlist.android.ViewHolder;
 import pl.edu.agh.io.wishlist.android.dagger.DaggerApplication;
 
 import javax.inject.Inject;
@@ -46,7 +47,9 @@ public class DrawerListAdapter extends BaseAdapter {
     public View getView(int position, View view, ViewGroup parent) {
         ViewHolder viewHolder;
         if (view == null) {
-            view = inflater.inflate(R.layout.drawer_list_item, parent, false);
+            view = inflater.inflate(R.layout.list_item, parent, false);
+            view.setBackgroundResource(R.drawable.drawer_selector);
+
             viewHolder = new ViewHolder(view);
             view.setTag(viewHolder);
         } else {

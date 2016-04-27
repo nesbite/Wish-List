@@ -14,6 +14,7 @@ import pl.edu.agh.io.wishlist.android.ServerCredentials;
 import pl.edu.agh.io.wishlist.android.activity.LoginActivity;
 import pl.edu.agh.io.wishlist.android.activity.NavigationActivity;
 import pl.edu.agh.io.wishlist.android.fragment.FragmentHandler;
+import pl.edu.agh.io.wishlist.android.fragment.UserArrayAdapter;
 import pl.edu.agh.io.wishlist.android.fragment.UsersFragment;
 import pl.edu.agh.io.wishlist.android.ui.drawer.Drawer;
 import pl.edu.agh.io.wishlist.android.ui.drawer.DrawerListAdapter;
@@ -28,7 +29,8 @@ import javax.inject.Singleton;
                 Drawer.class,
                 DrawerListAdapter.class,
                 FragmentHandler.class,
-                UsersFragment.class
+                UsersFragment.class,
+                UserArrayAdapter.class
         },
         library = true)
 class DaggerModule {

@@ -1,18 +1,26 @@
 package pl.edu.agh.io.wishlist.android.fragment;
 
 import android.app.Fragment;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
+import org.springframework.web.client.RestTemplate;
 import pl.edu.agh.io.wishlist.android.R;
 import pl.edu.agh.io.wishlist.android.ServerCredentials;
 import pl.edu.agh.io.wishlist.android.dagger.DaggerApplication;
+import pl.edu.agh.io.wishlist.android.domain.User;
 
 import javax.inject.Inject;
+import java.util.ArrayList;
+import java.util.List;
 
 @SuppressWarnings("WeakerAccess")
 public class UsersFragment extends Fragment {
@@ -23,8 +31,7 @@ public class UsersFragment extends Fragment {
     @Inject
     ServerCredentials credentials;
 
-//    private List<User> users = new ArrayList<>();
-//    private ArrayAdapter<User> adapter;
+    private ArrayAdapter<User> adapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -36,30 +43,33 @@ public class UsersFragment extends Fragment {
         // Butterknife injection
         ButterKnife.bind(this, view);
 
-        // load resources
-//        new LoadResourcesTask().execute();/
-
         // adapter
-//        adapter = new ArrayAdapter<>(this.getActivity(), R.layout.drawer_list_item, R.id.title, users);
-//        usersListView.setAdapter(adapter);
+        adapter = new UserArrayAdapter(getActivity());
+        usersListView.setAdapter(adapter);
+
+        // load resources
+        new LoadResourcesTask().execute();
 
         return view;
     }
 
 
-/*    private class LoadResourcesTask extends AsyncTask<Void, Void, Collection<User>> {
+    private class LoadResourcesTask extends AsyncTask<Void, Void, User[]> {
 
         @Override
-        protected Collection<User> doInBackground(Void... voids) {
+        protected User[] doInBackground(Void... voids) {
+            Log.e("USERS", "background");
             RestTemplate restTemplate = new RestTemplate();
             restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
-            return restTemplate.getForObject(credentials.getUrl(), Collection.class);
+            Log.e("USERS", "url: " + credentials.getUrl());
+            return restTemplate.getForObject(credentials.getUrl() + "/users", User[].class);
         }
 
         @Override
-        protected void onPostExecute(Collection<User> users) {
+        protected void onPostExecute(User[] users) {
+            adapter.clear();
             adapter.addAll(users);
-            adapter.notifyDataSetInvalidated();
+            adapter.notifyDataSetChanged();
         }
-    }*/
+    }
 }
