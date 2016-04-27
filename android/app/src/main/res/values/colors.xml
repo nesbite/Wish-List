@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="drawer_item_title">#FFFFFF</color>
-    <color name="drawer_background">#000000</color>
+    <color name="drawer_item_title">#222222</color>
+    <color name="drawer_background">#EEEEEE</color>
     <color name="drawer_background_pressed">#ab3838</color>
 </resources>

@@ -6,31 +6,19 @@
 
     <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="0.35"
+            android:layout_height="wrap_content"
             android:padding="15dp"
-            android:background="#ff3939">
+            >
 
-
-        <ImageView
-                android:layout_width="120dp"
-                android:layout_height="120dp"
-                android:layout_centerHorizontal="true"
-                android:src="@drawable/user_avatar_below"/>
-
-        <ImageView
-                android:layout_width="120dp"
-                android:layout_height="120dp"
+        <de.hdodenhof.circleimageview.CircleImageView
+                xmlns:app="http://schemas.android.com/apk/res-auto"
                 android:id="@+id/user_avatar"
+                android:layout_width="128dp"
+                android:layout_height="128dp"
                 android:src="@drawable/icon_user_default"
+                app:civ_border_width="2dp"
+                app:civ_border_color="#FF000000"
                 android:layout_centerHorizontal="true"/>
-
-        <ImageView
-                android:layout_width="120dp"
-                android:layout_height="120dp"
-                android:id="@+id/user_avatar_hover"
-                android:layout_centerHorizontal="true"
-                android:src="@drawable/user_avatar_hover"/>
 
         <TextView
                 android:layout_width="wrap_content"
@@ -50,8 +38,8 @@
 
     <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="0.65">
+            android:layout_height="wrap_content"
+            >
 
         <ListView
                 android:layout_width="match_parent"
@@ -72,7 +60,6 @@
                 android:layout_height="50dp"
                 android:layout_alignParentBottom="true"
                 android:layout_centerHorizontal="true"
-                android:background="#b3c6c6c6"
                 android:padding="5dp">
 
             <EditText
@@ -97,4 +84,5 @@
         </LinearLayout>
 
     </RelativeLayout>
+
 </LinearLayout>
