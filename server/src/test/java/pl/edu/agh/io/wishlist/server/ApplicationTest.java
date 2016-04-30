@@ -41,6 +41,9 @@ public class ApplicationTest {
     }
 
     @Test
+    public void testSample() {
+    }
+
     public void testUsersGet() throws Exception {
         when().
                 get("/users/jan").

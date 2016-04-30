@@ -23,4 +23,8 @@ public class ServerCredentials {
     public String getUrl() {
         return host + ":" + port;
     }
+
+    public String getUrl(String path) {
+        return getUrl() + "/" + path;
+    }
 }
