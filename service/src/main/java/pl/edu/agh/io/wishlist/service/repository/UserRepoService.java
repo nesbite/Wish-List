@@ -6,6 +6,7 @@ import pl.edu.agh.io.wishlist.domain.User;
 import pl.edu.agh.io.wishlist.persistence.UserRepository;
 import pl.edu.agh.io.wishlist.persistence.sequence.SequenceRepository;
 import pl.edu.agh.io.wishlist.service.IUserService;
+import pl.edu.agh.io.wishlist.service.exceptions.UserAlreadyExistsException;
 import pl.edu.agh.io.wishlist.service.exceptions.UserNotFoundException;
 
 import java.util.Collection;
@@ -20,9 +21,9 @@ public class UserRepoService implements IUserService {
     SequenceRepository sequenceRepository;
 
     @Override
-    public void addUser(User user) throws UserNotFoundException {
+    public void addUser(User user) {
         if (repository.findByUsername(user.getUsername()) != null) {
-            throw new UserNotFoundException(user);
+            throw new UserAlreadyExistsException(user);
         }
 
         repository.save(user);
@@ -39,7 +40,7 @@ public class UserRepoService implements IUserService {
     }
 
     @Override
-    public void update(User user) throws UserNotFoundException {
+    public void update(User user) {
         if (repository.findByUsername(user.getUsername()) == null) {
             throw new UserNotFoundException(user);
         }

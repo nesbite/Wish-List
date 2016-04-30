@@ -1,3 +1,4 @@
-gen/
-.gradle/
 build/
+.idea/
+.gradle/
+gen/
