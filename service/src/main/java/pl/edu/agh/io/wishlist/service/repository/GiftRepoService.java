@@ -8,7 +8,6 @@ import pl.edu.agh.io.wishlist.persistence.GiftRepository;
 import pl.edu.agh.io.wishlist.persistence.UserRepository;
 import pl.edu.agh.io.wishlist.service.IGiftService;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -27,21 +26,19 @@ public class GiftRepoService implements IGiftService {
 
     @Override
     public List<Gift> getAllGifts(String userId) {
-        List<String> giftList = userRepository.findOne(userId).getGifts();
-        List<Gift> gifts = new ArrayList<>();
-        giftRepository.findAll(giftList).forEach(gifts::add);
-        return gifts;
+        return userRepository.findOne(userId).getGifts();
     }
 
     @Override
     public boolean addGift(String userId, Gift gift) {
-
         if (!userRepository.exists(userId)) {
             return false;
         }
+
+
         User user = userRepository.findOne(userId);
         giftRepository.save(gift);
-        user.getGifts().add(gift.getId());
+        user.getGifts().add(gift);
         userRepository.save(user);
 
         return true;
@@ -53,13 +50,15 @@ public class GiftRepoService implements IGiftService {
             return false;
         }
         User user = userRepository.findOne(userId);
-        List<String> giftIdList = user.getGifts();
-        if(!giftIdList.contains(giftId)){
+        Gift gift = giftRepository.findOne(giftId);
+
+        List<Gift> giftIdList = user.getGifts();
+        if (!giftIdList.contains(gift)) {
             return false;
         }
-        giftIdList.remove(giftId);
+        giftIdList.remove(gift);
         userRepository.save(user);
-        giftRepository.delete(giftId);
+        giftRepository.delete(gift);
 
         return true;
     }
