@@ -42,8 +42,8 @@ public class ApplicationTest {
         userRepository.deleteAll();
         giftRepository.deleteAll();
 
-        User user1 = new User("janek", "pass-janek");
-        User user2 = new User("adam", "pass-adam");
+        User user1 = new User("janek", "pass");
+        User user2 = new User("adam", "pass");
 
         userRepository.save(user1);
         userRepository.save(user2);
@@ -67,7 +67,7 @@ public class ApplicationTest {
 
     @Test
     public void basicAuthentication() throws Exception {
-        given().auth().basic("janek", "pass-janek").expect().statusCode(200).when().get("/users");
+        given().auth().basic("janek", "pass").expect().statusCode(200).when().get("/users");
     }
 
     @Test
@@ -85,7 +85,7 @@ public class ApplicationTest {
         // @formatter:off
         given()
                 .auth()
-                .basic("janek", "pass-janek").
+                .basic("janek", "pass").
         when().
                 get("/users/janek").
         then().

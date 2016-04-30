@@ -6,8 +6,10 @@ public class User {
 
     private String id;
     private String username;
+    private String password;
+
     private List<String> friends;
-    private List<String> gifts;
+    private List<Gift> gifts;
 
     public String getId() {
         return id;
@@ -21,7 +23,11 @@ public class User {
         return friends;
     }
 
-    public List<String> getGifts() {
+    public List<Gift> getGifts() {
         return gifts;
+    }
+
+    public String getPassword() {
+        return password;
     }
 }

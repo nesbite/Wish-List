@@ -44,7 +44,7 @@ public class UsersFragment extends Fragment {
         usersListView.setAdapter(adapter);
 
         // load resources
-        new LoadResourceTask<User[]>(credentials.getUrl("users"), User[].class) {
+        new LoadResourceTask<User[]>(credentials, "users", User[].class) {
             @Override
             protected void onPostExecute(User[] users) {
                 if (users != null) {
