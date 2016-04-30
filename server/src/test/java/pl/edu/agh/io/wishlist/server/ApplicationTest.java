@@ -67,11 +67,13 @@ public class ApplicationTest {
 
     @Test
     public void testUsersGet() throws Exception {
+        // @formatter:off
         when().
-                get("/users/jan").
-                then().
-                statusCode(HttpStatus.SC_OK).
-                body("username", Matchers.is("jan"));
+            get("/users/janek").
+        then().
+            statusCode(HttpStatus.SC_OK).
+            body("username", Matchers.is("janek"));
+        // @formatter:on
     }
 
     // TODO write more tests here or create another, similar test-class

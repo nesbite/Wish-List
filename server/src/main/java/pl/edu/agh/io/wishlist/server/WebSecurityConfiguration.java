@@ -22,6 +22,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+        /* TODO: temporarily disabled, for development
         http
                 .csrf().disable()
                 .authorizeRequests()
@@ -29,5 +30,6 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .hasRole("USER")
                 .and()
                 .httpBasic();
+                */
     }
 }
