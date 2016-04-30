@@ -22,6 +22,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.StringHttpMessageConverter;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 import pl.edu.agh.io.wishlist.android.R;
 import pl.edu.agh.io.wishlist.android.ServerCredentials;
@@ -155,9 +156,11 @@ public class LoginActivity extends Activity implements Validator.ValidationListe
                 );
 
                 return response.getStatusCode();
+            } catch (HttpClientErrorException e) {
+                return e.getStatusCode();
             } catch (Exception e) {
                 e.printStackTrace();
-                return HttpStatus.UNAUTHORIZED;
+                return HttpStatus.NOT_ACCEPTABLE;
             }
         }
 
