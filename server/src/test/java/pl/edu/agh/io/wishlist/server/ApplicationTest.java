@@ -40,10 +40,8 @@ public class ApplicationTest {
         repository.save(user);
     }
 
-    @Test
-    public void testSample() {
-    }
 
+    @Test
     public void testUsersGet() throws Exception {
         when().
                 get("/users/jan").

@@ -21,6 +21,7 @@ public class UserDetailsService implements IUserDetailsService {
         }
 //        userDetails.addRole("USER");
         userDetailsRepository.save(userDetails);
+
 //        userRepoService.addUser(new User(userDetails.getUsername()));
         return true;
     }
