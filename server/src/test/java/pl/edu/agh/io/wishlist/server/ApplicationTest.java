@@ -17,7 +17,7 @@ import pl.edu.agh.io.wishlist.domain.User;
 import pl.edu.agh.io.wishlist.persistence.GiftRepository;
 import pl.edu.agh.io.wishlist.persistence.UserRepository;
 
-import static com.jayway.restassured.RestAssured.when;
+import static com.jayway.restassured.RestAssured.given;
 
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -66,13 +66,31 @@ public class ApplicationTest {
     }
 
     @Test
+    public void basicAuthentication() throws Exception {
+        given().auth().basic("janek", "pass-janek").expect().statusCode(200).when().get("/users");
+    }
+
+    @Test
+    public void basicAuthFailure() throws Exception {
+        given().auth().basic("janek", "incorrect").expect().statusCode(401).when().get("/users");
+    }
+
+    @Test
+    public void basicAuthFailureUnknownName() throws Exception {
+        given().auth().basic("incorrect", "pass").expect().statusCode(401).when().get("/users");
+    }
+
+    @Test
     public void testUsersGet() throws Exception {
         // @formatter:off
+        given()
+                .auth()
+                .basic("janek", "pass-janek").
         when().
-            get("/users/janek").
+                get("/users/janek").
         then().
-            statusCode(HttpStatus.SC_OK).
-            body("username", Matchers.is("janek"));
+                statusCode(HttpStatus.SC_OK).
+                body("username", Matchers.is("janek"));
         // @formatter:on
     }
 
