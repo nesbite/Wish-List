@@ -12,7 +12,7 @@ public class UserDetailsService implements IUserDetailsService {
     UserDetailsRepository userDetailsRepository;
 
     @Autowired
-    UserRepoService userRepoService;
+    UserService userRepoService;
 
     @Override
     public boolean registerUser(UserDetails userDetails) {

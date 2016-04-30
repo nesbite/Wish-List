@@ -12,7 +12,7 @@ import pl.edu.agh.io.wishlist.service.exceptions.UserNotFoundException;
 import java.util.Collection;
 
 @Service
-public class UserRepoService implements IUserService {
+public class UserService implements IUserService {
 
     @Autowired
     UserRepository repository;
@@ -23,7 +23,7 @@ public class UserRepoService implements IUserService {
     @Override
     public void addUser(User user) {
         if (repository.findByUsername(user.getUsername()) != null) {
-            throw new UserAlreadyExistsException(user);
+            throw new UserAlreadyExistsException(user.getUsername());
         }
 
         repository.save(user);
@@ -42,7 +42,7 @@ public class UserRepoService implements IUserService {
     @Override
     public void update(User user) {
         if (repository.findByUsername(user.getUsername()) == null) {
-            throw new UserNotFoundException(user);
+            throw new UserNotFoundException(user.getUsername());
         }
 
         repository.save(user);

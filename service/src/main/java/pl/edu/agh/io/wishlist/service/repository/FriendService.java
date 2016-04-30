@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class FriendRepoService implements IFriendService {
+public class FriendService implements IFriendService {
 
     @Autowired
     UserRepository userRepository;

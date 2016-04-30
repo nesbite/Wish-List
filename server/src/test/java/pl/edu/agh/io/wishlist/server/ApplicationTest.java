@@ -42,8 +42,8 @@ public class ApplicationTest {
         userRepository.deleteAll();
         giftRepository.deleteAll();
 
-        User user1 = new User("jan");
-        User user2 = new User("adam");
+        User user1 = new User("janek", "pass-janek");
+        User user2 = new User("adam", "pass-adam");
 
         userRepository.save(user1);
         userRepository.save(user2);

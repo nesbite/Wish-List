@@ -15,13 +15,22 @@ public class User {
     @Indexed
     private String username;
 
+    private String password;
+
     private List<String> friends;
 
     @DBRef
     private List<Gift> gifts;
 
+    public User() {}
+
     public User(String username) {
+        this(username, null);
+    }
+
+    public User(String username, String password) {
         this.username = username;
+        this.password = password;
         this.friends = new ArrayList<>();
         this.gifts = new ArrayList<>();
     }
@@ -50,6 +59,10 @@ public class User {
                 ", friends=" + friends +
                 ", gifts=" + gifts +
                 '}';
+    }
+
+    public String getPassword() {
+        return password;
     }
 }
 

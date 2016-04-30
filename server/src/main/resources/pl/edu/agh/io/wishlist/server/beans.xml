@@ -4,6 +4,5 @@
 	http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
 
     <import resource="classpath:pl/edu/agh/io/wishlist/persistence/beans-persistence.xml"/>
-    <import resource="classpath:pl/edu/agh/io/wishlist/service/beans-service.xml"/>
 
 </beans>

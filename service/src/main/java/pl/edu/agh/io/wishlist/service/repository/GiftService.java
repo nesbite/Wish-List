@@ -11,7 +11,7 @@ import pl.edu.agh.io.wishlist.service.IGiftService;
 import java.util.List;
 
 @Service
-public class GiftRepoService implements IGiftService {
+public class GiftService implements IGiftService {
 
     @Autowired
     GiftRepository giftRepository;
