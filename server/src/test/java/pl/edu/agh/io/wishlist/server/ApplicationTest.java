@@ -12,7 +12,9 @@ import org.springframework.boot.test.IntegrationTest;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
+import pl.edu.agh.io.wishlist.domain.Gift;
 import pl.edu.agh.io.wishlist.domain.User;
+import pl.edu.agh.io.wishlist.persistence.GiftRepository;
 import pl.edu.agh.io.wishlist.persistence.UserRepository;
 
 import static com.jayway.restassured.RestAssured.when;
@@ -25,7 +27,10 @@ import static com.jayway.restassured.RestAssured.when;
 public class ApplicationTest {
 
     @Autowired
-    private UserRepository repository;
+    private UserRepository userRepository;
+
+    @Autowired
+    private GiftRepository giftRepository;
 
     @Value("${local.server.port}")
     int port;
@@ -34,12 +39,31 @@ public class ApplicationTest {
     public void setUp() throws Exception {
         RestAssured.port = port;
 
-        User user = new User("jan");
+        userRepository.deleteAll();
+        giftRepository.deleteAll();
 
-        repository.deleteAll();
-        repository.save(user);
+        User user1 = new User("janek", "pass-janek");
+        User user2 = new User("adam", "pass-adam");
+
+        userRepository.save(user1);
+        userRepository.save(user2);
+
+        Gift gift1 = new Gift("n1", "d1");
+        Gift gift2 = new Gift("n2", "d2");
+
+        giftRepository.save(gift1);
+        giftRepository.save(gift2);
+
+        user1.getGifts().add(gift1);
+        user1.getGifts().add(gift2);
+        user2.getGifts().add(gift1);
+
+        user1.getFriends().add(user2.getUsername());
+        user2.getFriends().add(user1.getUsername());
+
+        userRepository.save(user1);
+        userRepository.save(user2);
     }
-
 
     @Test
     public void testUsersGet() throws Exception {

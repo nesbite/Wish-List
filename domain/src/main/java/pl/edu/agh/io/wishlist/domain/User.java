@@ -2,6 +2,7 @@ package pl.edu.agh.io.wishlist.domain;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,16 +11,26 @@ public class User {
 
     @Id
     private String id;
+
+    @Indexed
     private String username;
 
-    private List<String> friends;
-    private List<String> gifts;
+    private String password;
 
-    public User() {
-    }
+    private List<String> friends;
+
+    @DBRef
+    private List<Gift> gifts;
+
+    public User() {}
 
     public User(String username) {
+        this(username, null);
+    }
+
+    public User(String username, String password) {
         this.username = username;
+        this.password = password;
         this.friends = new ArrayList<>();
         this.gifts = new ArrayList<>();
     }
@@ -36,16 +47,8 @@ public class User {
         return friends;
     }
 
-    public void setFriends(List<String> friends) {
-        this.friends = friends;
-    }
-
-    public List<String> getGifts() {
+    public List<Gift> getGifts() {
         return gifts;
-    }
-
-    public void setGifts(List<String> gifts) {
-        this.gifts = gifts;
     }
 
     @Override
@@ -56,6 +59,10 @@ public class User {
                 ", friends=" + friends +
                 ", gifts=" + gifts +
                 '}';
+    }
+
+    public String getPassword() {
+        return password;
     }
 }
 

@@ -13,9 +13,9 @@ import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.util.EntityUtils;
 import org.json.JSONObject;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.userdetails.UserDetails;
 import pl.edu.agh.io.wishlist.domain.Gift;
 import pl.edu.agh.io.wishlist.domain.User;
-import pl.edu.agh.io.wishlist.domain.UserDetails;
 
 import java.io.IOException;
 import java.util.List;
@@ -127,7 +127,8 @@ public class Client {
 
         void registerUser(String login, String password, String email) throws IOException {
 
-            UserDetails user = new UserDetails(login, password, email, "USER");
+//            UserDetails user = new UserDetails(login, password, email);
+            UserDetails user = null;
             JSONObject jsonObject = new JSONObject(user);
             System.out.println(jsonObject);
             StringEntity params = new StringEntity(jsonObject.toString());
@@ -226,15 +227,20 @@ public class Client {
             try {
 
                 // Create a custom response handler
-                ResponseHandler<String> responseHandler = response -> {
-                    int status = response.getStatusLine().getStatusCode();
-                    if (status >= 200 && status < 300) {
-                        HttpEntity entity = response.getEntity();
-                        return entity != null ? EntityUtils.toString(entity) : null;
-                    } else if (status == HttpStatus.CONFLICT.value() || status == HttpStatus.NOT_FOUND.value()) {
-                        return "Operation failed: " + status;
-                    } else {
-                        throw new ClientProtocolException("Unexpected response status: " + status);
+                ResponseHandler<String> responseHandler = new ResponseHandler<String>() {
+
+                    @Override
+                    public String handleResponse(
+                            final HttpResponse response) throws IOException {
+                        int status = response.getStatusLine().getStatusCode();
+                        if (status >= 200 && status < 300) {
+                            HttpEntity entity = response.getEntity();
+                            return entity != null ? EntityUtils.toString(entity) : null;
+                        } else if (status == HttpStatus.CONFLICT.value() || status == HttpStatus.NOT_FOUND.value()) {
+                            return "Operation failed: " + status;
+                        } else {
+                            throw new ClientProtocolException("Unexpected response status: " + status);
+                        }
                     }
                 };
                 responseBody = httpClient.execute(request, responseHandler);

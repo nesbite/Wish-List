@@ -18,7 +18,6 @@ import pl.edu.agh.io.wishlist.android.fragment.UserArrayAdapter;
 import pl.edu.agh.io.wishlist.android.fragment.UsersFragment;
 import pl.edu.agh.io.wishlist.android.ui.drawer.Drawer;
 import pl.edu.agh.io.wishlist.android.ui.drawer.DrawerListAdapter;
-import pl.edu.agh.io.wishlist.android.validator.FieldValidator;
 
 import javax.inject.Singleton;
 
@@ -39,12 +38,6 @@ class DaggerModule {
 
     DaggerModule(DaggerApplication application) {
         this.application = application;
-    }
-
-    @Provides
-    @Singleton
-    FieldValidator provideValidator() {
-        return new FieldValidator();
     }
 
     @Provides
