@@ -2,26 +2,37 @@ package pl.edu.agh.io.wishlist.server.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import pl.edu.agh.io.wishlist.service.IAuthService;
+import pl.edu.agh.io.wishlist.domain.User;
+import pl.edu.agh.io.wishlist.service.IUserService;
+import pl.edu.agh.io.wishlist.service.exceptions.UserAlreadyExistsException;
 
 @RestController
 @RequestMapping("/auth")
 public class AuthController {
 
     @Autowired
-    private IAuthService authService;
+    private IUserService userService;
+
+    @ResponseBody
+    @RequestMapping(method = RequestMethod.POST)
+    public void login() {
+        /**
+         * Spring Security
+         * @see pl.edu.agh.io.wishlist.server.WebSecurityConfiguration
+         */
+    }
 
     @ResponseBody
     @RequestMapping(value = "/register", method = RequestMethod.POST)
-    public void register(@RequestParam(value = "username") String username, @RequestParam(value = "password") String password) {
-        authService.register(username, password);
-    }
+    public User register(@PathVariable(value = "username") String username, @PathVariable(value = "password") String password) {
+        if (userService.getUser(username) != null) {
+            throw new UserAlreadyExistsException(username);
+        }
 
-    @ResponseBody
-    @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public void login(@RequestParam(value = "username") String username, @RequestParam(value = "password") String password) {
-        authService.login(username, password);
-    }
+        User user = new User(username, password);
+        userService.addUser(user);
 
+        return user;
+    }
 
 }

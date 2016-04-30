@@ -1,33 +1,63 @@
 package pl.edu.agh.io.wishlist.service.repository;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.AuthorityUtils;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import pl.edu.agh.io.wishlist.domain.User;
-import pl.edu.agh.io.wishlist.service.IAuthService;
-import pl.edu.agh.io.wishlist.service.IUserService;
-import pl.edu.agh.io.wishlist.service.exceptions.AuthException;
-import pl.edu.agh.io.wishlist.service.exceptions.UserNotFoundException;
+import pl.edu.agh.io.wishlist.persistence.UserRepository;
+
+import java.util.Collection;
 
 @Service
-public class AuthService implements IAuthService {
+public class AuthService implements UserDetailsService {
 
     @Autowired
-    private IUserService userService;
+    UserRepository repository;
 
     @Override
-    public void login(String username, String password) {
-        User user = userService.getUser(username);
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        User user = repository.findByUsername(username);
+
         if (user == null) {
-            throw new UserNotFoundException(username);
+            throw new UsernameNotFoundException(String.format("User %s does not exist!", username));
         }
 
-        if (!user.getPassword().equals(password)) {
-            throw new AuthException("wrong password");
-        }
+        return new AuthUser(user);
     }
 
-    @Override
-    public void register(String username, String password) {
-        userService.addUser(new User(username, password));
+    private class AuthUser extends User implements UserDetails {
+
+        AuthUser(User user) {
+            super(user.getUsername(), user.getPassword());
+        }
+
+        @Override
+        public Collection<? extends GrantedAuthority> getAuthorities() {
+            return AuthorityUtils.createAuthorityList("ROLE_USER");
+        }
+
+        @Override
+        public boolean isAccountNonExpired() {
+            return true;
+        }
+
+        @Override
+        public boolean isAccountNonLocked() {
+            return true;
+        }
+
+        @Override
+        public boolean isCredentialsNonExpired() {
+            return true;
+        }
+
+        @Override
+        public boolean isEnabled() {
+            return true;
+        }
     }
 }
