@@ -13,9 +13,13 @@ import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import pl.edu.agh.io.wishlist.domain.Gift;
+import pl.edu.agh.io.wishlist.domain.Role;
 import pl.edu.agh.io.wishlist.domain.User;
 import pl.edu.agh.io.wishlist.persistence.GiftRepository;
 import pl.edu.agh.io.wishlist.persistence.UserRepository;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static com.jayway.restassured.RestAssured.given;
 
@@ -42,8 +46,24 @@ public class ApplicationTest {
         userRepository.deleteAll();
         giftRepository.deleteAll();
 
-        User user1 = new User("janek", "pass");
-        User user2 = new User("adam", "pass");
+        User user1 = new User();
+        user1.setFirstName("janek");
+        user1.setLastName("asd");
+        user1.setEmail("sysunia991@gmail.com");
+        user1.setPassword("pass");
+        user1.setEnabled(true);
+        List<Role> roles = new ArrayList<>();
+        roles.add(new Role("ROLE_USER"));
+        user1.setRoles(roles);
+        User user2 = new User();
+        user2.setFirstName("adam");
+        user2.setLastName("asd");
+        user2.setEmail("asdas@gmaasdil.coa");
+        user2.setPassword("pass");
+        user2.setEnabled(true);
+        roles = new ArrayList<>();
+        roles.add(new Role("ROLE_USER"));
+        user1.setRoles(roles);
 
         userRepository.save(user1);
         userRepository.save(user2);
@@ -58,8 +78,8 @@ public class ApplicationTest {
         user1.getGifts().add(gift2);
         user2.getGifts().add(gift1);
 
-        user1.getFriends().add(user2.getUsername());
-        user2.getFriends().add(user1.getUsername());
+        user1.getFriends().add(user2.getEmail());
+        user2.getFriends().add(user1.getEmail());
 
         userRepository.save(user1);
         userRepository.save(user2);
