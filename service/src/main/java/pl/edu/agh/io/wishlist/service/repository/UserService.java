@@ -75,6 +75,12 @@ public class UserService implements IUserService {
     }
 
     @Override
+    public User getUserByUsername(final String email) {
+        final User user = userRepository.findByEmail(email);
+        return user;
+    }
+
+    @Override
     public VerificationToken getVerificationToken(final String VerificationToken) {
         return tokenRepository.findByToken(VerificationToken);
     }

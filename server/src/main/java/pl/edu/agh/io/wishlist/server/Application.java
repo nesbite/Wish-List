@@ -48,6 +48,7 @@ public class Application extends SpringBootServletInitializer implements Command
         user.setLastName("kowalski");
         user.setPassword(passwordEncoder.encode("abc123"));
         user.setEmail("siatek25@gmail.com");
+        user.setEnabled(true);
 
         user.setRoles(Arrays.asList(roleRepository.findByName("ROLE_USER")));
         userRepository.save(user);

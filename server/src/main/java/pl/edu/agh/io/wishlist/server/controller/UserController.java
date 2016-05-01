@@ -21,7 +21,7 @@ public class UserController {
 
     @ResponseBody
     @RequestMapping(value = "/{username}", method = RequestMethod.GET)
-    public User getUser(@PathVariable(value = "username") String username) {
+    public User getUserByUsername(@PathVariable(value = "username") String username) {
         return userService.getUser(username);
     }
 
