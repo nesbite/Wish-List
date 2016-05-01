@@ -60,6 +60,13 @@ public class ApplicationTest {
 
         giftRepository.save(gift1);
         giftRepository.save(gift2);
+        giftRepository.save(gift3);
+        giftRepository.save(gift4);
+        giftRepository.save(gift5);
+        giftRepository.save(gift6);
+        giftRepository.save(gift7);
+        giftRepository.save(gift8);
+        giftRepository.save(gift9);
 
         user1.getGifts().add(gift1);
         user1.getGifts().add(gift2);
