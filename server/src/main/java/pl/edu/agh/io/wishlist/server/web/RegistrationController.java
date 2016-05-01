@@ -76,7 +76,7 @@ public class RegistrationController {
         return "success";
     }
 
-    @RequestMapping(value = "/regitrationConfirm", method = RequestMethod.GET)
+    @RequestMapping(value = "/registrationConfirm", method = RequestMethod.GET)
     public String confirmRegistration(final Locale locale, final Model model, @RequestParam("token") final String token) {
         final VerificationToken verificationToken = userService.getVerificationToken(token);
         if (verificationToken == null) {
@@ -180,7 +180,7 @@ public class RegistrationController {
     // NON-API
 
     private final SimpleMailMessage constructResendVerificationTokenEmail(final String contextPath, final Locale locale, final VerificationToken newToken, final User user) {
-        final String confirmationUrl = contextPath + "/regitrationConfirm.html?token=" + newToken.getToken();
+        final String confirmationUrl = contextPath + "/registrationConfirm.html?token=" + newToken.getToken();
         final String message = messages.getMessage("message.resendToken", null, locale);
         final SimpleMailMessage email = new SimpleMailMessage();
         email.setSubject("Resend Registration Token");
