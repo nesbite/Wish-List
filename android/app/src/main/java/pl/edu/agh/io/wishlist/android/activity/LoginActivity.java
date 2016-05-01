@@ -1,8 +1,10 @@
 package pl.edu.agh.io.wishlist.android.activity;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -17,16 +19,14 @@ import com.mobsandgeeks.saripaar.ValidationError;
 import com.mobsandgeeks.saripaar.Validator;
 import com.mobsandgeeks.saripaar.annotation.Length;
 import com.mobsandgeeks.saripaar.annotation.Password;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpAuthentication;
+import org.springframework.http.HttpBasicAuthentication;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 import pl.edu.agh.io.wishlist.android.R;
-import pl.edu.agh.io.wishlist.android.ServerCredentials;
 import pl.edu.agh.io.wishlist.android.dagger.DaggerApplication;
+import pl.edu.agh.io.wishlist.android.data.ServerCredentials;
 
 import javax.inject.Inject;
 import java.util.List;
@@ -51,6 +51,12 @@ public class LoginActivity extends Activity implements Validator.ValidationListe
 
     @Inject
     ServerCredentials credentials;
+
+    @Inject
+    RestTemplate restTemplate;
+
+    @Inject
+    SharedPreferences sharedPreferences;
 
     private Validator validator;
 
@@ -123,12 +129,19 @@ public class LoginActivity extends Activity implements Validator.ValidationListe
         }
     }
 
+    @SuppressLint("CommitPrefEdits")
     class LoginAsyncTask extends AsyncTask<Void, Void, HttpStatus> {
 
         private ProgressDialog progressDialog;
 
         public LoginAsyncTask(String username, String password) {
-            credentials.authenticate(username, password);
+            // Populate the HTTP Basic Authentication header with the username and password
+            HttpAuthentication authHeader = new HttpBasicAuthentication(username, password);
+
+            sharedPreferences.edit()
+                    .putString("username", username)
+                    .putString("Authorization", authHeader.getHeaderValue())
+                    .commit();
         }
 
         @Override
@@ -145,17 +158,7 @@ public class LoginActivity extends Activity implements Validator.ValidationListe
         protected HttpStatus doInBackground(Void... voids) {
             Log.i(TAG, "Logging in..");
             try {
-                // Create a new RestTemplate instance
-                RestTemplate restTemplate = new RestTemplate();
-                restTemplate.getMessageConverters().add(new StringHttpMessageConverter());
-                ResponseEntity<Void> response = restTemplate.exchange(
-                        credentials.getUrl("auth"),
-                        HttpMethod.POST,
-                        new HttpEntity<>(credentials.getHttpHeaders()),
-                        Void.class
-                );
-
-                return response.getStatusCode();
+                return restTemplate.postForEntity(credentials.getUrl("auth"), null, Void.class).getStatusCode();
             } catch (HttpClientErrorException e) {
                 return e.getStatusCode();
             } catch (Exception e) {
@@ -178,6 +181,7 @@ public class LoginActivity extends Activity implements Validator.ValidationListe
                     break;
                 default:
                     Toast.makeText(getApplicationContext(), "Login failed", Toast.LENGTH_SHORT).show();
+                    sharedPreferences.edit().clear().commit();
             }
         }
     }

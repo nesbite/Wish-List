@@ -1,4 +1,4 @@
-package pl.edu.agh.io.wishlist.android.fragment;
+package pl.edu.agh.io.wishlist.android.fragment.users;
 
 import android.app.Fragment;
 import android.os.Bundle;
@@ -10,10 +10,11 @@ import android.widget.ListView;
 import android.widget.Toast;
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import pl.edu.agh.io.wishlist.android.LoadResourceTask;
+import org.springframework.web.client.RestTemplate;
 import pl.edu.agh.io.wishlist.android.R;
-import pl.edu.agh.io.wishlist.android.ServerCredentials;
 import pl.edu.agh.io.wishlist.android.dagger.DaggerApplication;
+import pl.edu.agh.io.wishlist.android.data.ServerCredentials;
+import pl.edu.agh.io.wishlist.android.data.LoadResourceTask;
 import pl.edu.agh.io.wishlist.android.domain.User;
 
 import javax.inject.Inject;
@@ -26,6 +27,9 @@ public class UsersFragment extends Fragment {
 
     @Inject
     ServerCredentials credentials;
+
+    @Inject
+    RestTemplate restTemplate;
 
     private ArrayAdapter<User> adapter;
 
@@ -44,7 +48,7 @@ public class UsersFragment extends Fragment {
         usersListView.setAdapter(adapter);
 
         // load resources
-        new LoadResourceTask<User[]>(credentials, "users", User[].class) {
+        new LoadResourceTask<User[]>(restTemplate, credentials.getUrl("users"), User[].class) {
             @Override
             protected void onPostExecute(User[] users) {
                 if (users != null) {
@@ -58,6 +62,14 @@ public class UsersFragment extends Fragment {
         }.execute();
 
         return view;
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+
+        // ButterKnife unbind
+        ButterKnife.unbind(this);
     }
 
 

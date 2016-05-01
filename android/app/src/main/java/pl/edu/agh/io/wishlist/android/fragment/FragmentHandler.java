@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import pl.edu.agh.io.wishlist.android.R;
+import pl.edu.agh.io.wishlist.android.fragment.profile.ProfileFragment;
+import pl.edu.agh.io.wishlist.android.fragment.users.UsersFragment;
 
 public class FragmentHandler {
 
@@ -37,6 +39,8 @@ public class FragmentHandler {
             switch (menuItem.getItemId()) {
                 case R.id.nav_users:
                     return new UsersFragment();
+                case R.id.nav_profile:
+                    return new ProfileFragment();
                 default:
                     return new ErrorFragment();
             }

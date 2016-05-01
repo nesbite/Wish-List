@@ -1,4 +1,4 @@
-package pl.edu.agh.io.wishlist.android;
+package pl.edu.agh.io.wishlist.android.data;
 
 import android.graphics.drawable.Drawable;
 import android.view.View;
@@ -6,6 +6,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import pl.edu.agh.io.wishlist.android.R;
 
 @SuppressWarnings("WeakerAccess")
 public class ViewHolder {

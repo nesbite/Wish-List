@@ -2,16 +2,18 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
+            android:id="@+id/nav_profile"
+            android:icon="@drawable/ic_menu_manage"
+            android:title="Profile"/>
+
+    <item
             android:id="@+id/nav_users"
             android:icon="@drawable/ic_menu_share"
             android:title="Users"/>
 
     <!-- TODO add more menu items-->
-    <item
-            android:id="@+id/nav_camera"
-            android:icon="@drawable/ic_menu_camera"
-            android:title="Import"/>
-    <item
+
+<!--    <item
             android:id="@+id/nav_gallery"
             android:icon="@drawable/ic_menu_gallery"
             android:title="Gallery"/>
@@ -22,10 +24,10 @@
     <item
             android:id="@+id/nav_manage"
             android:icon="@drawable/ic_menu_manage"
-            android:title="Tools"/>
+            android:title="Settings"/>
     <item
             android:id="@+id/nav_send"
             android:icon="@drawable/ic_menu_send"
-            android:title="Send"/>
+            android:title="Send"/>-->
 
 </menu>

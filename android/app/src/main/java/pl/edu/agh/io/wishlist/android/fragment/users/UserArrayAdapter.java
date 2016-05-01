@@ -1,4 +1,4 @@
-package pl.edu.agh.io.wishlist.android.fragment;
+package pl.edu.agh.io.wishlist.android.fragment.users;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -6,8 +6,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import pl.edu.agh.io.wishlist.android.R;
-import pl.edu.agh.io.wishlist.android.ViewHolder;
 import pl.edu.agh.io.wishlist.android.dagger.DaggerApplication;
+import pl.edu.agh.io.wishlist.android.data.ViewHolder;
 import pl.edu.agh.io.wishlist.android.domain.User;
 
 import javax.inject.Inject;
