@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.FrameLayout;
 import android.widget.ListView;
 import android.widget.Toast;
 import butterknife.Bind;
@@ -13,8 +14,8 @@ import butterknife.ButterKnife;
 import org.springframework.web.client.RestTemplate;
 import pl.edu.agh.io.wishlist.android.R;
 import pl.edu.agh.io.wishlist.android.dagger.DaggerApplication;
-import pl.edu.agh.io.wishlist.android.data.ServerCredentials;
 import pl.edu.agh.io.wishlist.android.data.LoadResourceTask;
+import pl.edu.agh.io.wishlist.android.data.ServerCredentials;
 import pl.edu.agh.io.wishlist.android.domain.User;
 
 import javax.inject.Inject;
@@ -24,6 +25,8 @@ public class UsersFragment extends Fragment {
 
     @Bind(R.id.users_list)
     ListView usersListView;
+
+    private FrameLayout frameLayout;
 
     @Inject
     ServerCredentials credentials;

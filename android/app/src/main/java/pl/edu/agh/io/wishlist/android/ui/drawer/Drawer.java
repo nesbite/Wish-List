@@ -8,6 +8,8 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.view.Menu;
 import android.view.View;
+import android.view.animation.*;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import butterknife.Bind;
@@ -33,6 +35,9 @@ public class Drawer {
 
     @Bind(R.id.left_drawer)
     LinearLayout drawerView;
+
+    @Bind(R.id.navigation_loader)
+    FrameLayout loader;
 
     private ActionBarDrawerToggle drawerToggle;
 
@@ -126,6 +131,8 @@ public class Drawer {
 
     public void selectItem(int position) {
         // update selected item and activityTitle, then close the drawer
+        invokeLoaderAnimation();
+
         setDrawerTitle(drawerMenu.getItem(position).getTitle());
         drawerList.setItemChecked(position, true);
         drawerLayout.closeDrawer(drawerView);
@@ -142,6 +149,27 @@ public class Drawer {
 
     public Menu getDrawerMenu() {
         return drawerMenu;
+    }
+
+    private void invokeLoaderAnimation() {
+        Animation fadeIn = new AlphaAnimation(0, 1);
+        fadeIn.setInterpolator(new DecelerateInterpolator());
+        fadeIn.setDuration(300);
+
+        Animation fadeOut = new AlphaAnimation(1, 0);
+        fadeOut.setInterpolator(new AccelerateInterpolator());
+        fadeOut.setStartOffset(700);
+        fadeOut.setDuration(300);
+
+        AnimationSet animation = new AnimationSet(false);
+        animation.addAnimation(fadeIn);
+        animation.addAnimation(fadeOut);
+
+        animation.setFillEnabled(true);
+        animation.setFillAfter(true);
+        animation.setFillBefore(true);
+
+        loader.startAnimation(animation);
     }
 
 }

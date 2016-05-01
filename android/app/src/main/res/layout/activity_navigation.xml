@@ -5,10 +5,39 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-    <FrameLayout
-            android:id="@+id/content_frame"
+    <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent">
+
+        <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/content_frame"/>
+
+        <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/navigation_loader"
+                android:background="#ffffff">
+
+            <ProgressBar
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:indeterminate="true"
+                    android:id="@+id/progressBar"
+                    android:layout_gravity="center"/>
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:text="Loading..."
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="50dp"/>
+
+        </FrameLayout>
+
+    </RelativeLayout>
     <!-- The navigation drawer -->
     <LinearLayout
             android:layout_width="240dp"
@@ -30,8 +59,7 @@
                     android:layout_height="96dp"
                     android:src="@drawable/icon_wishlist"
                     android:id="@+id/drawer_avatar"
-                    android:layout_gravity="center_horizontal"
-                    />
+                    android:layout_gravity="center_horizontal"/>
 
         </LinearLayout>
 
