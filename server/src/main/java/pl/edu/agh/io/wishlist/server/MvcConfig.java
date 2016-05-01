@@ -14,9 +14,9 @@ import pl.edu.agh.io.wishlist.domain.validation.PasswordMatchesValidator;
 
 import java.util.Locale;
 
-@Configuration
-@ComponentScan(basePackages = { "pl.edu.agh.io.wishlist.server.web" })
-@EnableWebMvc
+//@Configuration
+//@ComponentScan(basePackages = { "pl.edu.agh.io.wishlist.server.web" })
+//@EnableWebMvc
 public class MvcConfig extends WebMvcConfigurerAdapter {
 
     public MvcConfig() {

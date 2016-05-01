@@ -26,7 +26,6 @@ import pl.edu.agh.io.wishlist.domain.validation.EmailExistsException;
 import pl.edu.agh.io.wishlist.server.registration.OnRegistrationCompleteEvent;
 import pl.edu.agh.io.wishlist.service.IUserService;
 import pl.edu.agh.io.wishlist.domain.UserDto;
-import pl.edu.agh.io.wishlist.server.util.GenericResponse;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
@@ -64,7 +63,7 @@ public class RegistrationController {
 
     @RequestMapping(value = "/user/registration", method = RequestMethod.POST)
     @ResponseBody
-    public GenericResponse registerUserAccount(@Valid final UserDto accountDto, final HttpServletRequest request) {
+    public String registerUserAccount(@Valid final UserDto accountDto, final HttpServletRequest request) {
         LOGGER.debug("Registering user account with information: {}", accountDto);
 
         final User registered = createUserAccount(accountDto);
@@ -74,7 +73,7 @@ public class RegistrationController {
         final String appUrl = "http://" + request.getServerName() + ":" + request.getServerPort() + request.getContextPath();
         eventPublisher.publishEvent(new OnRegistrationCompleteEvent(registered, request.getLocale(), appUrl));
 
-        return new GenericResponse("success");
+        return "success";
     }
 
     @RequestMapping(value = "/regitrationConfirm", method = RequestMethod.GET)
@@ -105,21 +104,21 @@ public class RegistrationController {
 
     @RequestMapping(value = "/user/resendRegistrationToken", method = RequestMethod.GET)
     @ResponseBody
-    public GenericResponse resendRegistrationToken(final HttpServletRequest request, @RequestParam("token") final String existingToken) {
+    public String resendRegistrationToken(final HttpServletRequest request, @RequestParam("token") final String existingToken) {
         final VerificationToken newToken = userService.generateNewVerificationToken(existingToken);
         final User user = userService.getUser(newToken.getToken());
         final String appUrl = "http://" + request.getServerName() + ":" + request.getServerPort() + request.getContextPath();
         final SimpleMailMessage email = constructResendVerificationTokenEmail(appUrl, request.getLocale(), newToken, user);
         mailSender.send(email);
 
-        return new GenericResponse(messages.getMessage("message.resendToken", null, request.getLocale()));
+        return "message.resendToken";
     }
 
     // Reset password
 
     @RequestMapping(value = "/user/resetPassword", method = RequestMethod.POST)
     @ResponseBody
-    public GenericResponse resetPassword(final HttpServletRequest request, @RequestParam("email") final String userEmail) {
+    public String resetPassword(final HttpServletRequest request, @RequestParam("email") final String userEmail) {
         final User user = userService.findUserByEmail(userEmail);
         if (user == null) {
             throw new UserNotFoundException();
@@ -130,7 +129,7 @@ public class RegistrationController {
         final String appUrl = "http://" + request.getServerName() + ":" + request.getServerPort() + request.getContextPath();
         final SimpleMailMessage email = constructResetTokenEmail(appUrl, request.getLocale(), token, user);
         mailSender.send(email);
-        return new GenericResponse(messages.getMessage("message.resetPasswordEmail", null, request.getLocale()));
+        return"message.resetPasswordEmail";
     }
 
     @RequestMapping(value = "/user/changePassword", method = RequestMethod.GET)
@@ -158,10 +157,10 @@ public class RegistrationController {
     @RequestMapping(value = "/user/savePassword", method = RequestMethod.POST)
     @PreAuthorize("hasRole('READ_PRIVILEGE')")
     @ResponseBody
-    public GenericResponse savePassword(final Locale locale, @RequestParam("password") final String password) {
+    public String savePassword(final Locale locale, @RequestParam("password") final String password) {
         final User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         userService.changeUserPassword(user, password);
-        return new GenericResponse(messages.getMessage("message.resetPasswordSuc", null, locale));
+        return "message.resetPasswordSuc";
     }
 
     // change user password
@@ -169,13 +168,13 @@ public class RegistrationController {
     @RequestMapping(value = "/user/updatePassword", method = RequestMethod.POST)
     @PreAuthorize("hasRole('READ_PRIVILEGE')")
     @ResponseBody
-    public GenericResponse changeUserPassword(final Locale locale, @RequestParam("password") final String password, @RequestParam("oldpassword") final String oldPassword) {
+    public String changeUserPassword(final Locale locale, @RequestParam("password") final String password, @RequestParam("oldpassword") final String oldPassword) {
         final User user = userService.findUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName());
         if (!userService.checkIfValidOldPassword(user, oldPassword)) {
             throw new InvalidOldPasswordException();
         }
         userService.changeUserPassword(user, password);
-        return new GenericResponse(messages.getMessage("message.updatePasswordSuc", null, locale));
+        return "message.updatePasswordSuc";
     }
 
     // NON-API

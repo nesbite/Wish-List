@@ -29,8 +29,8 @@ public class SecSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private AuthenticationSuccessHandler myAuthenticationSuccessHandler;
 
-    @Autowired
-    private AuthenticationFailureHandler authenticationFailureHandler;
+//    @Autowired
+//    private AuthenticationFailureHandler authenticationFailureHandler;
 
     public SecSecurityConfig() {
         super();
@@ -60,20 +60,20 @@ public class SecSecurityConfig extends WebSecurityConfigurerAdapter {
                 .anyRequest().authenticated()
                 .and()
             .formLogin()
-                .loginPage("/login")
-                .defaultSuccessUrl("/homepage.html")
-                .failureUrl("/login?error=true")
-                .successHandler(myAuthenticationSuccessHandler)
-                .failureHandler(authenticationFailureHandler)
+//                .loginPage("/login")
+//                .defaultSuccessUrl("/homepage.html")
+//                .failureUrl("/login?error=true")
+//                .successHandler(myAuthenticationSuccessHandler)
+//                .failureHandler(authenticationFailureHandler)
             .permitAll()
                 .and()
             .sessionManagement()
-                .invalidSessionUrl("/invalidSession.html")
+//                .invalidSessionUrl("/invalidSession.html")
                 .sessionFixation().none()
             .and()
             .logout()
                 .invalidateHttpSession(false)
-                .logoutSuccessUrl("/logout.html?logSucc=true")
+//                .logoutSuccessUrl("/logout.html?logSucc=true")
                 .deleteCookies("JSESSIONID")
                 .permitAll();
      // @formatter:on
