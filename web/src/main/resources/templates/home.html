@@ -1,19 +1,24 @@
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.w3.org/1999/xhtml">
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+
 <head>
-    <title>Hello World!</title>
-    <link rel="stylesheet" href="/css/style.css"/>
-    <script src="/js/script.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css"/>
+<title th:text="#{label.pages.home.title}">home</title>
 </head>
 <body>
-<h1>Welcome!</h1>
-
-Nice to see you! <br/>
-<p th:text="${#httpServletRequest.requestURI}"></p>
-<div th:switch="${#httpServletRequest.requestURI}">
-    <p th:case="'/home'"><a href="/greeting">Greeting</a></p>
-    <p th:case="*"><a href="/home">Look, at the URL!</a></p>
-
-</div>
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#" th:text="#{label.pages.home.title}">home</a>
+    </div>
+      <ul class="nav navbar-nav navbar-right">
+        <li><a th:href="@{/logout}" th:text="#{label.pages.logout}">logout</a></li>
+      </ul>
+  </div>
+</nav>
+    <div class="container">
+            <h1 th:text="#{label.pages.home.message}">home</h1>
+    </div>
 </body>
+
 </html>
+
