@@ -1,4 +1,4 @@
-package pl.edu.agh.io.wishlist.android.fragment.users;
+package pl.edu.agh.io.wishlist.android.fragment.profile;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -7,16 +7,16 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import pl.edu.agh.io.wishlist.android.R;
 import pl.edu.agh.io.wishlist.android.data.ViewHolder;
-import pl.edu.agh.io.wishlist.android.domain.User;
+import pl.edu.agh.io.wishlist.android.domain.Gift;
 
 import javax.inject.Inject;
 
-public class UserArrayAdapter extends ArrayAdapter<User> {
+public class GiftArrayAdapter extends ArrayAdapter<Gift> {
 
     private LayoutInflater inflater;
 
     @Inject
-    public UserArrayAdapter(Context context, LayoutInflater inflater) {
+    public GiftArrayAdapter(Context context, LayoutInflater inflater) {
         super(context, R.layout.list_item);
 
         this.inflater = inflater;
@@ -36,10 +36,10 @@ public class UserArrayAdapter extends ArrayAdapter<User> {
         }
 
         // fill data
-        User user = getItem(position);
+        Gift gift = getItem(position);
         ViewHolder holder = (ViewHolder) row.getTag();
-        holder.setTitle(user.getUsername());
-        holder.setIcon(R.drawable.icon_user_default);
+        holder.setTitle(gift.getName());
+        holder.setIcon(R.drawable.icon_gift_default);
 
         return row;
     }

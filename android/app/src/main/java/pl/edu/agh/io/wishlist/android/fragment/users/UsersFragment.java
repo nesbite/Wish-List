@@ -5,8 +5,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.FrameLayout;
 import android.widget.ListView;
 import android.widget.Toast;
 import butterknife.Bind;
@@ -26,15 +24,14 @@ public class UsersFragment extends Fragment {
     @Bind(R.id.users_list)
     ListView usersListView;
 
-    private FrameLayout frameLayout;
-
     @Inject
     ServerCredentials credentials;
 
     @Inject
     RestTemplate restTemplate;
 
-    private ArrayAdapter<User> adapter;
+    @Inject
+    UserArrayAdapter adapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -47,7 +44,6 @@ public class UsersFragment extends Fragment {
         ButterKnife.bind(this, view);
 
         // adapter
-        adapter = new UserArrayAdapter(getActivity());
         usersListView.setAdapter(adapter);
 
         // load resources

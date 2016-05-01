@@ -19,6 +19,7 @@ import pl.edu.agh.io.wishlist.android.dagger.DaggerApplication;
 
 import javax.inject.Inject;
 
+
 @SuppressWarnings("WeakerAccess")
 public class Drawer {
 
@@ -152,24 +153,16 @@ public class Drawer {
     }
 
     private void invokeLoaderAnimation() {
-        Animation fadeIn = new AlphaAnimation(0, 1);
-        fadeIn.setInterpolator(new DecelerateInterpolator());
-        fadeIn.setDuration(300);
-
         Animation fadeOut = new AlphaAnimation(1, 0);
         fadeOut.setInterpolator(new AccelerateInterpolator());
         fadeOut.setStartOffset(700);
         fadeOut.setDuration(300);
 
-        AnimationSet animation = new AnimationSet(false);
-        animation.addAnimation(fadeIn);
-        animation.addAnimation(fadeOut);
+        fadeOut.setFillEnabled(true);
+        fadeOut.setFillAfter(true);
+        fadeOut.setFillBefore(true);
 
-        animation.setFillEnabled(true);
-        animation.setFillAfter(true);
-        animation.setFillBefore(true);
-
-        loader.startAnimation(animation);
+        loader.startAnimation(fadeOut);
     }
 
 }
