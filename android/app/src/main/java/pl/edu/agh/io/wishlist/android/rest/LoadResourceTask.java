@@ -1,4 +1,4 @@
-package pl.edu.agh.io.wishlist.android.data;
+package pl.edu.agh.io.wishlist.android.rest;
 
 import android.os.AsyncTask;
 import android.util.Log;

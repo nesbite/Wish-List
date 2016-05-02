@@ -11,8 +11,8 @@ import android.widget.ListView;
 import butterknife.ButterKnife;
 import pl.edu.agh.io.wishlist.android.R;
 import pl.edu.agh.io.wishlist.android.dagger.DaggerApplication;
-import pl.edu.agh.io.wishlist.android.data.ServerCredentials;
 import pl.edu.agh.io.wishlist.android.fragment.FragmentHandler;
+import pl.edu.agh.io.wishlist.android.rest.ServerCredentials;
 import pl.edu.agh.io.wishlist.android.ui.drawer.Drawer;
 
 import javax.inject.Inject;
@@ -20,15 +20,17 @@ import javax.inject.Inject;
 @SuppressWarnings("WeakerAccess")
 public class NavigationActivity extends Activity {
 
-    private Drawer drawer;
-
-    private FragmentHandler fragmentHandler;
-
     @Inject
     ServerCredentials credentials;
 
     @Inject
     SharedPreferences sharedPreferences;
+
+    @Inject
+    Drawer drawer;
+
+    @Inject
+    FragmentHandler fragmentHandler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,18 +38,16 @@ public class NavigationActivity extends Activity {
         setContentView(R.layout.activity_navigation);
 
         // Dagger injection
-        DaggerApplication.inject(this);
+        DaggerApplication.plus(new NavigationModule(this)).inject(this);
 
         // ButterKnife binding
         ButterKnife.bind(this);
 
         // initialize drawer
-        drawer = new Drawer(this);
         drawer.setOnItemClickListener(new DrawerItemClickListener());
         drawer.update(savedInstanceState);
 
         // fragment handler
-        fragmentHandler = new FragmentHandler(getFragmentManager(), drawer.getDrawerMenu());
         fragmentHandler.update(savedInstanceState);
     }
 

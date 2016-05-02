@@ -9,11 +9,14 @@ import pl.edu.agh.io.wishlist.android.R;
 import pl.edu.agh.io.wishlist.android.fragment.profile.ProfileFragment;
 import pl.edu.agh.io.wishlist.android.fragment.users.UsersFragment;
 
+import javax.inject.Inject;
+
 public class FragmentHandler {
 
     private final FragmentManager fragmentManager;
     private final Menu drawerMenu;
 
+    @Inject
     public FragmentHandler(FragmentManager fragmentManager, Menu drawerMenu) {
         this.fragmentManager = fragmentManager;
         this.drawerMenu = drawerMenu;

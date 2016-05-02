@@ -12,8 +12,8 @@ import butterknife.ButterKnife;
 import org.springframework.web.client.RestTemplate;
 import pl.edu.agh.io.wishlist.android.R;
 import pl.edu.agh.io.wishlist.android.dagger.DaggerApplication;
-import pl.edu.agh.io.wishlist.android.data.LoadResourceTask;
-import pl.edu.agh.io.wishlist.android.data.ServerCredentials;
+import pl.edu.agh.io.wishlist.android.rest.LoadResourceTask;
+import pl.edu.agh.io.wishlist.android.rest.ServerCredentials;
 import pl.edu.agh.io.wishlist.android.domain.User;
 
 import javax.inject.Inject;

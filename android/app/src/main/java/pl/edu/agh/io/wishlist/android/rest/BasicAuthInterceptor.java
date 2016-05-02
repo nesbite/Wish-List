@@ -1,4 +1,4 @@
-package pl.edu.agh.io.wishlist.android;
+package pl.edu.agh.io.wishlist.android.rest;
 
 import android.content.SharedPreferences;
 import android.util.Log;
@@ -6,7 +6,6 @@ import org.springframework.http.HttpRequest;
 import org.springframework.http.client.ClientHttpRequestExecution;
 import org.springframework.http.client.ClientHttpRequestInterceptor;
 import org.springframework.http.client.ClientHttpResponse;
-import pl.edu.agh.io.wishlist.android.dagger.DaggerApplication;
 
 import javax.inject.Inject;
 import java.io.IOException;
@@ -15,12 +14,11 @@ public class BasicAuthInterceptor implements ClientHttpRequestInterceptor {
 
     private static final String TAG = BasicAuthInterceptor.class.getSimpleName();
 
-    @Inject
-    SharedPreferences sharedPreferences;
+    private SharedPreferences sharedPreferences;
 
-    public BasicAuthInterceptor() {
-        // Dagger injection
-        DaggerApplication.inject(this);
+    @Inject
+    public BasicAuthInterceptor(SharedPreferences sharedPreferences) {
+        this.sharedPreferences = sharedPreferences;
     }
 
     @Override

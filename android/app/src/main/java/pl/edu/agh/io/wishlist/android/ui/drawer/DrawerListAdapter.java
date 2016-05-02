@@ -3,8 +3,7 @@ package pl.edu.agh.io.wishlist.android.ui.drawer;
 import android.view.*;
 import android.widget.BaseAdapter;
 import pl.edu.agh.io.wishlist.android.R;
-import pl.edu.agh.io.wishlist.android.data.ViewHolder;
-import pl.edu.agh.io.wishlist.android.dagger.DaggerApplication;
+import pl.edu.agh.io.wishlist.android.ui.ViewHolder;
 
 import javax.inject.Inject;
 import java.util.ArrayList;
@@ -12,20 +11,17 @@ import java.util.List;
 
 public class DrawerListAdapter extends BaseAdapter {
 
-    @Inject
-    LayoutInflater inflater;
-
+    private final LayoutInflater inflater;
     private final List<MenuItem> navDrawerItems;
 
-    public DrawerListAdapter(Menu drawerMenu) {
+    @Inject
+    public DrawerListAdapter(LayoutInflater inflater, Menu drawerMenu) {
+        this.inflater = inflater;
         navDrawerItems = new ArrayList<>();
 
         for (int i = 0; i < drawerMenu.size(); i++) {
             navDrawerItems.add(drawerMenu.getItem(i));
         }
-
-        // Dagger injection
-        DaggerApplication.inject(this);
     }
 
     @Override

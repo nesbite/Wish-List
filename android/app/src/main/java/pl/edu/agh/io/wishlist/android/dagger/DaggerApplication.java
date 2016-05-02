@@ -14,6 +14,10 @@ public class DaggerApplication extends Application {
         graph = ObjectGraph.create(new DaggerModule(this));
     }
 
+    public static ObjectGraph plus(Object... modules) {
+        return graph.plus(modules);
+    }
+
     public static void inject(Object object) {
         graph.inject(object);
     }

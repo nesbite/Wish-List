@@ -1,4 +1,4 @@
-package pl.edu.agh.io.wishlist.android.data;
+package pl.edu.agh.io.wishlist.android.ui;
 
 import android.graphics.drawable.Drawable;
 import android.view.View;

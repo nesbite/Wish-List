@@ -8,14 +8,15 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.view.Menu;
 import android.view.View;
-import android.view.animation.*;
+import android.view.animation.AccelerateInterpolator;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import pl.edu.agh.io.wishlist.android.R;
-import pl.edu.agh.io.wishlist.android.dagger.DaggerApplication;
 
 import javax.inject.Inject;
 
@@ -25,6 +26,9 @@ public class Drawer {
 
     private final Activity activity;
     private final ActionBar actionBar;
+
+    private final Menu drawerMenu;
+    private final DrawerListAdapter adapter;
 
     private CharSequence activityTitle;
 
@@ -43,10 +47,11 @@ public class Drawer {
     private ActionBarDrawerToggle drawerToggle;
 
     @Inject
-    Menu drawerMenu;
-
-    public Drawer(Activity activity) {
+    public Drawer(Activity activity, Menu drawerMenu, DrawerListAdapter adapter) {
         this.activity = activity;
+        this.drawerMenu = drawerMenu;
+        this.adapter = adapter;
+
         this.activityTitle = activity.getTitle();
         this.actionBar = activity.getActionBar();
 
@@ -56,9 +61,6 @@ public class Drawer {
 
         // ButterKnife
         ButterKnife.bind(this, activity);
-
-        // Dagger
-        DaggerApplication.inject(this);
 
         init();
     }
@@ -72,13 +74,10 @@ public class Drawer {
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setHomeButtonEnabled(true);
 
-        // initialize menu with XML resource
-        activity.getMenuInflater().inflate(R.menu.drawer_menu, drawerMenu);
-
         // set a custom shadow that overlays the main content when the drawer opens
         drawerLayout.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
         // set up the drawer's list view with items and click listener
-        drawerList.setAdapter(new DrawerListAdapter(drawerMenu));
+        drawerList.setAdapter(adapter);
 
         // ActionBarDrawerToggle ties together the the proper interactions
         // between the sliding drawer and the action bar app icon

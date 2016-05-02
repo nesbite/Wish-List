@@ -6,7 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import pl.edu.agh.io.wishlist.android.R;
-import pl.edu.agh.io.wishlist.android.data.ViewHolder;
+import pl.edu.agh.io.wishlist.android.ui.ViewHolder;
 import pl.edu.agh.io.wishlist.android.domain.User;
 
 import javax.inject.Inject;
