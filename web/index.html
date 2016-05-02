@@ -3,38 +3,37 @@
 
 	<head>
 		<meta charset="utf-8"/>
-		<title>Your First AngularJS App</title>
+		<title>WishList</title>
 
 		<!-- Google web fonts -->
 		<link href="http://fonts.googleapis.com/css?family=PT+Sans:400,700" rel='stylesheet' />
 
 		<!-- The main CSS file -->
-		<link href="assets/css/style.css" rel="stylesheet" />
+		<link href="css/style.css" rel="stylesheet" />
+
+		<!--The main js file-->
+		<script src="js/app.js"></script>
+
+		<!--Angular services-->
+		<script src="js/services/UsersService.js"></script>
+
+		<!--Angular controllers-->
+		<script src="js/controllers/UserController.js"></script>
 	</head>
 
 	<body>
 
-		<form id="main" ng-app ng-controller="myservices">
-			<h1>My Services</h1>
+	<div ui-view ng-show="showView"></div>
 
-			<ul id="services">
-				<!-- The services will be inserted here -->
-				<li ng-repeat="service in services">
-					<label>
-					<input type="checkbox" ng-model="service.selected" value="1" name="{{service.title}}" />
-						{{service.title}}<span>${{service.price}}</span></label>
-				</li>
-			</ul>
+			<h1>Lista</h1>
 
-			<p id="total">total: <span>${{total()}}</span></p>
-
-			<input type="submit" id="order" value="Order"/>
-
-		</form>
+			<div data-ng-init="getUsers()">
+				<div data-ng-repeat="user in users">{{user.username}}</div>
+			</div>
 
 		<!-- The single AngularJS include -->
 		<script src="http://cdnjs.cloudflare.com/ajax/libs/angular.js/1.0.5/angular.min.js"></script>
-	  <script src="assets/js/script.js"></script>
+	  <script src="js/script.js"></script>
 
 	</body>
 </html>
