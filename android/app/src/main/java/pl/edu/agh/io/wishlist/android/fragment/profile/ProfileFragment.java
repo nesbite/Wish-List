@@ -1,6 +1,7 @@
 package pl.edu.agh.io.wishlist.android.fragment.profile;
 
 import android.app.Fragment;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -13,12 +14,14 @@ import android.widget.Toast;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.OnItemClick;
 import org.springframework.web.client.RestTemplate;
+import pl.edu.agh.io.wishlist.android.ItemDetailActivity;
 import pl.edu.agh.io.wishlist.android.R;
 import pl.edu.agh.io.wishlist.android.dagger.DaggerApplication;
+import pl.edu.agh.io.wishlist.android.domain.User;
 import pl.edu.agh.io.wishlist.android.rest.LoadResourceTask;
 import pl.edu.agh.io.wishlist.android.rest.ServerCredentials;
-import pl.edu.agh.io.wishlist.android.domain.User;
 
 import javax.inject.Inject;
 
@@ -108,5 +111,14 @@ public class ProfileFragment extends Fragment {
         adapter.clear();
         adapter.addAll(user.getGifts());
         adapter.notifyDataSetChanged();
+    }
+
+    @OnItemClick(R.id.giftList)
+    void onItemClick(int position) {
+        Toast.makeText(getActivity(), "Clicked position " + position + "!", Toast.LENGTH_SHORT).show();
+
+        Intent intent = new Intent(getActivity(), ItemDetailActivity.class);
+        intent.putExtra(ItemDetailActivity.GIFT_EXTRA, adapter.getItem(position));
+        startActivity(intent);
     }
 }

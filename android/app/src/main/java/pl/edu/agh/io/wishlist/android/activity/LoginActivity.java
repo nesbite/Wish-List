@@ -86,6 +86,11 @@ public class LoginActivity extends Activity implements Validator.ValidationListe
         validator.validate();
     }
 
+    @OnClick(R.id.logo)
+    public void logo() {
+        loginText.setText("janek");
+        passwordText.setText("pass");
+    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {

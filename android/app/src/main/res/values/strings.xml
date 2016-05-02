@@ -19,5 +19,6 @@
     <string name="drawer_close">Close navigation drawer</string>
     <string name="action_web_search">Web search</string>
     <string name="web_browser_not_available">Sorry, there\'s no web browser available</string>
-    <string name="title_activity_main">MainActivity</string>
+
+    <string name="title_item_detail">Item Detail</string>
 </resources>
