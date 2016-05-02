@@ -18,9 +18,6 @@ public class UserController {
     @Autowired
     private IUserService userService;
 
-    @Autowired
-    private UserDetailsService userDetailsService;
-
     @ResponseBody
     @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity<Collection<User>> getUsers() {
@@ -45,12 +42,6 @@ public class UserController {
         }
     }
 
-
-    @ResponseBody
-    @RequestMapping(value = "/register", method = RequestMethod.POST, consumes = "application/json")
-    public boolean addUser(@RequestBody UserDetails user) {
-        return userDetailsService.registerUser(user);
-    }
 
 
 }
