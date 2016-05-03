@@ -39,7 +39,7 @@
         <activity android:name=".activity.SignUpActivity"/>
         <activity
                 android:name=".activity.NavigationActivity"
-                android:theme="@android:style/Theme.Holo.Light"/>
+                android:theme="@style/AppTheme.NoActionBar"/>
         <activity
                 android:name=".ItemDetailActivity"
                 android:label="@string/title_item_detail"

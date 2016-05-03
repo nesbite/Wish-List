@@ -13,7 +13,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 import butterknife.OnItemClick;
 import org.springframework.web.client.RestTemplate;
 import pl.edu.agh.io.wishlist.android.ItemDetailActivity;
@@ -87,11 +86,6 @@ public class ProfileFragment extends Fragment {
         }.execute();
 
         return view;
-    }
-
-    @OnClick(R.id.add_gift)
-    public void addGift() {
-        Toast.makeText(getActivity(), "Gift add!", Toast.LENGTH_SHORT).show();
     }
 
     @Override
