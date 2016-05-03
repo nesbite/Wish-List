@@ -44,6 +44,7 @@ public class Application extends SpringBootServletInitializer implements Command
         userRepository.deleteAll();
         final User user = new User();
 
+        user.setUsername("siatek25");
         user.setFirstName("jan");
         user.setLastName("kowalski");
         user.setPassword(passwordEncoder.encode("abc123"));

@@ -20,7 +20,9 @@ public interface IUserService {
 
     User getUser(String verificationToken);
 
-    User getUserByUsername(final String email);
+    User getUserByEmail(String email);
+
+    User getUserByUsername(String username);
 
     void saveRegisteredUser(User user);
 

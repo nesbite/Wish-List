@@ -7,4 +7,5 @@ import pl.edu.agh.io.wishlist.domain.User;
 @Repository
 public interface UserRepository extends MongoRepository<User, String> {
     User findByEmail(String email);
+    User findByUsername(String username);
 }

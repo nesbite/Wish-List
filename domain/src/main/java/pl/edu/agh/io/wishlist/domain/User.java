@@ -15,6 +15,8 @@ public class User {
 //    @GeneratedValue(strategy = GenerationType.AUTO)
     private String id;
 
+    private String username;
+
     private String firstName;
 
     private String lastName;
@@ -62,6 +64,14 @@ public class User {
 
     public List<Gift> getGifts() {
         return gifts;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getFirstName() {
@@ -156,6 +166,7 @@ public class User {
                 .append("[gifts").append(gifts).append("]");
         return builder.toString();
     }
+
 
 
 }

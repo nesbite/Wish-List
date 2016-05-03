@@ -57,12 +57,16 @@ public class UserService implements IUserService {
         if (emailExist(accountDto.getEmail())) {
             throw new EmailExistsException("There is an account with that email adress: " + accountDto.getEmail());
         }
+        if (usernameExist(accountDto.getUsername())) {
+            throw new EmailExistsException("There is an account with that username: " + accountDto.getUsername());
+        }
         final User user = new User();
 
         user.setFirstName(accountDto.getFirstName());
         user.setLastName(accountDto.getLastName());
         user.setPassword(passwordEncoder.encode(accountDto.getPassword()));
         user.setEmail(accountDto.getEmail());
+        user.setUsername(accountDto.getUsername());
 
         user.setRoles(Arrays.asList(roleRepository.findByName("ROLE_USER")));
         return userRepository.save(user);
@@ -75,7 +79,13 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public User getUserByUsername(final String email) {
+    public User getUserByUsername(final String username) {
+        final User user = userRepository.findByUsername(username);
+        return user;
+    }
+
+    @Override
+    public User getUserByEmail(final String email) {
         final User user = userRepository.findByEmail(email);
         return user;
     }
@@ -148,6 +158,14 @@ public class UserService implements IUserService {
 
     private boolean emailExist(final String email) {
         final User user = userRepository.findByEmail(email);
+        if (user != null) {
+            return true;
+        }
+        return false;
+    }
+
+    private boolean usernameExist(final String username) {
+        final User user = userRepository.findByUsername(username);
         if (user != null) {
             return true;
         }
