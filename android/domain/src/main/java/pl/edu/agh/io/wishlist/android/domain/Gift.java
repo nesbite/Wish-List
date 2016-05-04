@@ -1,6 +1,8 @@
 package pl.edu.agh.io.wishlist.android.domain;
 
-public class Gift {
+import java.io.Serializable;
+
+public class Gift implements Serializable {
 
     private String id;
     private String name;
