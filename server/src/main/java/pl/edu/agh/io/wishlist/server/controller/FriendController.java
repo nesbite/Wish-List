@@ -1,10 +1,14 @@
 package pl.edu.agh.io.wishlist.server.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.edu.agh.io.wishlist.domain.User;
+import pl.edu.agh.io.wishlist.persistence.UserRepository;
 import pl.edu.agh.io.wishlist.service.IFriendService;
 
+import java.security.Principal;
 import java.util.List;
 
 // TODO: 12/04/2016
@@ -16,21 +20,32 @@ public class FriendController {
     @Autowired
     private IFriendService friendService;
 
+    @Autowired
+    UserRepository userRepository;
+
     @ResponseBody
-    @RequestMapping(value = "/getAll/{id}", method = RequestMethod.GET, produces = "application/json")
-    public List<User> getFriends(@PathVariable(value = "id") String id) {
-        return friendService.getFriends(id);
+    @RequestMapping(method = RequestMethod.GET, produces = "application/json")
+    public ResponseEntity<List<User>> getFriends(Principal principal) {
+        return  new ResponseEntity<>(friendService.getFriends(principal.getName()), HttpStatus.OK);
     }
 
     @ResponseBody
-    @RequestMapping(value = "/add/{userId}", method = RequestMethod.PUT)
-    public boolean addFriend(@PathVariable(value = "userId") String userId, @RequestParam(value = "friendId") String friendId) {
-        return friendService.addFriend(userId, friendId);
+    @RequestMapping(value = "/add/{friendId}", method = RequestMethod.PUT)
+    public ResponseEntity<String> addFriend(Principal principal, @PathVariable(value = "friendId") String friendId) {
+        String userId = userRepository.findByUsername(principal.getName()).getId();
+        if(friendService.addFriend(userId, friendId)){
+            return new ResponseEntity<>("Friend added", HttpStatus.OK);
+        }
+        return new ResponseEntity<>("Cannot add friend", HttpStatus.CONFLICT);
     }
 
     @ResponseBody
-    @RequestMapping(value = "/delete/{userId}", method = RequestMethod.DELETE)
-    public boolean deleteFriend(@PathVariable(value = "userId") String userId, @RequestParam(value = "friendId") String friendId) {
-        return friendService.deleteFriend(userId, friendId);
+    @RequestMapping(value = "/delete/{friendId}", method = RequestMethod.DELETE)
+    public ResponseEntity<String> deleteFriend(Principal principal, @PathVariable(value = "friendId") String friendId) {
+        String userId = userRepository.findByUsername(principal.getName()).getId();
+        if(friendService.deleteFriend(userId, friendId)){
+            return new ResponseEntity<>("Friend deleted", HttpStatus.OK);
+        }
+        return new ResponseEntity<>("Cannot delete friend", HttpStatus.CONFLICT);
     }
 }

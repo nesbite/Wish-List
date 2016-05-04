@@ -5,8 +5,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.edu.agh.io.wishlist.domain.Gift;
+import pl.edu.agh.io.wishlist.persistence.UserRepository;
 import pl.edu.agh.io.wishlist.service.IGiftService;
 
+import java.security.Principal;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
 
@@ -20,25 +22,31 @@ public class GiftListController {
     @Autowired
     private IGiftService giftService;
 
+    @Autowired
+    UserRepository userRepository;
+
+
     private final AtomicLong counter = new AtomicLong();
 
     @ResponseBody
-    @RequestMapping(value = "/add/{userId}", method = RequestMethod.POST, consumes = "application/json")
-    public ResponseEntity<String> addGift(@PathVariable String userId, @RequestBody Gift gift) {
+    @RequestMapping(method = RequestMethod.GET, produces = "application/json")
+    public ResponseEntity<List<Gift>> getAllGifts(Principal principal) {
+        String userId = userRepository.findByUsername(principal.getName()).getId();
+        return new ResponseEntity<>(giftService.getAllGifts(userId), HttpStatus.OK);
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/add", method = RequestMethod.POST, consumes = "application/json")
+    public ResponseEntity<String> addGift(Principal principal, @RequestBody Gift gift) {
         System.out.println("Id: " + gift.getId() + "\nName: " + gift.getName() + "\nDesc: " + gift.getDescription());
+        String userId = userRepository.findByUsername(principal.getName()).getId();
         if (giftService.addGift(userId, gift))
             return new ResponseEntity<>("Gift added", HttpStatus.OK);
         return new ResponseEntity<>("Cannot add gift", HttpStatus.CONFLICT);
     }
 
     @ResponseBody
-    @RequestMapping(value = "/forUser/{userId}", method = RequestMethod.GET, produces = "application/json")
-    public ResponseEntity<List<Gift>> getAllGifts(@PathVariable String userId) {
-        return new ResponseEntity<>(giftService.getAllGifts(userId), HttpStatus.OK);
-    }
-
-    @ResponseBody
-    @RequestMapping(value = "/getGift/{id}", method = RequestMethod.GET, produces = "application/json")
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = "application/json")
     public ResponseEntity<Gift> getGift(@PathVariable String id) {
         Gift gift = giftService.getGift(id);
         if (gift == null)
@@ -47,8 +55,9 @@ public class GiftListController {
     }
 
     @ResponseBody
-    @RequestMapping(value = "/remove/{userId}/{giftId}", method = RequestMethod.DELETE)
-    public ResponseEntity<String> removeGift(@PathVariable String userId, @PathVariable String giftId) {
+    @RequestMapping(value = "/remove/{giftId}", method = RequestMethod.DELETE)
+    public ResponseEntity<String> removeGift(Principal principal, @PathVariable String giftId) {
+        String userId = userRepository.findByUsername(principal.getName()).getId();
         if (giftService.removeGift(userId, giftId))
             return new ResponseEntity<>("Gift removed", HttpStatus.OK);
         return new ResponseEntity<>("Cannot remove gift", HttpStatus.CONFLICT);

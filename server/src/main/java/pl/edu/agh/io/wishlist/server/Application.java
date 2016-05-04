@@ -43,16 +43,26 @@ public class Application extends SpringBootServletInitializer implements Command
     public void run(String... strings) throws Exception {
         userRepository.deleteAll();
         final User user = new User();
-
         user.setUsername("siatek25");
         user.setFirstName("jan");
         user.setLastName("kowalski");
         user.setPassword(passwordEncoder.encode("abc123"));
         user.setEmail("siatek25@gmail.com");
         user.setEnabled(true);
-
         user.setRoles(Arrays.asList(roleRepository.findByName("ROLE_USER")));
         userRepository.save(user);
+
+        final User user2 = new User();
+        user2.setUsername("sysunia991");
+        user2.setFirstName("marek");
+        user2.setLastName("nowak");
+        user2.setPassword(passwordEncoder.encode("abcd1234"));
+        user2.setEmail("sysunia991@gmail.com");
+        user2.setEnabled(true);
+        user2.setRoles(Arrays.asList(roleRepository.findByName("ROLE_USER")));
+
+        user2.getFriends().add(userRepository.findByUsername(user.getUsername()).getId());
+        userRepository.save(user2);
     }
 
 //     @Override
