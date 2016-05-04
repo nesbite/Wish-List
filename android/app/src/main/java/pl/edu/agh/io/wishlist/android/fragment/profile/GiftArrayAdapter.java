@@ -43,4 +43,5 @@ public class GiftArrayAdapter extends ArrayAdapter<Gift> {
 
         return row;
     }
+
 }

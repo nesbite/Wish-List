@@ -1,14 +1,15 @@
 package pl.edu.agh.io.wishlist.android.ui.drawer;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.support.design.widget.NavigationView;
-import android.support.design.widget.Snackbar;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.AccelerateInterpolator;
@@ -17,8 +18,8 @@ import android.view.animation.Animation;
 import android.widget.FrameLayout;
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 import pl.edu.agh.io.wishlist.android.R;
+import pl.edu.agh.io.wishlist.android.activity.LoginActivity;
 import pl.edu.agh.io.wishlist.android.fragment.FragmentHandler;
 
 import javax.inject.Inject;
@@ -57,12 +58,6 @@ public class Drawer implements NavigationView.OnNavigationItemSelectedListener {
         init();
     }
 
-    @OnClick(R.id.fab)
-    public void onClickFab(View view) {
-        Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show();
-    }
-
     private void init() {
         this.activityTitle = activity.getTitle();
         this.activity.setSupportActionBar(toolbar);
@@ -83,11 +78,6 @@ public class Drawer implements NavigationView.OnNavigationItemSelectedListener {
         drawerLayout.addDrawerListener(drawerToggle);
 
         navigationView.setNavigationItemSelectedListener(this);
-
-        // set initial check
-        MenuItem menuItem = navigationView.getMenu().getItem(0);
-        menuItem.setChecked(true);
-        onNavigationItemSelected(menuItem);
     }
 
     public void onBackPressed() {
@@ -99,6 +89,11 @@ public class Drawer implements NavigationView.OnNavigationItemSelectedListener {
     }
 
     public void syncState() {
+        // set initial check
+        MenuItem menuItem = navigationView.getMenu().getItem(0);
+        menuItem.setChecked(true);
+        onNavigationItemSelected(menuItem);
+
         drawerToggle.syncState();
     }
 
@@ -112,12 +107,22 @@ public class Drawer implements NavigationView.OnNavigationItemSelectedListener {
 
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
+        Log.e("SELECTED", "item: " + item.getTitle());
         // update selected item and activityTitle, then close the drawer
         invokeLoaderAnimation();
 
         setDrawerTitle(item.getTitle());
 
-        fragmentHandler.updateContent(item);
+        switch (item.getItemId()) {
+            case R.id.nav_logout:
+                Intent intent = new Intent(activity, LoginActivity.class);
+                activity.startActivity(intent);
+                activity.finish();
+                break;
+            default:
+                fragmentHandler.updateContent(item);
+        }
+
         drawerLayout.closeDrawer(GravityCompat.START);
 
         return true;
@@ -148,10 +153,27 @@ public class Drawer implements NavigationView.OnNavigationItemSelectedListener {
     }
 
     private void invokeLoaderAnimation() {
+
         Animation fadeOut = new AlphaAnimation(1, 0);
         fadeOut.setInterpolator(new AccelerateInterpolator());
         fadeOut.setStartOffset(700);
         fadeOut.setDuration(300);
+        fadeOut.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+                loader.setVisibility(View.VISIBLE);
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                loader.setVisibility(View.GONE);
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+
+            }
+        });
 
         fadeOut.setFillEnabled(true);
         fadeOut.setFillAfter(true);

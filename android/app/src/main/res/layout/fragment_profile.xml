@@ -4,13 +4,13 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
         android:focusableInTouchMode="true"
-        android:fitsSystemWindows="true">
+        android:fitsSystemWindows="false"
+        android:orientation="vertical">
 
         <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="180dp"
                 android:padding="5dp">
 
             <de.hdodenhof.circleimageview.CircleImageView
@@ -43,7 +43,7 @@
         <LinearLayout
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="120dp"
                 android:gravity="center"
                 android:padding="10dp"
                 android:background="#0c7b7b7b">
@@ -157,7 +157,7 @@
 
         <ListView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:id="@+id/giftList"
                 android:layout_gravity="center_horizontal"/>
 
