@@ -19,9 +19,10 @@ import com.mobsandgeeks.saripaar.ValidationError;
 import com.mobsandgeeks.saripaar.Validator;
 import com.mobsandgeeks.saripaar.annotation.Length;
 import com.mobsandgeeks.saripaar.annotation.Password;
-import org.springframework.http.HttpAuthentication;
-import org.springframework.http.HttpBasicAuthentication;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 import pl.edu.agh.io.wishlist.android.R;
@@ -73,6 +74,9 @@ public class LoginActivity extends Activity implements Validator.ValidationListe
 
         validator = new Validator(this);
         validator.setValidationListener(this);
+
+        // clear shared preferences
+        sharedPreferences.edit().clear().commit();
     }
 
     @OnClick(R.id.link_signup)
@@ -88,8 +92,8 @@ public class LoginActivity extends Activity implements Validator.ValidationListe
 
     @OnClick(R.id.logo)
     public void logo() {
-        loginText.setText("janek");
-        passwordText.setText("pass");
+        loginText.setText("siatek25");
+        passwordText.setText("abc123");
     }
 
     @Override
@@ -137,16 +141,15 @@ public class LoginActivity extends Activity implements Validator.ValidationListe
     @SuppressLint("CommitPrefEdits")
     class LoginAsyncTask extends AsyncTask<Void, Void, HttpStatus> {
 
+        private final String username;
+        private final String password;
         private ProgressDialog progressDialog;
 
         public LoginAsyncTask(String username, String password) {
             // Populate the HTTP Basic Authentication header with the username and password
-            HttpAuthentication authHeader = new HttpBasicAuthentication(username, password);
-
-            sharedPreferences.edit()
-                    .putString("username", username)
-                    .putString("Authorization", authHeader.getHeaderValue())
-                    .commit();
+//            HttpAuthentication authHeader = new HttpBasicAuthentication(username, password);
+            this.username = username;
+            this.password = password;
         }
 
         @Override
@@ -161,9 +164,28 @@ public class LoginActivity extends Activity implements Validator.ValidationListe
 
         @Override
         protected HttpStatus doInBackground(Void... voids) {
-            Log.i(TAG, "Logging in..");
             try {
-                return restTemplate.postForEntity(credentials.getUrl("auth"), null, Void.class).getStatusCode();
+                Log.i(TAG, "Logging in..");
+
+                MultiValueMap<String, Object> request = new LinkedMultiValueMap<>();
+                request.add("username", username);
+                request.add("password", password);
+
+                ResponseEntity<Void> loginEntity = restTemplate.postForEntity(credentials.getUrl("login"), request, Void.class);
+                String cookie = loginEntity.getHeaders().getFirst("Set-Cookie");
+                String location = loginEntity.getHeaders().getFirst("Location");
+
+                if (cookie != null && !location.contains("error")) {
+                    // save username and cookie to shared preferences
+                    sharedPreferences.edit()
+                            .putString("username", username)
+                            .putString("Cookie", cookie)
+                            .commit();
+
+                    return HttpStatus.OK;
+                }
+
+                return HttpStatus.BAD_REQUEST;
             } catch (HttpClientErrorException e) {
                 return e.getStatusCode();
             } catch (Exception e) {
@@ -186,7 +208,6 @@ public class LoginActivity extends Activity implements Validator.ValidationListe
                     break;
                 default:
                     Toast.makeText(getApplicationContext(), "Login failed", Toast.LENGTH_SHORT).show();
-                    sharedPreferences.edit().clear().commit();
             }
         }
     }

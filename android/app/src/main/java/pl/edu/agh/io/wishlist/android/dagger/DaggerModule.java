@@ -10,13 +10,14 @@ import android.view.LayoutInflater;
 import dagger.Module;
 import dagger.Provides;
 import org.springframework.http.client.ClientHttpRequestInterceptor;
+import org.springframework.http.converter.FormHttpMessageConverter;
 import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.client.RestTemplate;
 import pl.edu.agh.io.wishlist.android.activity.LoginActivity;
 import pl.edu.agh.io.wishlist.android.fragment.profile.ProfileFragment;
 import pl.edu.agh.io.wishlist.android.fragment.users.UsersFragment;
-import pl.edu.agh.io.wishlist.android.rest.BasicAuthInterceptor;
+import pl.edu.agh.io.wishlist.android.rest.CookieAuthInterceptor;
 import pl.edu.agh.io.wishlist.android.rest.ServerCredentials;
 
 import javax.inject.Singleton;
@@ -67,11 +68,12 @@ public class DaggerModule {
     }
 
     @Provides
-    RestTemplate provideRestTemplate(BasicAuthInterceptor basicAuthInterceptor) {
+    RestTemplate provideRestTemplate(CookieAuthInterceptor cookieAuthInterceptor) {
         RestTemplate restTemplate = new RestTemplate();
+        restTemplate.getMessageConverters().add(new FormHttpMessageConverter());
         restTemplate.getMessageConverters().add(new StringHttpMessageConverter());
         restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
-        restTemplate.setInterceptors(Collections.<ClientHttpRequestInterceptor>singletonList(basicAuthInterceptor));
+        restTemplate.setInterceptors(Collections.<ClientHttpRequestInterceptor>singletonList(cookieAuthInterceptor));
         return restTemplate;
     }
 
