@@ -16,11 +16,14 @@ public class FriendService implements IFriendService {
     UserRepository userRepository;
 
     @Override
-    public List<User> getFriends(String userId) {
-        List<String> friendIdList = userRepository.findOne(userId).getFriends();
-
+    public List<User> getFriends(String username) {
+        User user;
         List<User> users = new ArrayList<>();
-        userRepository.findAll(friendIdList).forEach(users::add);
+
+        if((user = userRepository.findByUsername(username)) != null) {
+            List<String> friendIdList = user.getFriends();
+            userRepository.findAll(friendIdList).forEach(users::add);
+        }
         return users;
     }
 

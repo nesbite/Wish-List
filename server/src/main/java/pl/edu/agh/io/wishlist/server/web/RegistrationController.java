@@ -148,7 +148,7 @@ public class RegistrationController {
             return "redirect:/login.html?lang=" + locale.getLanguage();
         }
 
-        final Authentication auth = new UsernamePasswordAuthenticationToken(user, null, userDetailsService.loadUserByUsername(user.getEmail()).getAuthorities());
+        final Authentication auth = new UsernamePasswordAuthenticationToken(user, null, userDetailsService.loadUserByUsername(user.getUsername()).getAuthorities());
         SecurityContextHolder.getContext().setAuthentication(auth);
 
         return "redirect:/updatePassword.html?lang=" + locale.getLanguage();
