@@ -8,7 +8,6 @@ import pl.edu.agh.io.wishlist.domain.validation.PasswordMatches;
 import pl.edu.agh.io.wishlist.domain.validation.ValidEmail;
 import pl.edu.agh.io.wishlist.domain.validation.ValidPassword;
 
-import static javax.swing.text.StyleConstants.Size;
 
 @PasswordMatches
 public class UserDto {
@@ -97,7 +96,11 @@ public class UserDto {
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
-        builder.append("User [firstName=").append(firstName).append("]").append("[lastName=").append(lastName).append("]").append("[email").append(email).append("]").append("[password").append(password).append("]");
+        builder.append("User [username=").append(username).append("]")
+                .append("[firstName=").append(firstName).append("]")
+                .append("[lastName=").append(lastName).append("]")
+                .append("[email").append(email).append("]")
+                .append("[password").append(password).append("]");
         return builder.toString();
     }
 }

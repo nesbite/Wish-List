@@ -134,7 +134,7 @@ public class User {
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result + ((email == null) ? 0 : email.hashCode());
+        result = prime * result + ((username == null) ? 0 : username.hashCode());
         return result;
     }
 
@@ -150,7 +150,7 @@ public class User {
             return false;
         }
         final User user = (User) obj;
-        if (!email.equals(user.email)) {
+        if (!username.equals(user.username)) {
             return false;
         }
         return true;
@@ -159,7 +159,8 @@ public class User {
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
-        builder.append("User [firstName=").append(firstName).append("]")
+        builder.append("User [username=").append(username).append("]")
+                .append("[firstName=").append(firstName).append("]")
                 .append("[lastName=").append(lastName).append("]")
                 .append("[username").append(email).append("]")
                 .append("[friends").append(friends).append("]")
