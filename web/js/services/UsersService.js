@@ -1,3 +1,4 @@
+'use strict';
 
 app.service('UsersService', ['RestService', function (RestService) {
 

@@ -1,7 +1,11 @@
+'use strict';
 
 // definicja głównego modułu aplikacji
 var app = angular.module('wishlist-app', [
-    'ui.router'
+    'ui.router',
+    'wishlist-app.services',
+    'wishlist-app.directives',
+    'wishlist-app.controllers'
 ]);
 
 app.config(function ($stateProvider, $urlRouterProvider) {
@@ -9,13 +13,8 @@ app.config(function ($stateProvider, $urlRouterProvider) {
     $urlRouterProvider.otherwise('/users');
 
     $stateProvider
-        .state('users', {
-            url: '/users',
-            abstract: true,
-            template: '<ui-view></ui-view>'
-        })
         .state('users.list', {
-            url: '',
+            url: '/users',
             templateUrl: 'partials/views/users.html',
             controller: 'UserController',
             service: 'UsersService'
