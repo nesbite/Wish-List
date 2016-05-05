@@ -1,6 +1,6 @@
 'use strict';
 
-// definicja głównego modułu aplikacji
+// main application module definition
 var app = angular.module('wishlist', [
     'ui.router',
     'wishlist.services',
@@ -20,8 +20,6 @@ app.config(function ($stateProvider, $urlRouterProvider) {
             service: 'UsersService'
         });
 
-});
-
-app.run(function(){
-
+}).run(function ($rootScope) {
+    $rootScope.showView = true;
 });

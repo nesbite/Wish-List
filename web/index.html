@@ -32,11 +32,16 @@
 
 		<!--Angular services-->
 		<script src="js/services/services.js"></script>
+		<script src="js/services/RestService.js"></script>
 		<script src="js/services/UsersService.js"></script>
 
 		<!--Angular controllers-->
 		<script src="js/controllers/controllers.js"></script>
 		<script src="js/controllers/UserController.js"></script>
+
+		<!--Angular directives-->
+		<script src="js/directives/directives.js"></script>
+		<script src="js/directives/inFooter.js"></script>
 
 	</head>
 
@@ -44,15 +49,10 @@
 
 	<div ui-view ng-show="showView"></div>
 
-	<in-footer user="userData"></in-footer>
+	<in-footer></in-footer>
 
-	<!--<div ui-view ng-show="showView"></div>-->
-
-			<!--<h1>Lista</h1>-->
-
-			<!--<div data-ng-init="getUsers()">-->
-				<!--<div data-ng-repeat="user in users">{{user.username}}</div>-->
-
+	<!--<div data-ng-init="getUsers()">-->
+		<!--<div data-ng-repeat="user in users">{{user}}</div>-->
 	<!--</div>-->
 
 	</body>

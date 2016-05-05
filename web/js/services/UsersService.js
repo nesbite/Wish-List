@@ -8,3 +8,12 @@ services.service('UsersService', ['RestService', function (RestService) {
 
     return service;
 }]);
+
+//services.factory('UsersService', function ($resource) {
+//    return $resource('/users', {}, {
+//        getUsers: {
+//            method: 'GET',
+//            isArray: true
+//        }
+//    });
+//});
