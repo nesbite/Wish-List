@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="drawer_item_title">#222222</color>
+    <color name="drawer_background">#EEEEEE</color>
+    <color name="drawer_background_pressed">#ab3838</color>
+    <color name="floating_action_button_color">#ab3838</color>
+    <color name="colorPrimary">#ab3838</color>
+    <color name="colorPrimaryDark">#FF590F0F</color>
+    <color name="colorAccent">#c6666666</color>
+</resources>

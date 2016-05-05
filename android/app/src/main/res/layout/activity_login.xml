@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="56dp"
+        android:paddingLeft="24dp"
+        android:paddingRight="24dp"
+        android:descendantFocusability="beforeDescendants"
+        android:focusableInTouchMode="true"
+        android:paddingBottom="56dp">
+
+    <ImageView
+            android:src="@drawable/icon_wishlist"
+            android:layout_width="wrap_content"
+            android:layout_height="120dp"
+            android:layout_gravity="center_horizontal"
+            android:contentDescription="@string/logo"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentStart="true"
+            android:id="@+id/logo"/>
+
+
+    <EditText
+            android:id="@+id/input_login"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:inputType="text"
+            android:background="@drawable/shape_rounded"
+            android:hint="@string/login"
+            android:gravity="center"
+            android:layout_below="@id/logo"
+            android:padding="5dp"
+            android:layout_marginTop="30sp"
+            android:layout_centerHorizontal="true"/>
+
+    <EditText
+            android:id="@+id/input_password"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:inputType="textPassword"
+            android:background="@drawable/shape_rounded"
+            android:hint="@string/password"
+            android:gravity="center"
+            android:layout_centerHorizontal="true"
+            android:padding="5dp"
+            android:layout_marginTop="20sp"
+            android:layout_below="@id/input_login"/>
+
+    <Button
+            android:id="@+id/btn_login"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:padding="12dp"
+            android:text="@string/login"
+            android:layout_above="@+id/link_signup"/>
+
+    <TextView
+            android:id="@+id/link_signup"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/no_account"
+            android:gravity="center"
+            android:textSize="16sp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="24dp"/>
+
+</RelativeLayout>
