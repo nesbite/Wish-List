@@ -30,8 +30,8 @@ controllers.controller('GiftController', function ($scope, $http, GiftService) {
         });
     };
 
-    $scope.editGift = function (gift) {
-        GiftService.editGift(gift).then(function (gift) {
+    $scope.updateGift = function (gift) {
+        GiftService.updateGift(gift).then(function (gift) {
             console.log(gift);
             $scope.gift = gift;
         }, function (err) {
