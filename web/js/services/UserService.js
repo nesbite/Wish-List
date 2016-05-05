@@ -1,10 +1,11 @@
 'use strict';
 
-services.service('UsersService', ['RestService', function (RestService) {
+services.service('UserService', ['RestService', function (RestService) {
 
     var service = {};
 
     service.getUsers = RestService.getFunctionFactory('/users');
+    service.getUser = RestService.getFunctionFactory('/{username}')
 
     return service;
 }]);

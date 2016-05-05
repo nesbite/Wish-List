@@ -1,16 +1,26 @@
 'use strict';
 
-controllers.controller('UserController', 'UsersService', function ($scope, $http, UsersService) {
+controllers.controller('UserController', function ($scope, $http, UserService) {
     $scope.users = {};
+    $scope.user = {};
 
     $scope.getUsers = function(){
-        UsersService.getUsers().then(function (users) {
+        UserService.getUsers().then(function (users) {
             console.log(users);
             $scope.users = users;
         }, function (err) {
             console.log("getUsers ERROR ", err);
         });
     }
+
+    $scope.getUser = function () {
+        UserService.getUser().then(function (user) {
+            console.log(user);
+            $scope.user = user;
+        }, function (err) {
+            console.log("getUser ERROR ", err);
+        });
+    };
 });
 
 //controllers.controller('UserController', ['$scope', '$dialogs', 'UsersService',
