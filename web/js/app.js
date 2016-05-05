@@ -16,7 +16,7 @@ app.config(function ($stateProvider, $urlRouterProvider) {
         })
         .state('users.list', {
             url: '',
-            templateUrl: 'index.html',
+            templateUrl: 'partials/views/users.html',
             controller: 'UserController',
             service: 'UsersService'
         });

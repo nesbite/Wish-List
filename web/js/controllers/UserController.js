@@ -1,6 +1,6 @@
 
 app.controller('UserController', function ($scope, $http, UsersService) {
-    $scope.user = {};
+    $scope.users = {};
 
     $scope.getUsers = function(){
         UsersService.getUsers().then(function (users) {
