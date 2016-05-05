@@ -22,12 +22,30 @@ controllers.controller('GiftController', function ($scope, $http, GiftService) {
         });
     };
 
-    $scope.updateGift = function (gift) {
-        UserService.updateUser(gift).then(function (gift) {
+    $scope.addGift = function (gift) {
+        GiftService.addGift(gift).then(function () {
+            $scope.gift = '';
+        }, function (err) {
+            console.log("addGift ERROR ", err);
+        });
+    };
+
+    $scope.editGift = function (gift) {
+        GiftService.editGift(gift).then(function (gift) {
             console.log(gift);
             $scope.gift = gift;
         }, function (err) {
-            console.log("updateGift ERROR ", err);
+            console.log("editGift ERROR ", err);
+        });
+    };
+
+    $scope.removeGift = function (gift) {
+        GiftService.removeGift(gift).then(function () {
+            //TODO
+            //console.log(gift);
+            //$scope.gift = gift;
+        }, function (err) {
+            console.log("deleteGift ERROR ", err);
         });
     };
 
