@@ -19,14 +19,6 @@
             android:label="@string/app_name"
             android:theme="@android:style/Theme.Holo.Light.NoActionBar"
             tools:ignore="GoogleAppIndexingWarning,HardcodedDebugMode">
-        <meta-data
-                android:name="server_host"
-                android:value="http://wishlist.sytes.net"/>
-        <!-- android:value="http://10.15.41.116"/> -->
-        <meta-data
-                android:name="server_port"
-                android:value="8080"/>
-
         <activity
                 android:name=".activity.LoginActivity"
                 android:label="@string/app_name">
@@ -48,6 +40,13 @@
             <meta-data
                     android:name="android.support.PARENT_ACTIVITY"
                     android:value="pl.edu.agh.io.wishlist.android.ItemDetailActivity"/>
+        </activity>
+        <activity
+                android:name=".activity.SettingsActivity"
+                android:theme="@style/AppTheme">
+            <meta-data
+                    android:name="android.support.PARENT_ACTIVITY"
+                    android:value="pl.edu.agh.io.wishlist.android.activity.LoginActivity"/>
         </activity>
     </application>
 

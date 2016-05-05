@@ -28,4 +28,11 @@ public class ServerCredentials {
         return getUrl() + "/" + path;
     }
 
+    public void setHost(String host) {
+        this.host = host;
+    }
+
+    public void setPort(int port) {
+        this.port = port;
+    }
 }

@@ -130,6 +130,8 @@ public class User {
         this.tokenExpired = expired;
     }
 
+
+
     @Override
     public int hashCode() {
         final int prime = 31;

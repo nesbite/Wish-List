@@ -1,12 +1,12 @@
 package pl.edu.agh.io.wishlist.android.activity;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -75,14 +75,26 @@ public class LoginActivity extends Activity implements Validator.ValidationListe
         validator = new Validator(this);
         validator.setValidationListener(this);
 
-        // clear shared preferences
-        sharedPreferences.edit().clear().commit();
+        // set default values
+        PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
+
+        // clear username and cookie
+        sharedPreferences.edit()
+                .remove("username")
+                .remove("Cookie")
+                .apply();
     }
 
     @OnClick(R.id.link_signup)
     public void signUp() {
         Intent intent = new Intent(getApplicationContext(), SignUpActivity.class);
         startActivityForResult(intent, REQUEST_SIGN_UP);
+    }
+
+    @OnClick(R.id.settings)
+    public void settings() {
+        Intent intent = new Intent(getApplicationContext(), SettingsActivity.class);
+        startActivity(intent);
     }
 
     @OnClick(R.id.btn_login)
@@ -138,7 +150,6 @@ public class LoginActivity extends Activity implements Validator.ValidationListe
         }
     }
 
-    @SuppressLint("CommitPrefEdits")
     class LoginAsyncTask extends AsyncTask<Void, Void, HttpStatus> {
 
         private final String username;
@@ -146,8 +157,6 @@ public class LoginActivity extends Activity implements Validator.ValidationListe
         private ProgressDialog progressDialog;
 
         public LoginAsyncTask(String username, String password) {
-            // Populate the HTTP Basic Authentication header with the username and password
-//            HttpAuthentication authHeader = new HttpBasicAuthentication(username, password);
             this.username = username;
             this.password = password;
         }
@@ -180,7 +189,7 @@ public class LoginActivity extends Activity implements Validator.ValidationListe
                     sharedPreferences.edit()
                             .putString("username", username)
                             .putString("Cookie", cookie)
-                            .commit();
+                            .apply();
 
                     return HttpStatus.OK;
                 }
