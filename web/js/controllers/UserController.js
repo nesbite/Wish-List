@@ -11,7 +11,7 @@ controllers.controller('UserController', function ($scope, $http, UserService) {
         }, function (err) {
             console.log("getUsers ERROR ", err);
         });
-    }
+    };
 
     $scope.getUser = function () {
         UserService.getUser().then(function (user) {
@@ -21,6 +21,16 @@ controllers.controller('UserController', function ($scope, $http, UserService) {
             console.log("getUser ERROR ", err);
         });
     };
+
+    $scope.updateUser = function (user) {
+        UserService.updateUser(user).then(function (user) {
+            console.log(user);
+            $scope.user = user;
+        }, function (err) {
+            console.log("updateUser ERROR ", err);
+        });
+    };
+
 });
 
 //controllers.controller('UserController', ['$scope', '$dialogs', 'UsersService',

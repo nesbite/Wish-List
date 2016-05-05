@@ -5,16 +5,19 @@ services.service('UserService', ['RestService', function (RestService) {
     var service = {};
 
     service.getUsers = RestService.getFunctionFactory('/users');
-    service.getUser = RestService.getFunctionFactory('/{username}')
+    service.getUser = RestService.getFunctionFactory('/{username}');
+    service.updateUser = RestService.putFunctionFactory('/{username}');
 
     return service;
 }]);
 
-//services.factory('UsersService', function ($resource) {
-//    return $resource('/users', {}, {
-//        getUsers: {
-//            method: 'GET',
-//            isArray: true
+//services.factory('UserService', function ($resource) {
+//    return $resource('/:username', {}, {
+//        getUser: {
+//            method: 'GET'
+//        },
+//        updateUser: {
+//            method: 'PUT'
 //        }
-//    });
+//    })
 //});
