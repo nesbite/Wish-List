@@ -13,7 +13,7 @@ app.config(function ($stateProvider, $urlRouterProvider) {
     $urlRouterProvider.otherwise('/users');
 
     $stateProvider
-        .state('users.list', {
+        .state('users', {
             url: '/users',
             templateUrl: 'partials/views/users.html',
             controller: 'UserController',

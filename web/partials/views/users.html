@@ -7,7 +7,7 @@
     </tr>
     </thead>
     <tbody>
-    <tr ng-repeat="user in users = (users)" ng-controller="UserController">
+    <tr ng-repeat="user in getUsers" ng-controller="UserController">
         <td>{{user.username}}</td>
     </tr>
     </tbody>
