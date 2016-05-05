@@ -1,6 +1,6 @@
 'use strict';
 
-app.controller('UserController', 'UsersService', function ($scope, $http, UsersService) {
+controllers.controller('UserController', 'UsersService', function ($scope, $http, UsersService) {
     $scope.users = {};
 
     $scope.getUsers = function(){
@@ -11,5 +11,4 @@ app.controller('UserController', 'UsersService', function ($scope, $http, UsersS
             console.log("getUsers ERROR ", err);
         });
     }
-
 });

@@ -2,10 +2,10 @@
 
 /* Controllers */
 
-var controllers = angular.module('wishlist-app.controllers',
+var controllers = angular.module('wishlist.controllers',
     [
         'ngResource',
-        'wishlist-app.services',
+        'wishlist.services',
         'ui.bootstrap',
         'dialogs'
     ]);

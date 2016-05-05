@@ -1,6 +1,6 @@
 'use strict';
 
-app.service('UsersService', ['RestService', function (RestService) {
+services.service('UsersService', ['RestService', function (RestService) {
 
     var service = {};
 

@@ -2,4 +2,4 @@
 
 /* Directives */
 
-var directives = angular.module('wishlist-app.directives', []);
+var directives = angular.module('wishlist.directives', []);

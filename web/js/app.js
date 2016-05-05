@@ -1,11 +1,11 @@
 'use strict';
 
 // definicja głównego modułu aplikacji
-var app = angular.module('wishlist-app', [
+var app = angular.module('wishlist', [
     'ui.router',
-    'wishlist-app.services',
-    'wishlist-app.directives',
-    'wishlist-app.controllers'
+    'wishlist.services',
+    'wishlist.directives',
+    'wishlist.controllers'
 ]);
 
 app.config(function ($stateProvider, $urlRouterProvider) {

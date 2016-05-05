@@ -2,7 +2,7 @@
 
 /* Services */
 
-var services = angular.module('wishlist-app.services',
+var services = angular.module('wishlist.services',
     [
         'ngResource'
     ]);
