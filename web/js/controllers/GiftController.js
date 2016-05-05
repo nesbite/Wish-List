@@ -50,22 +50,3 @@ controllers.controller('GiftController', function ($scope, $http, GiftService) {
     };
 
 });
-
-//controllers.controller('UserController', ['$scope', '$dialogs', 'UsersService',
-//    function ($scope, $dialogs, UsersService) {
-//
-//        $scope.data = {};
-//
-//        getUsers();
-//
-//        var getUsers = function () {
-//
-//            UsersService.getUsers(function (successResult) {
-//                $scope.users = successResult;
-//            },
-//            function (errorResult) {
-//                $dialogs.error("Error occurred!", errorResult.data.error);
-//            }
-//        );
-//    };
-//}]);
