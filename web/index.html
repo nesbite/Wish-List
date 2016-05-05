@@ -23,17 +23,24 @@
 
 	<body>
 
+	<in-header user="userData" show-view="showView"></in-header>
+
 	<div ui-view ng-show="showView"></div>
 
-			<h1>Lista</h1>
+	<in-footer user="userData"></in-footer>
 
-			<div data-ng-init="getUsers()">
-				<div data-ng-repeat="user in users">{{user.username}}</div>
-			</div>
+	<!--<div ui-view ng-show="showView"></div>-->
 
-		<!-- The single AngularJS include -->
-		<script src="http://cdnjs.cloudflare.com/ajax/libs/angular.js/1.0.5/angular.min.js"></script>
-	  <script src="js/script.js"></script>
+			<!--<h1>Lista</h1>-->
+
+			<!--<div data-ng-init="getUsers()">-->
+				<!--<div data-ng-repeat="user in users">{{user.username}}</div>-->
+
+	<!--</div>-->
+
+	<!-- The single AngularJS include -->
+	<script src="http://cdnjs.cloudflare.com/ajax/libs/angular.js/1.0.5/angular.min.js"></script>
+	<script src="js/script.js"></script>
 
 	</body>
 </html>
