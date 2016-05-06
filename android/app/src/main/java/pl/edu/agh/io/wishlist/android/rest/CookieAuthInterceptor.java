@@ -25,7 +25,7 @@ public class CookieAuthInterceptor implements ClientHttpRequestInterceptor {
     public ClientHttpResponse intercept(HttpRequest request, byte[] body, ClientHttpRequestExecution execution) throws IOException {
         String cookie = sharedPreferences.getString("Cookie", null);
 
-        Log.d(TAG, "intercepting, cookie: " + cookie);
+        Log.d(TAG, "intercept: " + request.getURI() + ", cookie: " + (cookie != null));
 
         if (cookie != null) {
             request.getHeaders().add("Cookie", cookie);

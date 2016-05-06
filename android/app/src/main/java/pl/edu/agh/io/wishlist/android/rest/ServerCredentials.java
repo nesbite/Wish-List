@@ -1,6 +1,8 @@
 package pl.edu.agh.io.wishlist.android.rest;
 
-public class ServerCredentials {
+import java.io.Serializable;
+
+public class ServerCredentials implements Serializable {
 
     private String host;
     private int port;

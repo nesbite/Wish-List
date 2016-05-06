@@ -155,11 +155,5 @@
                 android:layout_height="2dp"
                 android:background="#000000"/>
 
-        <ListView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:id="@+id/giftList"
-                android:layout_gravity="center_horizontal"/>
-
 
 </LinearLayout>

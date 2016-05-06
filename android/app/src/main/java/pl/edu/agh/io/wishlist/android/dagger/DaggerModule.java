@@ -47,11 +47,14 @@ public class DaggerModule {
 
     @Provides
     @Singleton
-    ServerCredentials provideServerCredentials() {
-        String host = application.getString(R.string.server_host);
-        int port = Integer.parseInt(application.getString(R.string.server_port));
+    ServerCredentials provideServerCredentials(SharedPreferences sharedPreferences) {
+        String defaultHost = application.getString(R.string.server_host);
+        String defaultPort = application.getString(R.string.server_port);
 
-        return new ServerCredentials(host, port);
+        String host = sharedPreferences.getString("server_host", defaultHost);
+        String port = sharedPreferences.getString("server_port", defaultPort);
+
+        return new ServerCredentials(host, Integer.parseInt(port));
     }
 
     @Provides

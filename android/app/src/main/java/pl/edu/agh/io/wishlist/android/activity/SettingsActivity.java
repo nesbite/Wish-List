@@ -32,23 +32,24 @@ public class SettingsActivity extends AppCompatActivity {
             actionBar.setHomeButtonEnabled(true);
         }
 
-        getFragmentManager().beginTransaction().replace(android.R.id.content, new PrefFragment(serverCredentials)).commit();
+        Bundle args = new Bundle();
+        args.putSerializable("credentials", serverCredentials);
+        PreferenceFragment fragment = new PrefFragment();
+        fragment.setArguments(args);
+
+        getFragmentManager().beginTransaction().replace(android.R.id.content, fragment).commit();
     }
 
     @SuppressWarnings("WeakerAccess")
     public static class PrefFragment extends PreferenceFragment {
         private ServerCredentials serverCredentials;
 
-        public PrefFragment() { }
-
-        public PrefFragment(ServerCredentials serverCredentials) {
-            this.serverCredentials = serverCredentials;
-        }
-
         @Override
         public void onCreate(final Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
             addPreferencesFromResource(R.xml.preferences);
+
+            serverCredentials = (ServerCredentials) getArguments().getSerializable("credentials");
 
             findPreference("reset").setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                 @Override

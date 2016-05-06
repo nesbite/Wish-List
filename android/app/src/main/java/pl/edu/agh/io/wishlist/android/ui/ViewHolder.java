@@ -17,12 +17,19 @@ public class ViewHolder {
     @Bind(R.id.title)
     TextView title;
 
+    @Bind(R.id.subtitle)
+    TextView subtitle;
+
     public ViewHolder(View view) {
         ButterKnife.bind(this, view);
     }
 
     public void setTitle(CharSequence title) {
         this.title.setText(title);
+    }
+
+    public void setSubTitle(CharSequence title) {
+        this.subtitle.setText(title);
     }
 
     public void setIcon(Drawable drawable) {

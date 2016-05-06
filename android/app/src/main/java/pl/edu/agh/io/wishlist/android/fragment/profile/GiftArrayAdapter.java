@@ -6,8 +6,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import pl.edu.agh.io.wishlist.android.R;
-import pl.edu.agh.io.wishlist.android.ui.ViewHolder;
 import pl.edu.agh.io.wishlist.android.domain.Gift;
+import pl.edu.agh.io.wishlist.android.ui.ViewHolder;
 
 import javax.inject.Inject;
 
@@ -39,6 +39,7 @@ public class GiftArrayAdapter extends ArrayAdapter<Gift> {
         Gift gift = getItem(position);
         ViewHolder holder = (ViewHolder) row.getTag();
         holder.setTitle(gift.getName());
+        holder.setSubTitle(gift.getDescription());
         holder.setIcon(R.drawable.icon_gift_default);
 
         return row;
