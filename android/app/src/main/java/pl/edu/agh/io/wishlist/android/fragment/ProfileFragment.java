@@ -14,7 +14,7 @@ import butterknife.ButterKnife;
 import org.springframework.web.client.RestTemplate;
 import pl.edu.agh.io.wishlist.android.activity.GiftDetailsActivity;
 import pl.edu.agh.io.wishlist.android.R;
-import pl.edu.agh.io.wishlist.android.activity.GiftEditActivity;
+import pl.edu.agh.io.wishlist.android.activity.GiftAddActivity;
 import pl.edu.agh.io.wishlist.android.dagger.DaggerApplication;
 import pl.edu.agh.io.wishlist.android.domain.User;
 import pl.edu.agh.io.wishlist.android.fragment.adapter.GiftArrayAdapter;
@@ -69,7 +69,7 @@ public class ProfileFragment extends Fragment {
         getActivity().findViewById(R.id.fab).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), GiftEditActivity.class);
+                Intent intent = new Intent(getActivity(), GiftAddActivity.class);
                 startActivity(intent);
             }
         });

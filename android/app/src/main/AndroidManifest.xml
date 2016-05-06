@@ -48,6 +48,15 @@
                     android:name="android.support.PARENT_ACTIVITY"
                     android:value=".activity.LoginActivity"/>
         </activity>
+        <activity
+                android:name=".activity.GiftAddActivity"
+                android:label="@string/title_item_detail"
+                android:parentActivityName=".activity.NavigationActivity"
+                android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                    android:name="android.support.PARENT_ACTIVITY"
+                    android:value=".activity.GiftAddActivity"/>
+        </activity>
     </application>
 
 </manifest>
