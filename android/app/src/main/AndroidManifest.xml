@@ -33,20 +33,20 @@
                 android:name=".activity.NavigationActivity"
                 android:theme="@style/AppTheme.NoActionBar"/>
         <activity
-                android:name=".ItemDetailActivity"
+                android:name=".activity.GiftDetailsActivity"
                 android:label="@string/title_item_detail"
                 android:parentActivityName=".activity.NavigationActivity"
                 android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                     android:name="android.support.PARENT_ACTIVITY"
-                    android:value="pl.edu.agh.io.wishlist.android.ItemDetailActivity"/>
+                    android:value=".activity.GiftDetailsActivity"/>
         </activity>
         <activity
                 android:name=".activity.SettingsActivity"
                 android:theme="@style/AppTheme">
             <meta-data
                     android:name="android.support.PARENT_ACTIVITY"
-                    android:value="pl.edu.agh.io.wishlist.android.activity.LoginActivity"/>
+                    android:value=".activity.LoginActivity"/>
         </activity>
     </application>
 

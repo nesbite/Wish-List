@@ -1,4 +1,4 @@
-package pl.edu.agh.io.wishlist.android.rest;
+package pl.edu.agh.io.wishlist.android.auth.interceptor;
 
 import android.content.SharedPreferences;
 import android.util.Log;
@@ -10,25 +10,25 @@ import org.springframework.http.client.ClientHttpResponse;
 import javax.inject.Inject;
 import java.io.IOException;
 
-public class CookieAuthInterceptor implements ClientHttpRequestInterceptor {
+public class BasicAuthInterceptor implements ClientHttpRequestInterceptor {
 
-    private static final String TAG = CookieAuthInterceptor.class.getSimpleName();
+    private static final String TAG = BasicAuthInterceptor.class.getSimpleName();
 
     private SharedPreferences sharedPreferences;
 
     @Inject
-    public CookieAuthInterceptor(SharedPreferences sharedPreferences) {
+    public BasicAuthInterceptor(SharedPreferences sharedPreferences) {
         this.sharedPreferences = sharedPreferences;
     }
 
     @Override
     public ClientHttpResponse intercept(HttpRequest request, byte[] body, ClientHttpRequestExecution execution) throws IOException {
-        String cookie = sharedPreferences.getString("Cookie", null);
+        String authHeader = sharedPreferences.getString("Authorization", null);
 
-        Log.d(TAG, "intercept: " + request.getURI() + ", cookie: " + (cookie != null));
+        Log.d(TAG, "intercepting, authHeader: " + authHeader);
 
-        if (cookie != null) {
-            request.getHeaders().add("Cookie", cookie);
+        if (authHeader != null) {
+            request.getHeaders().add("Authorization", authHeader);
         }
 
         return execution.execute(request, body);

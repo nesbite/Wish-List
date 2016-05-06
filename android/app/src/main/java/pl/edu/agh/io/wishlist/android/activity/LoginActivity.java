@@ -26,8 +26,8 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 import pl.edu.agh.io.wishlist.android.R;
+import pl.edu.agh.io.wishlist.android.auth.ServerCredentials;
 import pl.edu.agh.io.wishlist.android.dagger.DaggerApplication;
-import pl.edu.agh.io.wishlist.android.rest.ServerCredentials;
 
 import javax.inject.Inject;
 import java.util.List;

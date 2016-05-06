@@ -12,13 +12,14 @@ import org.springframework.http.converter.FormHttpMessageConverter;
 import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.client.RestTemplate;
+import pl.edu.agh.io.wishlist.android.activity.GiftDetailsActivity;
 import pl.edu.agh.io.wishlist.android.R;
 import pl.edu.agh.io.wishlist.android.activity.LoginActivity;
 import pl.edu.agh.io.wishlist.android.activity.SettingsActivity;
-import pl.edu.agh.io.wishlist.android.fragment.profile.ProfileFragment;
-import pl.edu.agh.io.wishlist.android.fragment.users.UsersFragment;
-import pl.edu.agh.io.wishlist.android.rest.CookieAuthInterceptor;
-import pl.edu.agh.io.wishlist.android.rest.ServerCredentials;
+import pl.edu.agh.io.wishlist.android.fragment.ProfileFragment;
+import pl.edu.agh.io.wishlist.android.fragment.UsersFragment;
+import pl.edu.agh.io.wishlist.android.auth.interceptor.CookieAuthInterceptor;
+import pl.edu.agh.io.wishlist.android.auth.ServerCredentials;
 
 import javax.inject.Singleton;
 import java.util.Collections;
@@ -28,7 +29,8 @@ import java.util.Collections;
                 LoginActivity.class,
                 UsersFragment.class,
                 ProfileFragment.class,
-                SettingsActivity.class
+                SettingsActivity.class,
+                GiftDetailsActivity.class
         },
         library = true)
 public class DaggerModule {

@@ -1,4 +1,4 @@
-package pl.edu.agh.io.wishlist.android.rest;
+package pl.edu.agh.io.wishlist.android.auth;
 
 import java.io.Serializable;
 

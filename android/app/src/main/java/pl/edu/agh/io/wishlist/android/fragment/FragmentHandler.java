@@ -4,8 +4,9 @@ import android.app.Fragment;
 import android.app.FragmentManager;
 import android.view.MenuItem;
 import pl.edu.agh.io.wishlist.android.R;
-import pl.edu.agh.io.wishlist.android.fragment.profile.ProfileFragment;
-import pl.edu.agh.io.wishlist.android.fragment.users.UsersFragment;
+import pl.edu.agh.io.wishlist.android.fragment.ErrorFragment;
+import pl.edu.agh.io.wishlist.android.fragment.ProfileFragment;
+import pl.edu.agh.io.wishlist.android.fragment.UsersFragment;
 
 import javax.inject.Inject;
 

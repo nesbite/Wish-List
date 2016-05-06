@@ -9,8 +9,8 @@ import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import pl.edu.agh.io.wishlist.android.R;
+import pl.edu.agh.io.wishlist.android.auth.ServerCredentials;
 import pl.edu.agh.io.wishlist.android.dagger.DaggerApplication;
-import pl.edu.agh.io.wishlist.android.rest.ServerCredentials;
 
 import javax.inject.Inject;
 

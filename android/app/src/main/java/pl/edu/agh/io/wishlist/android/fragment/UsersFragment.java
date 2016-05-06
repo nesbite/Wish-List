@@ -1,4 +1,4 @@
-package pl.edu.agh.io.wishlist.android.fragment.users;
+package pl.edu.agh.io.wishlist.android.fragment;
 
 import android.app.Fragment;
 import android.os.Bundle;
@@ -13,8 +13,9 @@ import org.springframework.web.client.RestTemplate;
 import pl.edu.agh.io.wishlist.android.R;
 import pl.edu.agh.io.wishlist.android.dagger.DaggerApplication;
 import pl.edu.agh.io.wishlist.android.domain.User;
+import pl.edu.agh.io.wishlist.android.fragment.adapter.UserArrayAdapter;
 import pl.edu.agh.io.wishlist.android.rest.LoadResourceTask;
-import pl.edu.agh.io.wishlist.android.rest.ServerCredentials;
+import pl.edu.agh.io.wishlist.android.auth.ServerCredentials;
 
 import javax.inject.Inject;
 

@@ -11,7 +11,8 @@ import android.view.MenuItem;
 import butterknife.ButterKnife;
 import pl.edu.agh.io.wishlist.android.R;
 import pl.edu.agh.io.wishlist.android.dagger.DaggerApplication;
-import pl.edu.agh.io.wishlist.android.rest.ServerCredentials;
+import pl.edu.agh.io.wishlist.android.dagger.NavigationModule;
+import pl.edu.agh.io.wishlist.android.auth.ServerCredentials;
 import pl.edu.agh.io.wishlist.android.ui.drawer.Drawer;
 
 import javax.inject.Inject;
