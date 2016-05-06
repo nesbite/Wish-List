@@ -59,7 +59,6 @@
             android:text="Create"
             android:layout_alignParentLeft="false"
             android:layout_alignParentStart="false"
-            android:onClick="signUp"
             android:layout_alignParentEnd="false"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"/>
