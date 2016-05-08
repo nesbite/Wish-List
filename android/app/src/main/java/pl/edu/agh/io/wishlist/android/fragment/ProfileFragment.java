@@ -3,8 +3,8 @@ package pl.edu.agh.io.wishlist.android.fragment;
 import android.app.Fragment;
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,20 +12,22 @@ import android.widget.*;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import org.springframework.web.client.RestTemplate;
-import pl.edu.agh.io.wishlist.android.activity.GiftDetailsActivity;
 import pl.edu.agh.io.wishlist.android.R;
+import pl.edu.agh.io.wishlist.android.activity.DetailsActivity;
 import pl.edu.agh.io.wishlist.android.activity.GiftAddActivity;
+import pl.edu.agh.io.wishlist.android.auth.ServerCredentials;
 import pl.edu.agh.io.wishlist.android.dagger.DaggerApplication;
 import pl.edu.agh.io.wishlist.android.domain.User;
 import pl.edu.agh.io.wishlist.android.fragment.adapter.GiftArrayAdapter;
 import pl.edu.agh.io.wishlist.android.rest.LoadResourceTask;
-import pl.edu.agh.io.wishlist.android.auth.ServerCredentials;
 
 import javax.inject.Inject;
 
 @SuppressWarnings("WeakerAccess")
 public class ProfileFragment extends Fragment {
 
+    public static final String EDITABLE = "editable";
+    public static final String USERNAME = "username";
     @Bind(R.id.user_avatar)
     ImageView userAvatar;
 
@@ -45,15 +47,14 @@ public class ProfileFragment extends Fragment {
     ServerCredentials credentials;
 
     @Inject
-    SharedPreferences sharedPreferences;
-
-    @Inject
     RestTemplate restTemplate;
 
     @Inject
     GiftArrayAdapter adapter;
 
     private String username;
+
+    private boolean editable;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -65,34 +66,57 @@ public class ProfileFragment extends Fragment {
         // ButterKnife injection
         ButterKnife.bind(this, view);
 
-        // FAB listener
-        getActivity().findViewById(R.id.fab).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), GiftAddActivity.class);
-                startActivity(intent);
-            }
-        });
+        username = getArguments().getString(USERNAME, "username");
+        editable = getArguments().getBoolean(EDITABLE, false);
 
-        username = sharedPreferences.getString("username", "username");
+        // edit title if exists in DetailsActivity
+        CollapsingToolbarLayout appBarLayout = (CollapsingToolbarLayout) getActivity().findViewById(R.id.toolbar_layout);
+        if (appBarLayout != null) {
+            appBarLayout.setTitle(username);
+        }
+
+        // FAB listener
+        if (editable) {
+            getActivity().findViewById(R.id.fab).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(getActivity(), GiftAddActivity.class);
+                    startActivity(intent);
+                }
+            });
+        } else {
+            getActivity().findViewById(R.id.fab).setVisibility(View.INVISIBLE);
+        }
+
         usernameTextView.setText(username);
 
         // adapter
         ListView giftListView = new ListView(getActivity());
-        giftListView.addHeaderView(view);
-        giftListView.setAdapter(adapter);
 
         // listener
+
         giftListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Toast.makeText(getActivity(), "Clicked position " + position + "!", Toast.LENGTH_SHORT).show();
 
-                Intent intent = new Intent(getActivity(), GiftDetailsActivity.class);
-                intent.putExtra(GiftDetailsActivity.GIFT_EXTRA, adapter.getItem(position - 1));
+                Intent intent = new Intent(getActivity(), DetailsActivity.class);
+
+                Bundle args = new Bundle();
+                int pos = (editable) ? position - 1 : position; // HEADER VIEW BUG
+                args.putSerializable(GiftDetailFragment.GIFT_EXTRA, adapter.getItem(pos));
+                args.putBoolean(GiftDetailFragment.EDITABLE, editable);
+                intent.putExtra(DetailsActivity.BUNDLE, args);
+                intent.putExtra(DetailsActivity.FRAGMENT_TYPE, DetailsActivity.GIFT_DETAIL);
                 startActivity(intent);
             }
         });
+
+        if (editable) {
+            giftListView.addHeaderView(view);
+        }
+
+        giftListView.setAdapter(adapter);
 
         return giftListView;
     }
@@ -132,6 +156,7 @@ public class ProfileFragment extends Fragment {
         super.onDestroyView();
 
         getActivity().findViewById(R.id.fab).setOnClickListener(null);
+        getActivity().findViewById(R.id.fab).setVisibility(View.VISIBLE);
 
         // ButterKnife unbind
         ButterKnife.unbind(this);

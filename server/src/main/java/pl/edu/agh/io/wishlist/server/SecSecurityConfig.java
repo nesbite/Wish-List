@@ -57,7 +57,7 @@ public class SecSecurityConfig extends WebSecurityConfigurerAdapter {
                         "/badUser*", "/user/resendRegistrationToken*" ,"/forgetPassword*", "/user/resetPassword*",
                         "/user/changePassword*", "/emailError*", "/resources/**","/old/user/registration*","/successRegister*").permitAll()
                 .antMatchers("/invalidSession*").anonymous()
-                .antMatchers("/users/**").access("hasRole('ROLE_ADMIN')")
+//                .antMatchers("/users/**").access("hasRole('ROLE_ADMIN')")
                 .anyRequest().authenticated()
                 .and()
             .formLogin()

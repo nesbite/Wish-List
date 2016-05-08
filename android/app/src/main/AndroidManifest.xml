@@ -33,13 +33,13 @@
                 android:name=".activity.NavigationActivity"
                 android:theme="@style/AppTheme.NoActionBar"/>
         <activity
-                android:name=".activity.GiftDetailsActivity"
+                android:name=".activity.DetailsActivity"
                 android:label="@string/title_item_detail"
                 android:parentActivityName=".activity.NavigationActivity"
                 android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                     android:name="android.support.PARENT_ACTIVITY"
-                    android:value=".activity.GiftDetailsActivity"/>
+                    android:value=".activity.DetailsActivity"/>
         </activity>
         <activity
                 android:name=".activity.SettingsActivity"

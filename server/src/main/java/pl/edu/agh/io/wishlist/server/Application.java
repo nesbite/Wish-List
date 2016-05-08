@@ -52,9 +52,9 @@ public class Application extends SpringBootServletInitializer implements Command
         userRepository.deleteAll();
         giftRepository.deleteAll();
 
-        List<Gift> gifts1 = createDummyGifts(10, "one");
+        List<Gift> gifts1 = createDummyGifts(4, "one");
         List<Gift> gifts2 = createDummyGifts(2, "two");
-        List<Gift> gifts3 = createDummyGifts(6, "three");
+        List<Gift> gifts3 = createDummyGifts(3, "three");
 
         gifts1 = giftRepository.save(gifts1);
         gifts2 = giftRepository.save(gifts2);
