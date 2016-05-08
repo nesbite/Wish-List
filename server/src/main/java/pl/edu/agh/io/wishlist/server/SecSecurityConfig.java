@@ -29,8 +29,8 @@ public class SecSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private AuthenticationSuccessHandler myAuthenticationSuccessHandler;
 
-//    @Autowired
-//    private AuthenticationFailureHandler authenticationFailureHandler;
+    @Autowired
+    private AuthenticationFailureHandler authenticationFailureHandler;
 
     public SecSecurityConfig() {
         super();
@@ -57,6 +57,7 @@ public class SecSecurityConfig extends WebSecurityConfigurerAdapter {
                         "/badUser*", "/user/resendRegistrationToken*" ,"/forgetPassword*", "/user/resetPassword*",
                         "/user/changePassword*", "/emailError*", "/resources/**","/old/user/registration*","/successRegister*").permitAll()
                 .antMatchers("/invalidSession*").anonymous()
+                .antMatchers("/users/**").access("hasRole('ROLE_ADMIN')")
                 .anyRequest().authenticated()
                 .and()
             .formLogin()
