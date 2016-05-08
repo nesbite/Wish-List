@@ -1,4 +1,4 @@
-package pl.edu.agh.io.wishlist.android.rest;
+package pl.edu.agh.io.wishlist.android.auth.interceptor;
 
 import android.content.SharedPreferences;
 import android.util.Log;
@@ -25,7 +25,7 @@ public class CookieAuthInterceptor implements ClientHttpRequestInterceptor {
     public ClientHttpResponse intercept(HttpRequest request, byte[] body, ClientHttpRequestExecution execution) throws IOException {
         String cookie = sharedPreferences.getString("Cookie", null);
 
-        Log.d(TAG, "intercepting, cookie: " + cookie);
+        Log.d(TAG, "intercept: " + request.getURI() + ", cookie: " + (cookie != null));
 
         if (cookie != null) {
             request.getHeaders().add("Cookie", cookie);

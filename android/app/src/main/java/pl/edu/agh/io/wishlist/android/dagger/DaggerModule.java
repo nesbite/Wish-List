@@ -3,9 +3,7 @@ package pl.edu.agh.io.wishlist.android.dagger;
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.content.pm.ApplicationInfo;
-import android.content.pm.PackageManager;
-import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import dagger.Module;
 import dagger.Provides;
@@ -14,11 +12,15 @@ import org.springframework.http.converter.FormHttpMessageConverter;
 import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.client.RestTemplate;
+import pl.edu.agh.io.wishlist.android.activity.GiftAddActivity;
+import pl.edu.agh.io.wishlist.android.activity.GiftDetailsActivity;
+import pl.edu.agh.io.wishlist.android.R;
 import pl.edu.agh.io.wishlist.android.activity.LoginActivity;
-import pl.edu.agh.io.wishlist.android.fragment.profile.ProfileFragment;
-import pl.edu.agh.io.wishlist.android.fragment.users.UsersFragment;
-import pl.edu.agh.io.wishlist.android.rest.CookieAuthInterceptor;
-import pl.edu.agh.io.wishlist.android.rest.ServerCredentials;
+import pl.edu.agh.io.wishlist.android.activity.SettingsActivity;
+import pl.edu.agh.io.wishlist.android.fragment.ProfileFragment;
+import pl.edu.agh.io.wishlist.android.fragment.UsersFragment;
+import pl.edu.agh.io.wishlist.android.auth.interceptor.CookieAuthInterceptor;
+import pl.edu.agh.io.wishlist.android.auth.ServerCredentials;
 
 import javax.inject.Singleton;
 import java.util.Collections;
@@ -27,7 +29,10 @@ import java.util.Collections;
         {
                 LoginActivity.class,
                 UsersFragment.class,
-                ProfileFragment.class
+                ProfileFragment.class,
+                SettingsActivity.class,
+                GiftDetailsActivity.class,
+                GiftAddActivity.class
         },
         library = true)
 public class DaggerModule {
@@ -46,19 +51,14 @@ public class DaggerModule {
 
     @Provides
     @Singleton
-    ServerCredentials provideServerCredentials() {
-        try {
-            ApplicationInfo ai = application.getPackageManager().getApplicationInfo(application.getPackageName(), PackageManager.GET_META_DATA);
-            Bundle bundle = ai.metaData;
+    ServerCredentials provideServerCredentials(SharedPreferences sharedPreferences) {
+        String defaultHost = application.getString(R.string.server_host);
+        String defaultPort = application.getString(R.string.server_port);
 
-            String host = bundle.getString("server_host");
-            int port = bundle.getInt("server_port");
+        String host = sharedPreferences.getString("server_host", defaultHost);
+        String port = sharedPreferences.getString("server_port", defaultPort);
 
-            return new ServerCredentials(host, port);
-        } catch (PackageManager.NameNotFoundException e) {
-            e.printStackTrace();
-            return new ServerCredentials();
-        }
+        return new ServerCredentials(host, Integer.parseInt(port));
     }
 
     @Provides
@@ -79,7 +79,7 @@ public class DaggerModule {
 
     @Provides
     SharedPreferences provideSharedPreferences() {
-        return application.getSharedPreferences("UserInfo", Context.MODE_PRIVATE);
+        return PreferenceManager.getDefaultSharedPreferences(application);
     }
 
 }

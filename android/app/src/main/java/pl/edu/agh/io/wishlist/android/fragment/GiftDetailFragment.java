@@ -1,4 +1,4 @@
-package pl.edu.agh.io.wishlist.android;
+package pl.edu.agh.io.wishlist.android.fragment;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -7,10 +7,21 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
+import butterknife.Bind;
+import butterknife.ButterKnife;
+import pl.edu.agh.io.wishlist.android.R;
+import pl.edu.agh.io.wishlist.android.activity.GiftDetailsActivity;
 import pl.edu.agh.io.wishlist.android.domain.Gift;
 
-public class ItemDetailFragment extends Fragment {
+public class GiftDetailFragment extends Fragment {
+
+    @Bind(R.id.giftImage)
+    ImageView giftImage;
+
+    @Bind(R.id.description)
+    TextView description;
 
     private Gift gift;
 
@@ -21,7 +32,7 @@ public class ItemDetailFragment extends Fragment {
         // Load the dummy content specified by the fragment
         // arguments. In a real-world scenario, use a Loader
         // to load content from a content provider.
-        gift = (Gift) getArguments().getSerializable(ItemDetailActivity.GIFT_EXTRA);
+        gift = (Gift) getArguments().getSerializable(GiftDetailsActivity.GIFT_EXTRA);
 
         if (gift != null) {
             Activity activity = this.getActivity();
@@ -35,11 +46,15 @@ public class ItemDetailFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.item_detail, container, false);
+        View rootView = inflater.inflate(R.layout.gift_detail, container, false);
+
+        // ButterKnife injection
+        ButterKnife.bind(this, rootView);
 
         // Show the dummy content as text in a TextView.
+        giftImage.setImageResource(R.drawable.icon_gift_default);
         if (gift != null) {
-            ((TextView) rootView.findViewById(R.id.item_detail)).setText(gift.getDescription());
+            description.setText(gift.getDescription());
         }
 
         return rootView;

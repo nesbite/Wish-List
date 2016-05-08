@@ -8,6 +8,7 @@ import pl.edu.agh.io.wishlist.persistence.GiftRepository;
 import pl.edu.agh.io.wishlist.persistence.UserRepository;
 import pl.edu.agh.io.wishlist.service.IGiftService;
 
+import java.util.Iterator;
 import java.util.List;
 
 @Service
@@ -53,14 +54,19 @@ public class GiftService implements IGiftService {
         Gift gift = giftRepository.findOne(giftId);
 
         List<Gift> giftIdList = user.getGifts();
-        if (!giftIdList.contains(gift)) {
-            return false;
-        }
-        giftIdList.remove(gift);
-        userRepository.save(user);
-        giftRepository.delete(gift);
+        Iterator<Gift> it = giftIdList.iterator();
+        while(it.hasNext()) {
+            if(it.next().getId().equals(gift.getId())) {
+                it.remove();
 
-        return true;
+                userRepository.save(user);
+                giftRepository.delete(gift);
+
+                return true;
+            }
+        }
+
+        return false;
     }
 
     @Override

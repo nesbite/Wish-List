@@ -1,4 +1,4 @@
-package pl.edu.agh.io.wishlist.android.rest;
+package pl.edu.agh.io.wishlist.android.auth.interceptor;
 
 import android.content.SharedPreferences;
 import android.util.Log;

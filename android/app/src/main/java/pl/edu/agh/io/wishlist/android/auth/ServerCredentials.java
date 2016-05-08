@@ -1,6 +1,8 @@
-package pl.edu.agh.io.wishlist.android.rest;
+package pl.edu.agh.io.wishlist.android.auth;
 
-public class ServerCredentials {
+import java.io.Serializable;
+
+public class ServerCredentials implements Serializable {
 
     private String host;
     private int port;
@@ -28,4 +30,11 @@ public class ServerCredentials {
         return getUrl() + "/" + path;
     }
 
+    public void setHost(String host) {
+        this.host = host;
+    }
+
+    public void setPort(int port) {
+        this.port = port;
+    }
 }

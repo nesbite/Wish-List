@@ -1,9 +1,10 @@
-package pl.edu.agh.io.wishlist.android.activity;
+package pl.edu.agh.io.wishlist.android.dagger;
 
 import android.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import dagger.Module;
 import dagger.Provides;
+import pl.edu.agh.io.wishlist.android.activity.NavigationActivity;
 import pl.edu.agh.io.wishlist.android.dagger.DaggerModule;
 
 @Module(

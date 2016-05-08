@@ -1,4 +1,4 @@
-package pl.edu.agh.io.wishlist.android.fragment.profile;
+package pl.edu.agh.io.wishlist.android.fragment.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -6,8 +6,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import pl.edu.agh.io.wishlist.android.R;
-import pl.edu.agh.io.wishlist.android.ui.ViewHolder;
 import pl.edu.agh.io.wishlist.android.domain.Gift;
+import pl.edu.agh.io.wishlist.android.ui.ViewHolder;
 
 import javax.inject.Inject;
 
@@ -17,7 +17,7 @@ public class GiftArrayAdapter extends ArrayAdapter<Gift> {
 
     @Inject
     public GiftArrayAdapter(Context context, LayoutInflater inflater) {
-        super(context, R.layout.list_item);
+        super(context, R.layout.gift_list_item);
 
         this.inflater = inflater;
     }
@@ -28,7 +28,7 @@ public class GiftArrayAdapter extends ArrayAdapter<Gift> {
 
         // reuse views
         if (row == null) {
-            row = inflater.inflate(R.layout.list_item, parent, false);
+            row = inflater.inflate(R.layout.gift_list_item, parent, false);
 
             // view holder
             ViewHolder viewHolder = new ViewHolder(row);
@@ -39,6 +39,7 @@ public class GiftArrayAdapter extends ArrayAdapter<Gift> {
         Gift gift = getItem(position);
         ViewHolder holder = (ViewHolder) row.getTag();
         holder.setTitle(gift.getName());
+        holder.setSubTitle(gift.getDescription());
         holder.setIcon(R.drawable.icon_gift_default);
 
         return row;

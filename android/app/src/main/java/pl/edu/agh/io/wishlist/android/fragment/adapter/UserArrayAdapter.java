@@ -1,4 +1,4 @@
-package pl.edu.agh.io.wishlist.android.fragment.users;
+package pl.edu.agh.io.wishlist.android.fragment.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -17,7 +17,7 @@ public class UserArrayAdapter extends ArrayAdapter<User> {
 
     @Inject
     public UserArrayAdapter(Context context, LayoutInflater inflater) {
-        super(context, R.layout.list_item);
+        super(context, R.layout.gift_list_item);
 
         this.inflater = inflater;
     }
@@ -28,7 +28,7 @@ public class UserArrayAdapter extends ArrayAdapter<User> {
 
         // reuse views
         if (row == null) {
-            row = inflater.inflate(R.layout.list_item, parent, false);
+            row = inflater.inflate(R.layout.gift_list_item, parent, false);
 
             // view holder
             ViewHolder viewHolder = new ViewHolder(row);
