@@ -113,7 +113,6 @@ img {
 #icon {
   margin: 5px auto;
   max-height: 30%;
-  max-width: 30%;
 }
 
 .collapse {
@@ -132,8 +131,16 @@ img {
   background-color: #353535;
 }
 
+.nav-tabs > .dropdown > a:hover,
 .nav-tabs > li > a:hover {
   color: #cd2e1d !important;
+  background: transparent;
+}
+
+.nav-tabs > .dropdown > a:active,
+.nav-tabs > .dropdown > a:focus,
+.nav-tabs > li > a:active,
+.nav-tabs > li > a:focus {
   background: transparent;
 }
 
@@ -153,11 +160,8 @@ img {
   background: transparent;
 }
 
-.nav-tabs > li.active > a: {
-  background-color: #353535;
-}
-
 .nav-tabs > li.active > a::after,
 .nav-tabs > li:hover > a::after {
   transform: scale(1);
 }
+
