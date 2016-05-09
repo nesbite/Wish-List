@@ -112,10 +112,8 @@ public class LoginActivity extends Activity implements Validator.ValidationListe
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == REQUEST_SIGN_UP) {
             if (resultCode == RESULT_OK) {
-                Intent intent = new Intent(getApplicationContext(), NavigationActivity.class);
-                startActivity(intent);
-
-                finish();
+                loginText.setText(data.getStringExtra("username"));
+                passwordText.setText(data.getStringExtra("password"));
             }
         }
     }

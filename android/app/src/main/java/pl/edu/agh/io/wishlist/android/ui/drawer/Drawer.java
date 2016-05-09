@@ -77,7 +77,7 @@ public class Drawer implements NavigationView.OnNavigationItemSelectedListener {
         if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
             drawerLayout.closeDrawer(GravityCompat.START);
         } else {
-            activity.finish();
+            drawerLayout.openDrawer(GravityCompat.START);
         }
     }
 
