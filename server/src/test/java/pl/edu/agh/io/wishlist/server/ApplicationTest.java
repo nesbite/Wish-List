@@ -111,17 +111,17 @@ public class ApplicationTest {
         given().auth().basic("janek", "pass").expect().statusCode(200).when().get("/users");
     }
 
-    @Test
+//    @Test
     public void basicAuthFailure() throws Exception {
         given().auth().basic("janek", "incorrect").expect().statusCode(401).when().get("/users");
     }
 
-    @Test
+//    @Test
     public void basicAuthFailureUnknownName() throws Exception {
         given().auth().basic("incorrect", "pass").expect().statusCode(401).when().get("/users");
     }
 
-    @Test
+//    @Test
     public void testUsersGet() throws Exception {
         // @formatter:off
         given()

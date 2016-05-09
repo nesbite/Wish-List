@@ -65,12 +65,7 @@ public class MvcConfig extends WebMvcConfigurerAdapter {
 
     // beans
 
-    @Bean
-    public LocaleResolver localeResolver() {
-        final CookieLocaleResolver cookieLocaleResolver = new CookieLocaleResolver();
-        cookieLocaleResolver.setDefaultLocale(Locale.ENGLISH);
-        return cookieLocaleResolver;
-    }
+
 
      @Bean
      public MessageSource messageSource() {

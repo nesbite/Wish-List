@@ -1,4 +1,4 @@
-package pl.edu.agh.io.wishlist.android.fragment.users;
+package pl.edu.agh.io.wishlist.android.fragment.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -6,18 +6,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import pl.edu.agh.io.wishlist.android.R;
-import pl.edu.agh.io.wishlist.android.ui.ViewHolder;
 import pl.edu.agh.io.wishlist.android.domain.User;
+import pl.edu.agh.io.wishlist.android.ui.ViewHolder;
 
 import javax.inject.Inject;
 
-public class UserArrayAdapter extends ArrayAdapter<User> {
+public class FriendArrayAdapter extends ArrayAdapter<User> {
 
     private LayoutInflater inflater;
 
     @Inject
-    public UserArrayAdapter(Context context, LayoutInflater inflater) {
-        super(context, R.layout.list_item);
+    public FriendArrayAdapter(Context context, LayoutInflater inflater) {
+        super(context, R.layout.gift_list_item);
 
         this.inflater = inflater;
     }
@@ -28,7 +28,7 @@ public class UserArrayAdapter extends ArrayAdapter<User> {
 
         // reuse views
         if (row == null) {
-            row = inflater.inflate(R.layout.list_item, parent, false);
+            row = inflater.inflate(R.layout.gift_list_item, parent, false);
 
             // view holder
             ViewHolder viewHolder = new ViewHolder(row);
@@ -37,9 +37,11 @@ public class UserArrayAdapter extends ArrayAdapter<User> {
 
         // fill data
         User user = getItem(position);
-        ViewHolder holder = (ViewHolder) row.getTag();
-        holder.setTitle(user.getUsername());
-        holder.setIcon(R.drawable.icon_user_default);
+        if (user != null) {
+            ViewHolder holder = (ViewHolder) row.getTag();
+            holder.setTitle(user.getUsername());
+            holder.setIcon(R.drawable.icon_user_default);
+        }
 
         return row;
     }

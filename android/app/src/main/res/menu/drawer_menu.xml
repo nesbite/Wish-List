@@ -9,7 +9,7 @@
         <item
                 android:id="@+id/nav_users"
                 android:icon="@drawable/ic_menu_share"
-                android:title="Users"/>
+                android:title="Friends"/>
     </group>
 
     <!--    <group android:checkableBehavior="single">

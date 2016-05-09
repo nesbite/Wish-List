@@ -12,10 +12,6 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.animation.AccelerateInterpolator;
-import android.view.animation.AlphaAnimation;
-import android.view.animation.Animation;
-import android.widget.FrameLayout;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import pl.edu.agh.io.wishlist.android.R;
@@ -32,9 +28,6 @@ public class Drawer implements NavigationView.OnNavigationItemSelectedListener {
     private final FragmentHandler fragmentHandler;
 
     private CharSequence activityTitle;
-
-    @Bind(R.id.navigation_loader)
-    FrameLayout loader;
 
     @Bind(R.id.drawer_layout)
     DrawerLayout drawerLayout;
@@ -109,8 +102,6 @@ public class Drawer implements NavigationView.OnNavigationItemSelectedListener {
     public boolean onNavigationItemSelected(MenuItem item) {
         Log.e("SELECTED", "item: " + item.getTitle());
         // update selected item and activityTitle, then close the drawer
-        invokeLoaderAnimation();
-
         setDrawerTitle(item.getTitle());
 
         switch (item.getItemId()) {
@@ -150,36 +141,6 @@ public class Drawer implements NavigationView.OnNavigationItemSelectedListener {
     public void setDrawerTitle(CharSequence drawerTitle) {
         this.activity.setTitle(drawerTitle);
         this.toolbar.setTitle(drawerTitle);
-    }
-
-    private void invokeLoaderAnimation() {
-
-        Animation fadeOut = new AlphaAnimation(1, 0);
-        fadeOut.setInterpolator(new AccelerateInterpolator());
-        fadeOut.setStartOffset(700);
-        fadeOut.setDuration(300);
-        fadeOut.setAnimationListener(new Animation.AnimationListener() {
-            @Override
-            public void onAnimationStart(Animation animation) {
-                loader.setVisibility(View.VISIBLE);
-            }
-
-            @Override
-            public void onAnimationEnd(Animation animation) {
-                loader.setVisibility(View.GONE);
-            }
-
-            @Override
-            public void onAnimationRepeat(Animation animation) {
-
-            }
-        });
-
-        fadeOut.setFillEnabled(true);
-        fadeOut.setFillAfter(true);
-        fadeOut.setFillBefore(true);
-
-        loader.startAnimation(fadeOut);
     }
 
 }

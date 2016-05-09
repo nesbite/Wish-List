@@ -16,21 +16,21 @@ public class UserController {
     @Autowired
     private IUserService userService;
 
-    @PreAuthorize("ROLE_ADMIN")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @ResponseBody
     @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity<Collection<User>> getUsers() {
         return new ResponseEntity<>(userService.getUsers(), HttpStatus.OK);
     }
 
-    @PreAuthorize("ROLE_ADMIN")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @ResponseBody
     @RequestMapping(value = "/{username}", method = RequestMethod.GET)
     public ResponseEntity<User> getUser(@PathVariable(value = "username") String username) {
         return new ResponseEntity<>(userService.getUserByUsername(username), HttpStatus.OK);
     }
 
-    @PreAuthorize("ROLE_ADMIN")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @ResponseBody
     @RequestMapping(method = RequestMethod.PUT)
     public ResponseEntity<String> updateUser(@RequestBody User user) {
