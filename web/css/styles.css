@@ -97,3 +97,9 @@ img {
 
 /*recovery*/
 
+.modal-content .btn {
+  display: inline;
+  font-size: 14px;
+  color: #fff;
+  background-color: #d32d1d;
+}
