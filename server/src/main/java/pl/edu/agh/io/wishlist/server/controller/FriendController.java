@@ -14,6 +14,7 @@ import java.util.List;
 // TODO: 12/04/2016
 // refactor it with a REST-friendly way
 
+@CrossOrigin
 @RestController
 @RequestMapping("/friends")
 public class FriendController {
