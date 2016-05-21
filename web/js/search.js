@@ -3,7 +3,6 @@ $(function () {
         $('#back-to-bootsnipp').removeClass('hide');
     }
 
-
     $('[data-toggle="tooltip"]').tooltip();
 
     $('#fullscreen').on('click', function(event) {
