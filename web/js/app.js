@@ -2,39 +2,43 @@
 
 // main application module definition
 angular.module('wishlist', [
-    'ui.router',
-    'ngResource',
-    'wishlist.services',
-    'wishlist.directives',
-    'wishlist.controllers'
-])
+        'ui.router',
+        'ngResource',
+        'wishlist.services',
+        'wishlist.directives',
+        'wishlist.controllers'
+    ])
 
-.config(function ($stateProvider, $urlRouterProvider) {
+    .constant("config", {
+        serverUrl: "http://localhost:8080/"
+    })
 
-    $urlRouterProvider.when('', '/login');
+    .config(function ($stateProvider, $urlRouterProvider) {
 
-    $urlRouterProvider.otherwise(function($injector, $location) {
-        $injector.invoke(['$state', function($state) {
-            $state.go('404');
-        }]);
-    });
+        $urlRouterProvider.when('', '/login');
 
-    $stateProvider
-        .state('404', {
-            templateUrl: 'partials/404.html'
-        })
-        .state('greeting', {
-            url: '/greeting',
-            templateUrl: 'partials/views/greeting.html',
-            controller: 'GreetingController',
-            service: 'GreetingService'
-        })
-
-        .state('login', {
-            url: '/login',
-            templateUrl: 'partials/views/login.html'
+        $urlRouterProvider.otherwise(function ($injector, $location) {
+            $injector.invoke(['$state', function ($state) {
+                $state.go('404');
+            }]);
         });
 
-}).run(function ($state) {
-   $state.go('login');
+        $stateProvider
+            .state('404', {
+                templateUrl: 'partials/404.html'
+            })
+            .state('greeting', {
+                url: '/greeting',
+                templateUrl: 'partials/views/greeting.html',
+                controller: 'GreetingController',
+                service: 'GreetingService'
+            })
+
+            .state('login', {
+                url: '/login',
+                templateUrl: 'partials/views/login.html'
+            });
+
+    }).run(function ($state) {
+    $state.go('login');
 });

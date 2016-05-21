@@ -2,8 +2,8 @@
 
 angular.module('wishlist.controllers', [])
 
-.controller('GreetingController',function($scope,$state, GreetingService) {
+    .controller('GreetingController', function ($scope, $state, config, GreetingService) {
+        console.log(config.serverUrl);
+        $scope.greeting = GreetingService.get();
 
-    $scope.greeting = GreetingService.get();
-    
-});
+    });
