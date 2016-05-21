@@ -17,6 +17,11 @@ angular.module('sogo', [
             templateUrl: 'partials/views/greeting.html',
             controller: 'GreetingController',
             service: 'GreetingService'
+        })
+
+        .state('login', {
+            url: '/login',
+            templateUrl: 'partials/views/login.html'
         });
 
 }).run(function ($state) {

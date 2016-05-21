@@ -1,8 +1,8 @@
 {
-  "name": "SOGO",
-  "namelower": "sogo",
+  "name": "WishList",
+  "namelower": "wishlist",
   "version": "0.0.1",
-  "description": "System optymalizujacy gospodarke odpadami",
+  "description": "Share your gifts with others",
   "readme": "README.md",
   "repository": {
     "type": "git",
