@@ -36,6 +36,17 @@ angular.module('wishlist', [
         .state('register', {
             url: '/register',
             templateUrl: 'partials/views/register.html'
+        })
+        .state('navbar', {
+            templateUrl: 'partials/views/navbar.html'
+        })
+        .state('navbar.friends', {
+            url: '/friends',
+            templateUrl: 'partials/views/friends.html'
+        })
+        .state('navbar.gifts', {
+            url: '/gifts',
+            templateUrl: 'partials/views/gifts.html'
         });
 
 }).run(function ($state) {
