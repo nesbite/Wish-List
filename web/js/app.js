@@ -29,10 +29,13 @@ angular.module('wishlist', [
             controller: 'GreetingController',
             service: 'GreetingService'
         })
-
         .state('login', {
             url: '/login',
             templateUrl: 'partials/views/login.html'
+        })
+        .state('register', {
+            url: '/register',
+            templateUrl: 'partials/views/register.html'
         });
 
 }).run(function ($state) {
