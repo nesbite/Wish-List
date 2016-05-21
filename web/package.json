@@ -6,8 +6,8 @@
   "readme": "README.md",
   "repository": {
     "type": "git",
-    "url": "git@github.com:lgajewski/SOGO.git"
-  },  
+    "url": "git@github.com:agh-ki-io/WishList.git"
+  },
   "scripts": {
     "postinstall": "bower install"
   }

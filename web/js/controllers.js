@@ -2,7 +2,7 @@
 
 /* Controllers */
 
-angular.module('sogo.controllers', [])
+angular.module('wishlist.controllers', [])
 
 .controller('GreetingController',function($scope,$state, GreetingService) {
 

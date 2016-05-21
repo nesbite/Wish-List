@@ -2,4 +2,4 @@
 
 /* Directives */
 
-var directives = angular.module('sogo.directives', []);
+var directives = angular.module('wishlist.directives', []);

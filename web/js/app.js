@@ -1,17 +1,28 @@
 'use strict';
 
 // main application module definition
-angular.module('sogo', [
+angular.module('wishlist', [
     'ui.router',
     'ngResource',
-    'sogo.services',
-    'sogo.directives',
-    'sogo.controllers'
+    'wishlist.services',
+    'wishlist.directives',
+    'wishlist.controllers'
 ])
 
-.config(function ($stateProvider, $httpProvider) {
+.config(function ($stateProvider, $urlRouterProvider) {
+
+    $urlRouterProvider.when('', '/login');
+
+    $urlRouterProvider.otherwise(function($injector, $location) {
+        $injector.invoke(['$state', function($state) {
+            $state.go('404');
+        }]);
+    });
 
     $stateProvider
+        .state('404', {
+            templateUrl: 'partials/404.html'
+        })
         .state('greeting', {
             url: '/greeting',
             templateUrl: 'partials/views/greeting.html',
@@ -25,5 +36,5 @@ angular.module('sogo', [
         });
 
 }).run(function ($state) {
-   $state.go('greeting');
+   $state.go('login');
 });
