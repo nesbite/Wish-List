@@ -2,9 +2,12 @@
 
 angular.module('wishlist.controllers', [])
 
-    .controller('GreetingController', function ($scope, $state, GreetingService, UserService) {
+    .controller('GreetingController', function ($scope, $state, GreetingService) {
         $scope.greeting = GreetingService.get();
-        
-        $scope.users = UserService.query(); // because it is an array
+    })
+    .controller('FriendController', function ($scope, $state, UserService) {
+        var users = UserService.getUsers();
 
+        $scope.friends = users;
     });
+

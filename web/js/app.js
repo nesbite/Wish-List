@@ -9,7 +9,7 @@ angular.module('wishlist', [
         'wishlist.controllers'
     ])
 
-    .constant("serverUrl", "http://0.0.0.0:8081/")
+    .constant("serverUrl", "http://localhost:8080")
 
     .config(function ($stateProvider, $urlRouterProvider) {
 
@@ -44,7 +44,9 @@ angular.module('wishlist', [
             })
             .state('navbar.friends', {
                 url: '/friends',
-                templateUrl: 'partials/views/friends.html'
+                templateUrl: 'partials/views/friends.html',
+                controller: 'FriendController',
+                service: 'UserService'
             })
             .state('navbar.gifts', {
                 url: '/gifts',

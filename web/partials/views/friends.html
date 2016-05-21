@@ -16,87 +16,21 @@
                     <div class="input-group c-search">
                         <input type="text" class="form-control" id="contact-list-search">
                             <span class="input-group-btn">
-                                <input class="btn btn-default" type="image" src="assets/search_icon.png"/>
+                                <input class="btn btn-default" type="image" src="/assets/search_icon.png"/>
                             </span>
                     </div>
                 </div>
             </div>
 
             <ul class="list-group" id="contact-list">
-                <li class="list-group-item">
+                <li class="list-group-item" ng-repeat="friend in friends">
                     <div class="col-xs-12 col-sm-3">
-                        <img src="http://api.randomuser.me/portraits/men/49.jpg" alt="Scott Stevens"
+                        <img src="/assets/icon_user_default.png" alt="Scott Stevens"
                              class="img-responsive img-circle"/>
                     </div>
                     <div class="col-xs-12 col-sm-9">
-                        <span class="name">Scott Stevens</span>
-                        <span class="details">(scott)</span>
-                    </div>
-                    <div class="clearfix"></div>
-                </li>
-                <li class="list-group-item">
-                    <div class="col-xs-12 col-sm-3">
-                        <img src="http://api.randomuser.me/portraits/men/97.jpg" alt="Seth Frazier"
-                             class="img-responsive img-circle"/>
-                    </div>
-                    <div class="col-xs-12 col-sm-9">
-                        <span class="name">Seth Frazier</span>
-                        <span class="details">(sethfrazier)</span>
-                    </div>
-                    <div class="clearfix"></div>
-                </li>
-                <li class="list-group-item">
-                    <div class="col-xs-12 col-sm-3">
-                        <img src="http://api.randomuser.me/portraits/women/90.jpg" alt="Jean Myers"
-                             class="img-responsive img-circle"/>
-                    </div>
-                    <div class="col-xs-12 col-sm-9">
-                        <span class="name">Jean Myers</span>
-                        <span class="details">(myers)</span>
-                    </div>
-                    <div class="clearfix"></div>
-                </li>
-                <li class="list-group-item">
-                    <div class="col-xs-12 col-sm-3">
-                        <img src="http://api.randomuser.me/portraits/men/24.jpg" alt="Todd Shelton"
-                             class="img-responsive img-circle"/>
-                    </div>
-                    <div class="col-xs-12 col-sm-9">
-                        <span class="name">Todd Shelton</span>
-                        <span class="details">(greattodd)</span>
-                    </div>
-                    <div class="clearfix"></div>
-                </li>
-                <li class="list-group-item">
-                    <div class="col-xs-12 col-sm-3">
-                        <img src="http://api.randomuser.me/portraits/women/34.jpg" alt="Rosemary Porter"
-                             class="img-responsive img-circle"/>
-                    </div>
-                    <div class="col-xs-12 col-sm-9">
-                        <span class="name">Rosemary Porter</span>
-                        <span class="details">(rosie)</span>
-                    </div>
-                    <div class="clearfix"></div>
-                </li>
-                <li class="list-group-item">
-                    <div class="col-xs-12 col-sm-3">
-                        <img src="http://api.randomuser.me/portraits/women/56.jpg" alt="Debbie Schmidt"
-                             class="img-responsive img-circle"/>
-                    </div>
-                    <div class="col-xs-12 col-sm-9">
-                        <span class="name">Debbie Schmidt</span>
-                        <span class="details">(debbieschmidt)</span>
-                    </div>
-                    <div class="clearfix"></div>
-                </li>
-                <li class="list-group-item">
-                    <div class="col-xs-12 col-sm-3">
-                        <img src="http://api.randomuser.me/portraits/women/76.jpg" alt="Glenda Patterson"
-                             class="img-responsive img-circle"/>
-                    </div>
-                    <div class="col-xs-12 col-sm-9">
-                        <span class="name">Glenda Patterson</span>
-                        <span class="details">(crazygirlxoxo)</span>
+                        <span class="name">{{friend.username}}</span>
+                        <span class="details">({{friend.email}})</span>
                     </div>
                     <div class="clearfix"></div>
                 </li>
