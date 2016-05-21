@@ -2,22 +2,26 @@
 
 // main application module definition
 angular.module('wishlist', [
-    'ui.router',
-    'ngResource',
-    'wishlist.services',
-    'wishlist.directives',
-    'wishlist.controllers'
-])
+        'ui.router',
+        'ngResource',
+        'wishlist.services',
+        'wishlist.directives',
+        'wishlist.controllers'
+    ])
 
-.config(function ($stateProvider, $urlRouterProvider) {
+    .constant("config", {
+        serverUrl: "http://localhost:8080/"
+    })
 
-    $urlRouterProvider.when('', '/login');
+    .config(function ($stateProvider, $urlRouterProvider) {
 
-    $urlRouterProvider.otherwise(function($injector, $location) {
-        $injector.invoke(['$state', function($state) {
-            $state.go('404');
-        }]);
-    });
+        $urlRouterProvider.when('', '/login');
+
+        $urlRouterProvider.otherwise(function ($injector, $location) {
+            $injector.invoke(['$state', function ($state) {
+                $state.go('404');
+            }]);
+        });
 
     $stateProvider
         .state('404', {
@@ -49,6 +53,6 @@ angular.module('wishlist', [
             templateUrl: 'partials/views/gifts.html'
         });
 
-}).run(function ($state) {
-   $state.go('login');
+    }).run(function ($state) {
+    $state.go('login');
 });
