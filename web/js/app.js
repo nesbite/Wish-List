@@ -9,9 +9,7 @@ angular.module('wishlist', [
         'wishlist.controllers'
     ])
 
-    .constant("config", {
-        serverUrl: "http://localhost:8080/"
-    })
+    .constant("serverUrl", "http://0.0.0.0:8081/")
 
     .config(function ($stateProvider, $urlRouterProvider) {
 
@@ -23,36 +21,38 @@ angular.module('wishlist', [
             }]);
         });
 
-    $stateProvider
-        .state('404', {
-            templateUrl: 'partials/404.html'
-        })
-        .state('greeting', {
-            url: '/greeting',
-            templateUrl: 'partials/views/greeting.html',
-            controller: 'GreetingController',
-            service: 'GreetingService'
-        })
-        .state('login', {
-            url: '/login',
-            templateUrl: 'partials/views/login.html'
-        })
-        .state('register', {
-            url: '/register',
-            templateUrl: 'partials/views/register.html'
-        })
-        .state('navbar', {
-            templateUrl: 'partials/views/navbar.html'
-        })
-        .state('navbar.friends', {
-            url: '/friends',
-            templateUrl: 'partials/views/friends.html'
-        })
-        .state('navbar.gifts', {
-            url: '/gifts',
-            templateUrl: 'partials/views/gifts.html'
-        });
+        $stateProvider
+            .state('404', {
+                templateUrl: 'partials/404.html'
+            })
+            .state('greeting', {
+                url: '/greeting',
+                templateUrl: 'partials/views/greeting.html',
+                controller: 'GreetingController',
+                service: 'GreetingService'
+            })
+            .state('login', {
+                url: '/login',
+                templateUrl: 'partials/views/login.html'
+            })
+            .state('register', {
+                url: '/register',
+                templateUrl: 'partials/views/register.html'
+            })
+            .state('navbar', {
+                templateUrl: 'partials/views/navbar.html'
+            })
+            .state('navbar.friends', {
+                url: '/friends',
+                templateUrl: 'partials/views/friends.html'
+            })
+            .state('navbar.gifts', {
+                url: '/gifts',
+                templateUrl: 'partials/views/gifts.html'
+            });
 
-    }).run(function ($state) {
-    $state.go('login');
-});
+    })
+
+    .run(function ($state) {
+        $state.go('login');
+    });

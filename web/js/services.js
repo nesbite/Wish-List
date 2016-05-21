@@ -3,6 +3,9 @@
 angular.module('wishlist.services', [])
 
     .factory('GreetingService', function ($resource) {
-        console.log();
         return $resource('http://rest-service.guides.spring.io/greeting');
-    });
+    })
+    .factory('UserService', function ($resource) {
+        return $resource('http://localhost:8080/users');
+    })
+;

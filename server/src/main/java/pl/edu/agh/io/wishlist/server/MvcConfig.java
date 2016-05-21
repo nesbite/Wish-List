@@ -23,8 +23,6 @@ public class MvcConfig extends WebMvcConfigurerAdapter {
         super();
     }
 
-    //
-
     @Override
     public void addViewControllers(final ViewControllerRegistry registry) {
         super.addViewControllers(registry);
