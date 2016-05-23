@@ -16,7 +16,7 @@ angular.module('wishlist', [
         var newBaseUrl = "http://localhost/";
         RestangularProvider.setBaseUrl(newBaseUrl);
         RestangularProvider.setDefaultHeaders({
-            'Content-Type': 'application/json',
+            'Content-Type': 'application/x-www-form-urlencoded',
             'X-Requested-With': 'XMLHttpRequest'
         });
         RestangularProvider.setDefaultHttpFields({
