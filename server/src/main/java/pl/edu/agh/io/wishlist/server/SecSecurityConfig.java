@@ -60,7 +60,7 @@ public class SecSecurityConfig extends WebSecurityConfigurerAdapter {
         web.ignoring().antMatchers("/resources/**");
     }
 
-    @Override
+/*    @Override
     protected void configure(final HttpSecurity http) throws Exception {
         // @formatter:off
 //        http.
@@ -76,12 +76,12 @@ public class SecSecurityConfig extends WebSecurityConfigurerAdapter {
         http
             .csrf().disable()
             .authorizeRequests()
-                .antMatchers("/login*","/login*", "/logout*", "/signin*//**", "/signup*//**",
+                .antMatchers("/login*","/login*", "/logout*", "/signin*//**//**", "/signup*//**//**",
                         "/user/registration*", "/registrationConfirm*", "/expiredAccount*", "/registration*",
                         "/badUser*", "/user/resendRegistrationToken*" ,"/forgetPassword*", "/user/resetPassword*",
-                        "/user/changePassword*", "/emailError*", "/resources*//**","/old/user/registration*","/successRegister*").permitAll()
+                        "/user/changePassword*", "/emailError*", "/resources*//**//**","/old/user/registration*","/successRegister*").permitAll()
                 .antMatchers("/invalidSession*").anonymous()
-//                .antMatchers("/users*//**").access("hasRole('ROLE_ADMIN')")
+//                .antMatchers("/users*//**//**").access("hasRole('ROLE_ADMIN')")
                 .anyRequest().authenticated()
                 .and()
             .formLogin()
@@ -102,7 +102,7 @@ public class SecSecurityConfig extends WebSecurityConfigurerAdapter {
                 .deleteCookies("JSESSIONID")
                 .permitAll();
      // @formatter:on
-    }
+    }*/
 
     // beans
 

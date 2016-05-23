@@ -9,7 +9,7 @@
     "jquery": "2.2.4",
     "jquery-searchable": "1.1.0",
     "jquery-ui": "1.11.4",
-    "Font-Awesome-Stylus": "4.6.2"
+    "Font-Awesome-Stylus": "4.6.2",
 	"restangular":      "1.5.2"
   },
   "analytics": false
