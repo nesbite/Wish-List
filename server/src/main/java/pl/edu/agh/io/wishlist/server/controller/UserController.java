@@ -11,7 +11,7 @@ import pl.edu.agh.io.wishlist.service.IUserService;
 import java.util.Collection;
 
 
-@CrossOrigin
+
 @RestController
 @RequestMapping("/users")
 public class UserController {

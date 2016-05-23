@@ -15,7 +15,7 @@ import java.util.concurrent.atomic.AtomicLong;
 // TODO: 12/04/2016
 // refactor it with a REST-friendly way
 
-@CrossOrigin
+
 @RestController
 @RequestMapping("/gifts")
 public class GiftListController {

@@ -6,11 +6,23 @@ angular.module('wishlist', [
         'ngResource',
         'wishlist.services',
         'wishlist.directives',
-        'wishlist.controllers'
+        'wishlist.controllers',
+        'restangular'
     ])
 
     .constant("serverUrl", "http://localhost:8080")
-
+    .config(function(RestangularProvider) {
+        //set the base url for api calls on our RESTful services
+        var newBaseUrl = "http://localhost/";
+        RestangularProvider.setBaseUrl(newBaseUrl);
+        RestangularProvider.setDefaultHeaders({
+            'Content-Type': 'application/json',
+            'X-Requested-With': 'XMLHttpRequest'
+        });
+        RestangularProvider.setDefaultHttpFields({
+            'withCredentials': true
+        });
+    })
     .config(function ($stateProvider, $urlRouterProvider) {
 
         $urlRouterProvider.when('', '/login');
@@ -33,7 +45,8 @@ angular.module('wishlist', [
             })
             .state('login', {
                 url: '/login',
-                templateUrl: 'partials/views/login.html'
+                templateUrl: 'partials/views/login.html',
+                controller: 'LoginController'
             })
             .state('register', {
                 url: '/register',

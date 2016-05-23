@@ -15,7 +15,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
-import org.springframework.security.web.csrf.CsrfFilter;
 import org.springframework.security.web.csrf.CsrfToken;
 import org.springframework.security.web.csrf.CsrfTokenRepository;
 import org.springframework.security.web.csrf.HttpSessionCsrfTokenRepository;
@@ -45,6 +44,8 @@ public class SecSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private AuthenticationFailureHandler authenticationFailureHandler;
 
+
+
     public SecSecurityConfig() {
         super();
     }
@@ -62,17 +63,17 @@ public class SecSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(final HttpSecurity http) throws Exception {
         // @formatter:off
-        http.
-                authorizeRequests().anyRequest().authenticated()
-            .and().
-                httpBasic()
-            .and()
-                .csrf().csrfTokenRepository(csrfTokenRepository()).and()
-                .addFilterAfter(csrfHeaderFilter(), CsrfFilter.class);
+//        http.
+//                authorizeRequests().anyRequest().authenticated()
+//            .and().
+//                httpBasic()
+//            .and()
+//                .csrf().csrfTokenRepository(csrfTokenRepository()).and()
+//                .addFilterAfter(csrfHeaderFilter(), CsrfFilter.class);
         // @formatter:on
 
         // @formatter:off
-       /* http
+        http
             .csrf().disable()
             .authorizeRequests()
                 .antMatchers("/login*","/login*", "/logout*", "/signin*//**", "/signup*//**",
@@ -99,7 +100,7 @@ public class SecSecurityConfig extends WebSecurityConfigurerAdapter {
                 .invalidateHttpSession(false)
 //                .logoutSuccessUrl("/logout.html?logSucc=true")
                 .deleteCookies("JSESSIONID")
-                .permitAll();*/
+                .permitAll();
      // @formatter:on
     }
 
