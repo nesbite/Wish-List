@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -57,7 +58,7 @@ public class SecSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(final WebSecurity web) throws Exception {
-        web.ignoring().antMatchers("/resources/**");
+        web.ignoring().antMatchers("/resources/**");//.antMatchers(HttpMethod.OPTIONS, "/**");
     }
 
     @Override
@@ -76,6 +77,7 @@ public class SecSecurityConfig extends WebSecurityConfigurerAdapter {
         http
             .csrf().disable()
             .authorizeRequests()
+        .antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                 .antMatchers("/login*","/login*", "/logout*", "/signin*//**", "/signup*//**",
                         "/user/registration*", "/registrationConfirm*", "/expiredAccount*", "/registration*",
                         "/badUser*", "/user/resendRegistrationToken*" ,"/forgetPassword*", "/user/resetPassword*",
@@ -86,9 +88,9 @@ public class SecSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
             .formLogin()
 //                .loginPage("/login")
-//                .defaultSuccessUrl("/homepage.html")
+//                .defaultSuccessUrl("/login")
 //                .failureUrl("/login?error=true")
-//                .successHandler(myAuthenticationSuccessHandler)
+                .successHandler(myAuthenticationSuccessHandler)
 //                .failureHandler(authenticationFailureHandler)
             .permitAll()
                 .and()

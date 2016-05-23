@@ -15,15 +15,19 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.Collection;
-
 @Component("myAuthenticationSuccessHandler")
 public class MySimpleUrlAuthenticationSuccessHandler implements AuthenticationSuccessHandler {
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
-    private RedirectStrategy redirectStrategy = new DefaultRedirectStrategy();
+    private RedirectStrategy redirectStrategy = new HttpsRedirectStrategy();
 
     @Override
     public void onAuthenticationSuccess(final HttpServletRequest request, final HttpServletResponse response, final Authentication authentication) throws IOException {
+        response.setHeader("Access-Control-Allow-Origin", request.getHeader("Origin"));
+        response.setHeader("Access-Control-Allow-Credentials", "true");
+        response.setHeader("Access-Control-Allow-Methods", "POST, GET, OPTIONS, DELETE");
+        response.setHeader("Access-Control-Max-Age", "3600");
+        response.setHeader("Access-Control-Allow-Headers", "Authorization, Content-Type, Accept, X-Requested-With, Origin");
         handle(request, response, authentication);
         final HttpSession session = request.getSession(false);
         if (session != null) {
@@ -48,18 +52,12 @@ public class MySimpleUrlAuthenticationSuccessHandler implements AuthenticationSu
         boolean isAdmin = false;
         final Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
         for (final GrantedAuthority grantedAuthority : authorities) {
-            if (grantedAuthority.getAuthority().equals("READ_PRIVILEGE")) {
+            if (grantedAuthority.getAuthority().equals("ROLE_USER")) {
                 isUser = true;
-            } else if (grantedAuthority.getAuthority().equals("WRITE_PRIVILEGE")) {
-                isAdmin = true;
-                isUser = false;
-                break;
             }
         }
         if (isUser) {
-            return "/homepage.html?user=" + authentication.getName();
-        } else if (isAdmin) {
-            return "/console.html";
+            return "/users/" + authentication.getName();
         } else {
             throw new IllegalStateException();
         }
@@ -79,5 +77,18 @@ public class MySimpleUrlAuthenticationSuccessHandler implements AuthenticationSu
 
     protected RedirectStrategy getRedirectStrategy() {
         return redirectStrategy;
+    }
+}
+
+
+
+ class HttpsRedirectStrategy extends DefaultRedirectStrategy{
+
+    private Logger logger = LoggerFactory.getLogger(this.getClass());
+    @Override
+    public void sendRedirect(HttpServletRequest request, HttpServletResponse response,
+                             String redirectUrl) throws IOException {
+
+
     }
 }

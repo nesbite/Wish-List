@@ -11,7 +11,7 @@ import pl.edu.agh.io.wishlist.service.IUserService;
 import java.util.Collection;
 
 
-
+@CrossOrigin(origins = "http://localhost:8080")
 @RestController
 @RequestMapping("/users")
 public class UserController {
