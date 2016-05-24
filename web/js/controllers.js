@@ -65,5 +65,12 @@ angular.module('wishlist.controllers', [])
             console.log($scope.friends);
         });
 
+    })
+    .controller('GiftController', function ($scope, $state, Restangular) {
+    var gifts = Restangular.all('gifts').getList().then(function(resp){
+        $scope.gifts = resp;
+        console.log($scope.gifts);
     });
+
+});
 

@@ -21,39 +21,20 @@
                     </div>
                 </div>
             </div>
-
             <ul class="list-group" id="contact-list">
-                <li class="list-group-item">
+                <li class="list-group-item" ng-repeat="gift in gifts">
                     <div class="col-xs-12 col-sm-3">
-                        <img src="assets/gift.png" alt="Scott Stevens" class="img-responsive img-circle"/>
+                        <img src="/assets/gift.png"
+                             class="img-responsive img-circle"/>
                     </div>
                     <div class="col-xs-12 col-sm-9">
-                        <span class="name">book</span><br/>
-                        <span class="details">"Misery" by Stephen King</span>
-                    </div>
-                    <div class="clearfix"></div>
-                </li>
-                <li class="list-group-item">
-                    <div class="col-xs-12 col-sm-3">
-                        <img src="assets/gift.png" alt="Seth Frazier" class="img-responsive img-circle"/>
-                    </div>
-                    <div class="col-xs-12 col-sm-9">
-                        <span class="name">earrings</span><br/>
-                        <span class="details">small gold plugs</span>
-                    </div>
-                    <div class="clearfix"></div>
-                </li>
-                <li class="list-group-item">
-                    <div class="col-xs-12 col-sm-3">
-                        <img src="assets/gift.png" alt="Jean Myers" class="img-responsive img-circle"/>
-                    </div>
-                    <div class="col-xs-12 col-sm-9">
-                        <span class="name">teddy bear</span><br/>
-                        <span class="details">huuuge teddy bear</span>
+                        <span class="name">{{gift.name}}</span>
+                        <span class="details">({{gift.description}})</span>
                     </div>
                     <div class="clearfix"></div>
                 </li>
             </ul>
+
         </div>
     </div>
 </div>

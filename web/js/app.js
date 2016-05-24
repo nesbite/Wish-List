@@ -62,7 +62,8 @@ angular.module('wishlist', [
             })
             .state('navbar.gifts', {
                 url: '/gifts',
-                templateUrl: 'partials/views/gifts.html'
+                templateUrl: 'partials/views/gifts.html',
+                controller: 'GiftController'
             });
 
     })
