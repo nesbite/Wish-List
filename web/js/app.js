@@ -58,8 +58,7 @@ angular.module('wishlist', [
             .state('navbar.friends', {
                 url: '/friends',
                 templateUrl: 'partials/views/friends.html',
-                controller: 'FriendController',
-                service: 'UserService'
+                controller: 'FriendController'
             })
             .state('navbar.gifts', {
                 url: '/gifts',

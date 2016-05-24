@@ -27,6 +27,7 @@ public class FriendController {
     @ResponseBody
     @RequestMapping(method = RequestMethod.GET, produces = "application/json")
     public ResponseEntity<List<User>> getFriends(Principal principal) {
+        System.out.println(principal.getName());
         return  new ResponseEntity<>(friendService.getFriends(principal.getName()), HttpStatus.OK);
     }
 

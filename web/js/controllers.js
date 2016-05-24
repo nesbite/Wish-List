@@ -5,7 +5,7 @@ angular.module('wishlist.controllers', [])
     .controller('GreetingController', function ($scope, $state, GreetingService) {
         $scope.greeting = GreetingService.get();
     })
-    .controller('LoginController', function ($scope, $state, Restangular) {
+    .controller('LoginController', function ($scope, $state, $location, Restangular) {
         
         $scope.login = function(){
             // alert('username=' + $scope.credentials.username + '&password=' + $scope.credentials.password);
@@ -14,6 +14,8 @@ angular.module('wishlist.controllers', [])
                 + '&password=' + $scope.credentials.password).then(function(response){
                 var resp = response;
                 console.log(resp);
+                $location.path("/friends");
+
             }, function(resp){
                 console.log(resp);
             });
@@ -57,9 +59,11 @@ angular.module('wishlist.controllers', [])
 
 
     })
-    .controller('FriendController', function ($scope, $state, UserService) {
-        var users = UserService.getUsers();
+    .controller('FriendController', function ($scope, $state, Restangular) {
+        var users = Restangular.all('friends').getList().then(function(resp){
+            $scope.friends = resp;
+            console.log($scope.friends);
+        });
 
-        $scope.friends = users;
     });
 

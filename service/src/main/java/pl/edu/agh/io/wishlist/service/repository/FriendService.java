@@ -22,7 +22,11 @@ public class FriendService implements IFriendService {
 
         if((user = userRepository.findByUsername(username)) != null) {
             List<String> friendIdList = user.getFriends();
-            userRepository.findAll(friendIdList).forEach(users::add);
+            userRepository.findAll().forEach(a -> {
+                if (friendIdList.contains(a.getUsername())){
+                    users.add(a);
+                }
+            });
         }
         return users;
     }
