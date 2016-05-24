@@ -2,9 +2,9 @@ package pl.edu.agh.io.wishlist.server.security;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.web.DefaultRedirectStrategy;
 import org.springframework.security.web.RedirectStrategy;
 import org.springframework.security.web.WebAttributes;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
@@ -19,7 +19,8 @@ import java.util.Collection;
 public class MySimpleUrlAuthenticationSuccessHandler implements AuthenticationSuccessHandler {
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
-    private RedirectStrategy redirectStrategy = new HttpsRedirectStrategy();
+    @Autowired
+    private RedirectStrategy redirectStrategy;
 
     @Override
     public void onAuthenticationSuccess(final HttpServletRequest request, final HttpServletResponse response, final Authentication authentication) throws IOException {
@@ -82,13 +83,3 @@ public class MySimpleUrlAuthenticationSuccessHandler implements AuthenticationSu
 
 
 
- class HttpsRedirectStrategy extends DefaultRedirectStrategy{
-
-    private Logger logger = LoggerFactory.getLogger(this.getClass());
-    @Override
-    public void sendRedirect(HttpServletRequest request, HttpServletResponse response,
-                             String redirectUrl) throws IOException {
-
-
-    }
-}

@@ -21,6 +21,8 @@ import org.springframework.security.web.csrf.CsrfTokenRepository;
 import org.springframework.security.web.csrf.HttpSessionCsrfTokenRepository;
 import org.springframework.web.filter.OncePerRequestFilter;
 import org.springframework.web.util.WebUtils;
+import pl.edu.agh.io.wishlist.server.security.AlwaysSendUnauthorized401AuthenticationEntryPoint;
+import pl.edu.agh.io.wishlist.server.security.CustomLogoutSuccessHandler;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -45,7 +47,11 @@ public class SecSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private AuthenticationFailureHandler authenticationFailureHandler;
 
+    @Autowired
+    private AlwaysSendUnauthorized401AuthenticationEntryPoint authenticationEntryPoint;
 
+    @Autowired
+    private CustomLogoutSuccessHandler logoutSuccessHandler;
 
     public SecSecurityConfig() {
         super();
@@ -61,7 +67,7 @@ public class SecSecurityConfig extends WebSecurityConfigurerAdapter {
         web.ignoring().antMatchers("/resources/**");//.antMatchers(HttpMethod.OPTIONS, "/**");
     }
 
-/*    @Override
+    @Override
     protected void configure(final HttpSecurity http) throws Exception {
         // @formatter:off
 //        http.
@@ -74,7 +80,7 @@ public class SecSecurityConfig extends WebSecurityConfigurerAdapter {
         // @formatter:on
 
         // @formatter:off
-        http
+        http.exceptionHandling().authenticationEntryPoint(authenticationEntryPoint).and()
             .csrf().disable()
             .authorizeRequests()
 
@@ -93,20 +99,20 @@ public class SecSecurityConfig extends WebSecurityConfigurerAdapter {
 //                .defaultSuccessUrl("/login")
 //                .failureUrl("/login?error=true")
                 .successHandler(myAuthenticationSuccessHandler)
-//                .failureHandler(authenticationFailureHandler)
+                .failureHandler(authenticationFailureHandler)
             .permitAll()
                 .and()
             .sessionManagement()
 //                .invalidSessionUrl("/invalidSession.html")
                 .sessionFixation().none()
             .and()
-            .logout()
+            .logout().logoutSuccessHandler(logoutSuccessHandler)
                 .invalidateHttpSession(false)
 //                .logoutSuccessUrl("/logout.html?logSucc=true")
                 .deleteCookies("JSESSIONID")
                 .permitAll();
      // @formatter:on
-    }*/
+    }
 
     // beans
 
