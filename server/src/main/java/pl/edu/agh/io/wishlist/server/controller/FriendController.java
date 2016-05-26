@@ -30,7 +30,6 @@ public class FriendController {
         System.out.println(principal.getName());
         return  new ResponseEntity<>(friendService.getFriends(principal.getName()), HttpStatus.OK);
     }
-
     @ResponseBody
     @RequestMapping(value = "/add/{friendId}", method = RequestMethod.PUT)
     public ResponseEntity<String> addFriend(Principal principal, @PathVariable(value = "friendId") String friendId) {
@@ -43,7 +42,6 @@ public class FriendController {
         }
         return new ResponseEntity<>("Cannot add friend", HttpStatus.CONFLICT);
     }
-
     @ResponseBody
     @RequestMapping(value = "/delete/{friendName}", method = RequestMethod.DELETE)
     public ResponseEntity<String> deleteFriend(Principal principal, @PathVariable(value = "friendName") String friendName) {

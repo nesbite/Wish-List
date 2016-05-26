@@ -10,7 +10,6 @@ import pl.edu.agh.io.wishlist.service.IGiftService;
 
 import java.security.Principal;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicLong;
 
 // TODO: 12/04/2016
 // refactor it with a REST-friendly way
@@ -27,12 +26,17 @@ public class GiftListController {
     UserRepository userRepository;
 
 
-    private final AtomicLong counter = new AtomicLong();
-
     @ResponseBody
     @RequestMapping(method = RequestMethod.GET, produces = "application/json")
     public ResponseEntity<List<Gift>> getAllGifts(Principal principal) {
         String userId = userRepository.findByUsername(principal.getName()).getId();
+        return new ResponseEntity<>(giftService.getAllGifts(userId), HttpStatus.OK);
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/user/{username}",method = RequestMethod.GET, produces = "application/json")
+    public ResponseEntity<List<Gift>> getAllGiftsForUser(@PathVariable String username) {
+        String userId = userRepository.findByUsername(username).getId();
         return new ResponseEntity<>(giftService.getAllGifts(userId), HttpStatus.OK);
     }
 

@@ -7,7 +7,7 @@
                     <li><a data-toggle="modal" data-target="#myModal"
                            title="Add Contact"><i class="glyphicon glyphicon-plus"></i></a></li>
                     <!--<li><a  class="hide-search" data-command="toggle-search" data-toggle="tooltip"-->
-                           <!--data-placement="top" title="Toggle Search"><i class="fa fa-ellipsis-v"></i></a></li>-->
+                    <!--data-placement="top" title="Toggle Search"><i class="fa fa-ellipsis-v"></i></a></li>-->
                 </ul>
             </div>
 
@@ -21,26 +21,45 @@
                     </div>
                 </div>
             </div>
-
             <ul class="list-group" id="contact-list">
                 <li class="list-group-item" ng-repeat="friend in friends">
-                    <div class="col-xs-12 col-sm-3">
-                        <img src="/assets/icon_user_default.png" alt="{{friend.username}}"
-                             class="img-responsive img-circle"/>
+                    <div class="row toggle" ng-click="showDetail(friend)" ng-class-odd="'alt'">
+                        <div class="col-xs-12 col-sm-3">
+                            <img src="/assets/icon_user_default.png" alt="{{friend.username}}"
+                                 class="img-responsive img-circle"/>
+                        </div>
+                        <div class="col-xs-10 col-sm-8">
+                            <span class="name">{{friend.username}}</span>
+                            <span class="details">({{friend.email}})</span>
+                        </div>
+                        <div class="col-xs-2 col-sm-1"><i class="fa fa-chevron-down"></i></div>
                     </div>
-                    <div class="col-xs-10 col-sm-8">
-                        <span class="name">{{friend.username}}</span>
-                        <span class="details">({{friend.email}})</span>
+                    <div ng-show="active==friend.id" ng-class-odd="'alt'">
+                        <hr/>
+                        <div class="container">
+                            <div class="fluid-row">
+                                <ul class="list-group" id="gift-list">
+                                    <li class="list-group-item" ng-repeat="gift in friend.gifts">
+                                        <div class="col-xs-12 col-sm-3">
+                                            <img src="/assets/gift.png"
+                                                 class="img-responsive img-circle"/>
+                                        </div>
+                                        <div class="col-xs-12 col-sm-8">
+                                            <span class="name">{{gift.name}}</span>
+                                            <span class="details">({{gift.description}})</span>
+                                        </div>
+                                        <div class="clearfix"></div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
                     </div>
-                    <div class="col-xs-2 col-sm-1">
-                        <button type="button" class="btn btn-default btn-xs" ng-click="deleteFriend(friend);$event.stopPropagation()">Delete</button>
-                    </div>
-                    <div class="clearfix"></div>
                 </li>
             </ul>
         </div>
     </div>
 </div>
+
 
 <div id="myModal" class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog"
      aria-labelledby="mySmallModalLabel" aria-hidden="true">
@@ -52,10 +71,10 @@
             </div>
             <div class="modal-body">
                 <p>Type your friend's username</p>
-                <input type="text" class="form-control" autocomplete="off">
+                <input type="text" name="input" ng-model="friendId" autocomplete="off">
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-custom" data-dismiss="modal">Add</button>
+                <button type="button" class="btn btn-custom" data-dismiss="modal" ng-click="addFriend(friendId)">Add</button>
                 <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
             </div>
         </div>
