@@ -32,6 +32,9 @@
                             <span class="name">{{friend.username}}</span>
                             <span class="details">({{friend.email}})</span>
                         </div>
+                        <div class="col-xs-2 col-sm-1">
+                            <button type="button" class="btn btn-default btn-xs" ng-click="deleteFriend(friend);$event.stopPropagation()">Delete</button>
+                        </div>
                         <div class="col-xs-2 col-sm-1"><i class="fa fa-chevron-down"></i></div>
                     </div>
                     <div ng-show="active==friend.id" ng-class-odd="'alt'">

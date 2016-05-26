@@ -84,7 +84,7 @@ angular.module('wishlist.controllers', [])
         }
 
         $scope.addFriend = function (friendId) {
-            Restangular.all('friends').one('add').one(friendId).save();
+            Restangular.all('friends').one('add').one(friendId).customPUT();
         }
 
     })
@@ -98,7 +98,10 @@ angular.module('wishlist.controllers', [])
         }
 
         $scope.addGift = function (gift) {
-            Restangular.all('gifts').one('add').customPOST(gift, {'Content-Type': 'application/json; charset=utf8'});
+            Restangular.all('gifts').customPOST(gift, 'add', undefined, {
+                'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+            });
         }
 
 });
