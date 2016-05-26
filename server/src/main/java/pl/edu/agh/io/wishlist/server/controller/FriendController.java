@@ -37,10 +37,10 @@ public class FriendController {
         if(user !=null) {
             String username = user.getUsername();
             if (friendService.addFriend(username, friendId)) {
-                return new ResponseEntity<>("Friend added", HttpStatus.OK);
+                return new ResponseEntity<>(HttpStatus.OK);
             }
         }
-        return new ResponseEntity<>("Cannot add friend", HttpStatus.CONFLICT);
+        return new ResponseEntity<>(HttpStatus.CONFLICT);
     }
     @ResponseBody
     @RequestMapping(value = "/delete/{friendName}", method = RequestMethod.DELETE)
@@ -49,9 +49,9 @@ public class FriendController {
         if(user !=null) {
             String username = user.getUsername();
             if (friendService.deleteFriend(username, friendName)) {
-                return new ResponseEntity<>("Friend deleted", HttpStatus.OK);
+                return new ResponseEntity<>(HttpStatus.OK);
             }
         }
-        return new ResponseEntity<>("Cannot delete friend", HttpStatus.CONFLICT);
+        return new ResponseEntity<>(HttpStatus.CONFLICT);
     }
 }

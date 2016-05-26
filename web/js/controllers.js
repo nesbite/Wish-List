@@ -61,15 +61,18 @@ angular.module('wishlist.controllers', [])
 
     })
     .controller('FriendController', function ($scope, $state, Restangular) {
-        Restangular.all('friends').getList().then(function(resp){
-            $scope.friends = resp;
-            for (var i=0;i<$scope.friends.size;i++){
-                Restangular.all('gifts').one($scope.friends[i].username).getList().then(function(response, i){
-                    $scope.friends[i].gifts = response;
-                })
-            }
-            console.log($scope.friends);
-        });
+        $scope.getFriends = function() {
+            Restangular.all('friends').getList().then(function (resp) {
+                $scope.friends = resp;
+                for (var i = 0; i < $scope.friends.size; i++) {
+                    Restangular.all('gifts').one($scope.friends[i].username).getList().then(function (response, i) {
+                        $scope.friends[i].gifts = response;
+                    })
+                }
+                console.log($scope.friends);
+            });
+        };
+        $scope.getFriends();
 
         $scope.showDetail = function (item) {
             if ($scope.active != item.id) {
@@ -80,27 +83,41 @@ angular.module('wishlist.controllers', [])
             }
         };
         $scope.deleteFriend = function (friend) {
-            Restangular.all('friends').one('delete', friend.username).remove();
-        }
+            Restangular.all('friends').one('delete', friend.username).remove().then(function () {
+                $scope.getFriends();
+            });
+        };
 
         $scope.addFriend = function (friendId) {
-            Restangular.all('friends').one('add').one(friendId).customPUT();
+            Restangular.all('friends').one('add').one(friendId).customPUT().then(function(){
+                $scope.getFriends();
+            }, function () {
+                $scope.getFriends();
+            });
         }
 
     })
     .controller('GiftController', function ($scope, $state, Restangular) {
-    var gifts = Restangular.all('gifts').getList().then(function(resp){
-        $scope.gifts = resp;
-        console.log($scope.gifts);
-    });
+        $scope.getGifts = function() {
+            Restangular.all('gifts').getList().then(function (resp) {
+                $scope.gifts = resp;
+                console.log($scope.gifts);
+            });
+        };
+        $scope.getGifts();
+
         $scope.deleteGift = function (gift) {
-            Restangular.all('gifts').one('remove').one(gift.id).remove();
-        }
+            Restangular.all('gifts').one('remove').one(gift.id).remove().then(function () {
+                $scope.getGifts();
+            });
+        };
 
         $scope.addGift = function (gift) {
             Restangular.all('gifts').customPOST(gift, 'add', undefined, {
                 'Accept': 'application/json',
-                    'Content-Type': 'application/json'
+                'Content-Type': 'application/json'
+            }).then(function () {
+                $scope.getGifts();
             });
         }
 

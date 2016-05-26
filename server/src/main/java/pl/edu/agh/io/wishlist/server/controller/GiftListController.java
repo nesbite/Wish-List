@@ -46,8 +46,8 @@ public class GiftListController {
         System.out.println("Id: " + gift.getId() + "\nName: " + gift.getName() + "\nDesc: " + gift.getDescription());
         String userId = userRepository.findByUsername(principal.getName()).getId();
         if (giftService.addGift(userId, gift))
-            return new ResponseEntity<>("Gift added", HttpStatus.OK);
-        return new ResponseEntity<>("Cannot add gift", HttpStatus.CONFLICT);
+            return new ResponseEntity<>(HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.CONFLICT);
     }
 
     @ResponseBody
@@ -64,16 +64,16 @@ public class GiftListController {
     public ResponseEntity<String> removeGift(Principal principal, @PathVariable String giftId) {
         String userId = userRepository.findByUsername(principal.getName()).getId();
         if (giftService.removeGift(userId, giftId))
-            return new ResponseEntity<>("Gift removed", HttpStatus.OK);
-        return new ResponseEntity<>("Cannot remove gift", HttpStatus.CONFLICT);
+            return new ResponseEntity<>(HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.CONFLICT);
     }
 
     @ResponseBody
     @RequestMapping(value = "/update/{id}", method = RequestMethod.PUT, consumes = "application/json")
     public ResponseEntity<String> updateGift(@PathVariable String id, @RequestBody Gift gift) {
         if (giftService.editGift(id, gift))
-            return new ResponseEntity<>("Gift updated", HttpStatus.OK);
-        return new ResponseEntity<>("Cannot update gift", HttpStatus.CONFLICT);
+            return new ResponseEntity<>(HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.CONFLICT);
     }
 
 }
