@@ -34,19 +34,25 @@ public class FriendController {
     @ResponseBody
     @RequestMapping(value = "/add/{friendId}", method = RequestMethod.PUT)
     public ResponseEntity<String> addFriend(Principal principal, @PathVariable(value = "friendId") String friendId) {
-        String userId = userRepository.findByUsername(principal.getName()).getId();
-        if(friendService.addFriend(userId, friendId)){
-            return new ResponseEntity<>("Friend added", HttpStatus.OK);
+        User user =  userRepository.findByUsername(principal.getName());
+        if(user !=null) {
+            String username = user.getUsername();
+            if (friendService.addFriend(username, friendId)) {
+                return new ResponseEntity<>("Friend added", HttpStatus.OK);
+            }
         }
         return new ResponseEntity<>("Cannot add friend", HttpStatus.CONFLICT);
     }
 
     @ResponseBody
-    @RequestMapping(value = "/delete/{friendId}", method = RequestMethod.DELETE)
-    public ResponseEntity<String> deleteFriend(Principal principal, @PathVariable(value = "friendId") String friendId) {
-        String userId = userRepository.findByUsername(principal.getName()).getId();
-        if(friendService.deleteFriend(userId, friendId)){
-            return new ResponseEntity<>("Friend deleted", HttpStatus.OK);
+    @RequestMapping(value = "/delete/{friendName}", method = RequestMethod.DELETE)
+    public ResponseEntity<String> deleteFriend(Principal principal, @PathVariable(value = "friendName") String friendName) {
+        User user =  userRepository.findByUsername(principal.getName());
+        if(user !=null) {
+            String username = user.getUsername();
+            if (friendService.deleteFriend(username, friendName)) {
+                return new ResponseEntity<>("Friend deleted", HttpStatus.OK);
+            }
         }
         return new ResponseEntity<>("Cannot delete friend", HttpStatus.CONFLICT);
     }

@@ -36,10 +36,9 @@ public class GiftService implements IGiftService {
             return false;
         }
 
-
         User user = userRepository.findOne(userId);
-        giftRepository.save(gift);
         user.getGifts().add(gift);
+        giftRepository.save(gift);
         userRepository.save(user);
 
         return true;

@@ -14,7 +14,7 @@ angular.module('wishlist.controllers', [])
                 + '&password=' + $scope.credentials.password).then(function(response){
                 var resp = response;
                 console.log(resp);
-                $location.path("/friends");
+                $location.path("/gifts");
 
             }, function(resp){
                 console.log(resp);
@@ -65,12 +65,27 @@ angular.module('wishlist.controllers', [])
             console.log($scope.friends);
         });
 
+        $scope.deleteFriend = function (friend) {
+            Restangular.all('friends').one('delete').one(friend.username).remove();
+        }
+
+        $scope.addFriend = function (friend) {
+            Restangular.all('friends').one('add').one(friend.username).save();
+        }
+
     })
     .controller('GiftController', function ($scope, $state, Restangular) {
     var gifts = Restangular.all('gifts').getList().then(function(resp){
         $scope.gifts = resp;
         console.log($scope.gifts);
     });
+        $scope.deleteGift = function (gift) {
+            Restangular.all('gifts').one('remove').one(gift.id).remove();
+        }
+
+        $scope.addGift = function (gift) {
+            Restangular.all('gifts').one('add', gift).post();
+        }
 
 });
 
