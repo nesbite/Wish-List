@@ -34,6 +34,7 @@ angular.module('wishlist.controllers', [])
             }, function(resp){
                 console.log(resp);
             });
+            $location.path('login');
             // Restangular.all('users').getList().then(function(response){
             //     $scope.users = response;
             //     console.log($scope.users);

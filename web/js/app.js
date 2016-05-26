@@ -54,7 +54,8 @@ angular.module('wishlist', [
                 templateUrl: 'partials/views/register.html'
             })
             .state('navbar', {
-                templateUrl: 'partials/views/navbar.html'
+                templateUrl: 'partials/views/navbar.html',
+                controller: 'LoginController'
             })
             .state('navbar.friends', {
                 url: '/friends',
