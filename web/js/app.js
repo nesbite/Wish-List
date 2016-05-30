@@ -12,7 +12,7 @@ angular.module('wishlist', [
 
     .config(function(RestangularProvider) {
         //set the base url for api calls on our RESTful services
-        var newBaseUrl = "http://localhost:8080/";
+        var newBaseUrl = "http://nat-1.d17.iisg.agh.edu.pl:60680/";
         RestangularProvider.setBaseUrl(newBaseUrl);
         RestangularProvider.setDefaultHeaders({
             'Content-Type': 'application/x-www-form-urlencoded',
