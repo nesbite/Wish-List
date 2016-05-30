@@ -10,7 +10,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -20,11 +19,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import pl.edu.agh.io.wishlist.domain.PasswordResetToken;
 import pl.edu.agh.io.wishlist.domain.User;
+import pl.edu.agh.io.wishlist.domain.UserDto;
 import pl.edu.agh.io.wishlist.domain.VerificationToken;
 import pl.edu.agh.io.wishlist.domain.validation.EmailExistsException;
 import pl.edu.agh.io.wishlist.server.registration.OnRegistrationCompleteEvent;
 import pl.edu.agh.io.wishlist.service.IUserService;
-import pl.edu.agh.io.wishlist.domain.UserDto;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
@@ -133,30 +132,30 @@ public class RegistrationController {
         return new ResponseEntity<>("message.resetPasswordEmail", HttpStatus.OK);
     }
     @ResponseBody
-    @RequestMapping(value = "/user/changePassword", method = RequestMethod.GET)
-    public ResponseEntity<String> showChangePasswordPage(final Locale locale, final Model model, @RequestParam("id") final String id, @RequestParam("token") final String token) {
+    @RequestMapping(value = "/user/changePassword", method = RequestMethod.POST)
+    public ResponseEntity<String> showChangePasswordPage(@RequestParam("id") final String id, @RequestParam("token") final String token,
+                                                         @RequestParam("oldPassword") final String oldPassword, @RequestParam("password") final String password) {
         final PasswordResetToken passToken = userService.getPasswordResetToken(token);
         final User user = passToken.getUser();
         if ((passToken == null) || (!user.getId().equalsIgnoreCase(id))) {
-            final String message = messages.getMessage("auth.message.invalidToken", null, locale);
-            model.addAttribute("message", message);
             return new ResponseEntity<>("auth.message.invalidToken", HttpStatus.CONFLICT);
         }
 
         final Calendar cal = Calendar.getInstance();
         if ((passToken.getExpiryDate().getTime() - cal.getTime().getTime()) <= 0) {
-            model.addAttribute("message", messages.getMessage("auth.message.expired", null, locale));
             return new ResponseEntity<>("auth.message.expired", HttpStatus.CONFLICT);
         }
 
         final Authentication auth = new UsernamePasswordAuthenticationToken(user, null, userDetailsService.loadUserByUsername(user.getUsername()).getAuthorities());
         SecurityContextHolder.getContext().setAuthentication(auth);
-
-        return new ResponseEntity<>("updatePassword", HttpStatus.OK);
+        if (!userService.checkIfValidOldPassword(user, oldPassword)) {
+            throw new InvalidOldPasswordException();
+        }
+        userService.changeUserPassword(user, password);
+        return new ResponseEntity<>("message.updatePasswordSuc", HttpStatus.OK);
     }
 
     @RequestMapping(value = "/user/savePassword", method = RequestMethod.POST)
-    @PreAuthorize("hasRole('READ_PRIVILEGE')")
     @ResponseBody
     public ResponseEntity<String> savePassword(final Locale locale, @RequestParam("password") final String password) {
         final User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -167,7 +166,6 @@ public class RegistrationController {
     // change user password
 
     @RequestMapping(value = "/user/updatePassword", method = RequestMethod.POST)
-    @PreAuthorize("hasRole('READ_PRIVILEGE')")
     @ResponseBody
     public ResponseEntity<String> changeUserPassword(final Locale locale, @RequestParam("password") final String password, @RequestParam("oldpassword") final String oldPassword) {
         final User user = userService.findUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName());

@@ -21,9 +21,12 @@ angular.module('wishlist.controllers', [])
     })
     .controller('ChangePasswordController', function ($scope, $state, $location, Restangular) {
         var token = $location.search()['token'];
+        var id = $location.search()['id'];
         $scope.changePassword = function(){
 
-            Restangular.one('user').one('changePassword?id='+$scope.id+'&token='+$scope.token).get().then(function(resp){
+            Restangular.one('user').one('changePassword')
+                .customPOST('id='+id+'&token='+token+'&oldPassword='+$scope.credentials.oldPassword+'&password='+ $scope.credentials.password, undefined, undefined, {})
+                .then(function(resp){
                 console.log(resp);
                 $location.path("/login");
             },
