@@ -15,7 +15,6 @@ angular.module('wishlist.controllers', [])
             },
                 function(resp){
                 console.log(resp);
-                $location.path("/login");
             });
         };
     })
@@ -32,7 +31,6 @@ angular.module('wishlist.controllers', [])
             },
                 function(resp){
                 console.log(resp);
-                $location.path("/login");
 
             });
         };
@@ -44,12 +42,11 @@ angular.module('wishlist.controllers', [])
 
             Restangular.one('registrationConfirm?token='+token).get().then(function(resp){
                 console.log(resp);
-                $scope.message = "Registration confirmed"
-
+                $scope.message = "Registration confirmed";
             },
                 function(resp){
-                console.log(resp);
-                $location.path("/login");
+                    console.log(resp);
+                    $scope.message = "Confirmation failed";
 
             });
         };
@@ -88,14 +85,7 @@ angular.module('wishlist.controllers', [])
                 console.log(resp);
             });
         };
-
-        $scope.confirmRegistration = function(token){
-            Restangular.one('registrationConfirm').get('?token='+token).then(function(resp){
-                console.log(resp);
-            }, function(resp){
-                console.log(resp);
-            });
-        };
+        
 
     })
     .controller('FriendController', function ($scope, $state, Restangular) {
