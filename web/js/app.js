@@ -10,10 +10,9 @@ angular.module('wishlist', [
         'restangular'
     ])
 
-    .constant("serverUrl", "http://localhost:8080")
     .config(function(RestangularProvider) {
         //set the base url for api calls on our RESTful services
-        var newBaseUrl = "http://localhost/";
+        var newBaseUrl = "http://localhost:8080/";
         RestangularProvider.setBaseUrl(newBaseUrl);
         RestangularProvider.setDefaultHeaders({
             'Content-Type': 'application/x-www-form-urlencoded',
