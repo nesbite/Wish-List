@@ -67,7 +67,7 @@ public class Application extends SpringBootServletInitializer implements Command
         user1.getGifts().addAll(gifts1);
         user2.getGifts().addAll(gifts2);
         user3.getGifts().addAll(gifts3);
-
+        user1.setEmail("siatek25@gmail.com");
         user1 = userRepository.save(user1);
         user2 = userRepository.save(user2);
         user3 = userRepository.save(user3);

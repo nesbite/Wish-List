@@ -44,6 +44,16 @@ angular.module('wishlist', [
                 controller: 'GreetingController',
                 service: 'GreetingService'
             })
+            .state('changePassword', {
+                url: '/changePassword',
+                templateUrl: 'partials/views/changePassword.html',
+                controller: 'ChangePasswordController'
+            })
+            .state('registrationConfirm', {
+                url: '/registrationConfirm',
+                templateUrl: 'partials/views/registrationConfirm.html',
+                controller: 'RegistrationConfirmController'
+            })
             .state('login', {
                 url: '/login',
                 templateUrl: 'partials/views/login.html',
@@ -51,7 +61,8 @@ angular.module('wishlist', [
             })
             .state('register', {
                 url: '/register',
-                templateUrl: 'partials/views/register.html'
+                templateUrl: 'partials/views/register.html',
+                controller: 'RegistrationController',
             })
             .state('navbar', {
                 templateUrl: 'partials/views/navbar.html',

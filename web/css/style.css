@@ -40,20 +40,20 @@ img {
 
 /*login*/
 
-#login {
+#login, #changePassword, #confrimRegistration {
     padding-top: 50px;
 }
 
-#login .form-wrap {
+#login .form-wrap, #changePassword .form-wrap, #confrimRegistration .form-wrap {
     width: 80%;
     margin: 0 auto;
 }
 
-#login .form-group {
+#login .form-group, #changePassword .form-group, #confrimRegistration .form-group {
     margin-bottom: 25px;
 }
 
-#login h1 {
+#login h1, #changePassword h1, #confrimRegistration h1 {
     color: #d32d1d;
     font-size: 18px;
     text-align: center;
@@ -61,26 +61,26 @@ img {
     padding-bottom: 20px;
 }
 
-#login .btn {
+#login .btn, #changePassword .btn, #confrimRegistration .btn {
     font-size: 14px;
     margin-bottom: 20px;
     color: #fff;
     background-color: #d32d1d;
 }
 
-#login .btn:hover,
-#login .btn:focus {
+#login .btn:hover, #changePassword .btn:hover, #confrimRegistration .btn:hover
+#login .btn:focus, #changePassword .btn:focus, #confrimRegistration .btn:focus {
     color: #fff;
 }
 
-#login .forget {
+#login .forget, #changePassword .forget, #confrimRegistration .forget {
     font-size: 13px;
     text-align: center;
     display: block;
     color: #6d6d6d;
 }
 
-#login .forget a {
+#login .forget a, #changePassword .forget a, #confrimRegistration .forget a {
     color: #6d6d6d;
 }
 

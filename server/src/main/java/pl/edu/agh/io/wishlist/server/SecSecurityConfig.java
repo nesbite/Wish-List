@@ -86,7 +86,6 @@ public class SecSecurityConfig extends WebSecurityConfigurerAdapter {
 
         .antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                 .antMatchers("/login*","/login*", "/logout*", "/signin*//**", "/signup*//**",
-
                         "/user/registration*", "/registrationConfirm*", "/expiredAccount*", "/registration*",
                         "/badUser*", "/user/resendRegistrationToken*" ,"/forgetPassword*", "/user/resetPassword*",
                         "/user/changePassword*", "/emailError*", "/resources*//**//**","/old/user/registration*","/successRegister*").permitAll()

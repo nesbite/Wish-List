@@ -19,7 +19,7 @@
                                placeholder="password" ng-model="credentials.password">
                     </div>
                     <input type="submit" id="btn-login" class="btn btn-lg btn-block" value="Log in">
-
+                </form>
                 <div class="forget">
                     <a ui-sref="register">Create account</a> or <a href="javascript:;" data-toggle="modal"
                                                                    data-target=".forget-modal">reset password</a>
@@ -43,15 +43,38 @@
             </div>
             <div class="modal-body">
                 <p>Type your email account</p>
-                <input type="email" name="recovery-email" id="recovery-email" class="form-control" autocomplete="off">
+                <input type="email" name="recovery-email" id="recovery-email" class="form-control" ng-model="emailRecovery" autocomplete="off">
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                <button type="button" class="btn btn-custom" data-dismiss="modal">Recover</button>
+                <button type="button" class="btn btn-custom" data-dismiss="modal" ng-click="recoverEmail(emailRecovery)">Recover</button>
             </div>
         </div>
     </div>
 </div>
+
+<div id="changePassword" class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog"
+     aria-labelledby="myChangePasswordModalLabel" aria-hidden="true" ng-model="changePasswordModal">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button>
+                <h4 class="modal-title" id="myChangePasswordModalLabel">Change password</h4>
+            </div>
+            <div class="modal-body">
+                <p>Password</p>
+                <input type="text" name="input" ng-model="credentials.password" autocomplete="off">
+                <p>Confirm password</p>
+                <input type="text" name="input" ng-model="credentials.matchingPassword" autocomplete="off">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-custom" data-dismiss="modal" ng-click="changePasswrod(credentials)">Change</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 <footer id="footer">
     <div class="container">

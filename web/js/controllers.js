@@ -5,59 +5,94 @@ angular.module('wishlist.controllers', [])
     .controller('GreetingController', function ($scope, $state, GreetingService) {
         $scope.greeting = GreetingService.get();
     })
-    .controller('LoginController', function ($scope, $state, $location, Restangular) {
-        
-        $scope.login = function(){
-            // alert('username=' + $scope.credentials.username + '&password=' + $scope.credentials.password);
+    .controller('RegistrationController', function ($scope, $state, $location, Restangular) {
+        $scope.register = function(){
 
+            Restangular.one('user').one('registration').customPOST($scope.user, undefined, undefined, {'Content-Type': 'application/json'}).then(function(resp){
+                console.log(resp);
+                $location.path("/login");
+
+            },
+                function(resp){
+                console.log(resp);
+                $location.path("/login");
+            });
+        };
+    })
+    .controller('ChangePasswordController', function ($scope, $state, $location, Restangular) {
+        var token = $location.search()['token'];
+        $scope.changePassword = function(){
+
+            Restangular.one('user').one('changePassword?id='+$scope.id+'&token='+$scope.token).get().then(function(resp){
+                console.log(resp);
+                $location.path("/login");
+            },
+                function(resp){
+                console.log(resp);
+                $location.path("/login");
+
+            });
+        };
+    })
+    .controller('RegistrationConfirmController', function ($scope, $state, $location, Restangular) {
+        var token = $location.search()['token'];
+        console.log(token);
+        $scope.confirmRegistration = function(){
+
+            Restangular.one('registrationConfirm?token='+token).get().then(function(resp){
+                console.log(resp);
+                $scope.message = "Registration confirmed"
+
+            },
+                function(resp){
+                console.log(resp);
+                $location.path("/login");
+
+            });
+        };
+        $scope.confirmRegistration();
+        $scope.goBack = function(){
+            $location.path("/login");
+        }
+    })
+    .controller('LoginController', function ($scope, $rootScope, $state, $location, Restangular) {
+
+        $scope.login = function(){
             Restangular.all('login').post('username=' + $scope.credentials.username
-                + '&password=' + $scope.credentials.password).then(function(response){
-                var resp = response;
+                + '&password=' + $scope.credentials.password).then(function(resp){
                 console.log(resp);
                 $location.path("/gifts");
 
             }, function(resp){
                 console.log(resp);
             });
-            // Restangular.all('users').getList().then(function(response){
-            //     $scope.users = response;
-            //     console.log($scope.users);
-            // })
-
         };
-        $scope.logout = function(){
-            // alert('username=' + $scope.credentials.username + '&password=' + $scope.credentials.password);
 
-            Restangular.all('logout').post().then(function(response){
-                var resp = response;
+        $scope.logout = function(){
+            Restangular.all('logout').post().then(function(resp){
                 console.log(resp);
             }, function(resp){
                 console.log(resp);
             });
             $location.path('login');
-            // Restangular.all('users').getList().then(function(response){
-            //     $scope.users = response;
-            //     console.log($scope.users);
-            // })
-
-
 
         };
 
-        $scope.usersM = function(){
-            // alert('username=' + $scope.credentials.username + '&password=' + $scope.credentials.password);
-
-            Restangular.all('users').getList().then(function(response){
-                $scope.users = response;
-                console.log($scope.users);
+        $scope.recoverEmail = function(email){
+            Restangular.one('user').post('resetPassword?email='+email).then(function(resp){
+                console.log(resp);
             }, function(resp){
                 console.log(resp);
-            })
-
-
-
+            });
         };
 
+        $scope.confirmRegistration = function(token){
+            Restangular.one('registrationConfirm').get('?token='+token).then(function(resp){
+                console.log(resp);
+            }, function(resp){
+                console.log(resp);
+            });
+        };
 
     })
     .controller('FriendController', function ($scope, $state, Restangular) {
