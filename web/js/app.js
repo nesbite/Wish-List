@@ -13,6 +13,7 @@ angular.module('wishlist', [
     .config(function(RestangularProvider) {
         //set the base url for api calls on our RESTful services
         var newBaseUrl = "http://nat-1.d17.iisg.agh.edu.pl:60680/";
+        // var newBaseUrl = "http://localhost:80/";
         RestangularProvider.setBaseUrl(newBaseUrl);
         RestangularProvider.setDefaultHeaders({
             'Content-Type': 'application/x-www-form-urlencoded',
@@ -71,6 +72,11 @@ angular.module('wishlist', [
                 url: '/friends',
                 templateUrl: 'partials/views/friends.html',
                 controller: 'FriendController'
+            })
+            .state('navbar.friendRequests', {
+                url: '/friendRequests',
+                templateUrl: 'partials/views/friendRequests.html',
+                controller: 'FriendRequestsController'
             })
             .state('navbar.gifts', {
                 url: '/gifts',

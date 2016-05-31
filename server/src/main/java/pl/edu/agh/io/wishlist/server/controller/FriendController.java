@@ -34,7 +34,7 @@ public class FriendController {
     @RequestMapping(value = "/add/{friendId}", method = RequestMethod.PUT)
     public ResponseEntity<String> addFriend(Principal principal, @PathVariable(value = "friendId") String friendId) {
         User user =  userRepository.findByUsername(principal.getName());
-        if(user !=null) {
+        if(user != null) {
             String username = user.getUsername();
             if (friendService.addFriend(username, friendId)) {
                 return new ResponseEntity<>(HttpStatus.OK);
@@ -53,5 +53,12 @@ public class FriendController {
             }
         }
         return new ResponseEntity<>(HttpStatus.CONFLICT);
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/requests", method = RequestMethod.GET, produces = "application/json")
+    public ResponseEntity<List<User>> getFriendsRequests(Principal principal) {
+        System.out.println(principal.getName());
+        return  new ResponseEntity<>(friendService.getFriendsRequests(principal.getName()), HttpStatus.OK);
     }
 }

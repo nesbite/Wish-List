@@ -125,6 +125,24 @@ angular.module('wishlist.controllers', [])
         }
 
     })
+    .controller('FriendRequestsController', function ($scope, $state, Restangular) {
+        $scope.getFriendRequests = function() {
+            Restangular.all('friends/requests').getList().then(function (resp) {
+                $scope.friendRequests = resp;
+                console.log($scope.friendRequests);
+            });
+        };
+        $scope.getFriendRequests();
+
+        $scope.acceptRequest = function (friendId) {
+            Restangular.all('friends').one('add').one(friendId).customPUT().then(function(){
+                $scope.getFriendRequests();
+            }, function () {
+                $scope.getFriendRequests();
+            });
+        }
+
+    })
     .controller('GiftController', function ($scope, $state, Restangular) {
         $scope.getGifts = function() {
             Restangular.all('gifts').getList().then(function (resp) {

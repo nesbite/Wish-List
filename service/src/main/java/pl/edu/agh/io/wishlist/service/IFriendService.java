@@ -10,4 +10,6 @@ public interface IFriendService {
     boolean addFriend(String userId, String friendId);
 
     boolean deleteFriend(String userId, String friendId);
+
+    List<User> getFriendsRequests(String id);
 }

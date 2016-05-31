@@ -1,0 +1,27 @@
+<div class="row">
+    <div class="list">
+        <div class="panel panel-default">
+            <div class="panel-heading c-list">
+                <span class="title">My wishlist</span>
+            </div>
+
+            <ul class="list-group" id="contact-list">
+                <li class="list-group-item" ng-repeat="friend in friendRequests">
+                    <div class="col-xs-12 col-sm-3">
+                        <img src="/assets/icon_user_default.png" alt="{{friend.username}}"
+                             class="img-responsive img-circle"/>
+                    </div>
+                    <div class="col-xs-10 col-sm-8">
+                        <span class="name">{{friend.username}}</span>
+                        <span class="details">({{friend.email}})</span>
+                    </div>
+                    <div class="col-xs-2 col-sm-2">
+                        <button type="button" class="btn btn-default btn-xs" ng-click="acceptRequest(friend.username);$event.stopPropagation()">Accept</button>
+                    </div>
+                    <div class="clearfix"></div>
+                </li>
+            </ul>
+
+        </div>
+    </div>
+</div>

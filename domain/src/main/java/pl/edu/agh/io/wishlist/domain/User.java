@@ -32,6 +32,8 @@ public class User {
 
     private List<String> friends;
 
+    private List<String> friendsRequests;
+
     @DBRef
     private List<Gift> gifts;
 
@@ -46,6 +48,7 @@ public class User {
         this.enabled = false;
         this.tokenExpired = false;
         this.friends = new ArrayList<>();
+        this.friendsRequests = new ArrayList<>();
         this.gifts = new ArrayList<>();
     }
 
@@ -164,12 +167,23 @@ public class User {
         builder.append("User [username=").append(username).append("]")
                 .append("[firstName=").append(firstName).append("]")
                 .append("[lastName=").append(lastName).append("]")
-                .append("[username").append(email).append("]")
-                .append("[friends").append(friends).append("]")
-                .append("[gifts").append(gifts).append("]");
+                .append("[username=").append(email).append("]")
+                .append("[friends=").append(friends).append("]")
+                .append("[friendsRequests=").append(friendsRequests).append("]")
+                .append("[gifts=").append(gifts).append("]");
         return builder.toString();
     }
 
 
+    public List<String> getFriendsRequests() {
+        return friendsRequests;
+    }
 
+    public void setFriendsRequests(List<String> friendsRequests) {
+        this.friendsRequests = friendsRequests;
+    }
+
+    public void addFriendRequest(String friendRequest){
+        this.friendsRequests.add(friendRequest);
+    }
 }

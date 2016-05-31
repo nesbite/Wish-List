@@ -35,18 +35,29 @@ public class FriendService implements IFriendService {
     public boolean addFriend(String username, String friendName) {
 
         User user = userRepository.findByUsername(username);
-        if(user == null){
+        User friend = userRepository.findByUsername(friendName);
+        if(user == null || friend == null){
             return false;
         }
-        List<String> friendIdList = user.getFriends();
+        List<String> userFriendList = user.getFriends();
+        List<String> userFriendsRequestsList = user.getFriendsRequests();
 
-        if (friendIdList.contains(friendName)) {
+        List<String> friendFriendList = friend.getFriends();
+        List<String> friendFriendsRequestsList = friend.getFriendsRequests();
+
+        if(userFriendList.contains(friendName) || friendFriendList.contains(username)){
             return false;
         }
-
-        friendIdList.add(friendName);
-
-        userRepository.save(user);
+        if (userFriendsRequestsList.contains(friendName)) {
+            userFriendsRequestsList.remove(friendName);
+            userFriendList.add(friendName);
+            friendFriendList.add(username);
+            userRepository.save(user);
+            userRepository.save(friend);
+        } else {
+            friendFriendsRequestsList.add(username);
+            userRepository.save(friend);
+        }
 
         return true;
     }
@@ -56,18 +67,37 @@ public class FriendService implements IFriendService {
 
 
         User user = userRepository.findByUsername(username);
-        if(user != null) {
-            List<String> friendIdList = user.getFriends();
+        User friend = userRepository.findByUsername(friendName);
+        if(user != null && friend != null) {
+            List<String> userFriendList = user.getFriends();
+            List<String> friendFriendList = friend.getFriends();
 
-            if (!friendIdList.contains(friendName)) {
+            if (!userFriendList.contains(friendName) || !friendFriendList.contains(username)) {
                 return false;
             }
 
-            friendIdList.remove(friendName);
-
+            userFriendList.remove(friendName);
+            friendFriendList.remove(username);
             userRepository.save(user);
+            userRepository.save(friend);
             return true;
         }
         return false;
+    }
+
+    @Override
+    public List<User> getFriendsRequests(String username) {
+        User user;
+        List<User> users = new ArrayList<>();
+
+        if((user = userRepository.findByUsername(username)) != null) {
+            List<String> friendIdList = user.getFriendsRequests();
+            userRepository.findAll().forEach(a -> {
+                if (friendIdList.contains(a.getUsername())){
+                    users.add(a);
+                }
+            });
+        }
+        return users;
     }
 }
