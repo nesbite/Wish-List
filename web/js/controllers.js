@@ -132,6 +132,7 @@ angular.module('wishlist.controllers', [])
                 console.log($scope.gifts);
             });
         };
+        
         $scope.getGifts();
 
         $scope.deleteGift = function (gift) {
@@ -145,9 +146,23 @@ angular.module('wishlist.controllers', [])
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
             }).then(function () {
+                gift.name = "";
+                gift.description = "";
                 $scope.getGifts();
             });
-        }
+        };
+        $scope.setCurrentGift = function(gift) {
+            $scope.currentGift = gift;
+        };
+        $scope.editGift = function(gift){
+            var id = gift.id;
+            Restangular.all('gifts').one('update', id).customPUT(gift, undefined, undefined, {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            }).then(function () {
+                $scope.getGifts();
+            });
+        };
 
 });
 
