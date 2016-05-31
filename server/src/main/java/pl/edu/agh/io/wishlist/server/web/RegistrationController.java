@@ -15,7 +15,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import pl.edu.agh.io.wishlist.domain.PasswordResetToken;
 import pl.edu.agh.io.wishlist.domain.User;
@@ -77,26 +76,20 @@ public class RegistrationController {
     }
     @ResponseBody
     @RequestMapping(value = "/registrationConfirm", method = RequestMethod.GET)
-    public ResponseEntity<String> confirmRegistration(final Locale locale, final Model model, @RequestParam("token") final String token) {
+    public ResponseEntity<String> confirmRegistration(@RequestParam("token") final String token) {
         final VerificationToken verificationToken = userService.getVerificationToken(token);
         if (verificationToken == null) {
-            final String message = messages.getMessage("auth.message.invalidToken", null, locale);
-            model.addAttribute("message", message);
             return new ResponseEntity<>("auth.message.invalidToken", HttpStatus.CONFLICT);
         }
 
         final User user = verificationToken.getUser();
         final Calendar cal = Calendar.getInstance();
         if ((verificationToken.getExpiryDate().getTime() - cal.getTime().getTime()) <= 0) {
-            model.addAttribute("message", messages.getMessage("auth.message.expired", null, locale));
-            model.addAttribute("expired", true);
-            model.addAttribute("token", token);
             return new ResponseEntity<>("auth.message.expired", HttpStatus.CONFLICT);
         }
 
         user.setEnabled(true);
         userService.saveRegisteredUser(user);
-        model.addAttribute("message", messages.getMessage("message.accountVerified", null, locale));
         return new ResponseEntity<>("message.accountVerified", HttpStatus.OK);
     }
 
