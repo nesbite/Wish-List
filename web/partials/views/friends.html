@@ -74,10 +74,10 @@
             </div>
             <div class="modal-body">
                 <p>Type your friend's username</p>
-                <input type="text" class="form-control" name="input" ng-model="friendId" autocomplete="off">
+                <input type="text" class="form-control" name="input" ng-model="friendId" autocomplete="off" maxlength="30">
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-custom" data-dismiss="modal" ng-click="addFriend(friendId)">Add</button>
+                <button type="button" class="btn btn-custom" data-dismiss="modal" ng-click="addFriend(friendId)" >Add</button>
                 <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
             </div>
         </div>
