@@ -142,6 +142,14 @@ angular.module('wishlist.controllers', [])
             });
         }
 
+        $scope.rejectRequest = function (friendId) {
+            Restangular.all('friends').one('requests').one('reject').one(friendId).customPUT().then(function(){
+                $scope.getFriendRequests();
+            }, function () {
+                $scope.getFriendRequests();
+            });
+        }
+
     })
     .controller('GiftController', function ($scope, $state, Restangular) {
         $scope.getGifts = function() {
@@ -181,6 +189,14 @@ angular.module('wishlist.controllers', [])
                 $scope.getGifts();
             });
         };
+        $scope.publish = function (friendId) {
+            Restangular.all('friends').one('publish').one(friendId).customPUT().then(function(){
+                $scope.getGifts();
+            }, function () {
+                $scope.getGifts();
+            });
+        }
+
 
 });
 

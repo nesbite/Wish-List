@@ -8,6 +8,8 @@
                            title="Add Contact"><i class="glyphicon glyphicon-plus"></i></a></li>
                     <!--<li><a href="#" class="hide-search" data-command="toggle-search" data-toggle="tooltip"-->
                            <!--data-placement="top" title="Toggle Search"><i class="fa fa-ellipsis-v"></i></a></li>-->
+                    <li><a data-toggle="modal" data-target="#publishList"
+                           title="Publish List"><i class="glyphicon glyphicon-share"></i></a></li>
                 </ul>
             </div>
 
@@ -82,6 +84,26 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-custom" data-dismiss="modal" ng-click="editGift(currentGift)">Edit</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="publishList" class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog"
+     aria-labelledby="publishListModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button>
+                <h4 class="modal-title" id="publishListModalLabel">Publish to</h4>
+            </div>
+            <div class="modal-body">
+                <p>Type your friend's username</p>
+                <input type="text" class="form-control" name="input" ng-model="friendId" autocomplete="off">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-custom" data-dismiss="modal" ng-click="publish(friendId)">Add</button>
                 <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
             </div>
         </div>

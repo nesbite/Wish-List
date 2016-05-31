@@ -31,17 +31,20 @@ public class FriendController {
         return  new ResponseEntity<>(friendService.getFriends(principal.getName()), HttpStatus.OK);
     }
     @ResponseBody
-    @RequestMapping(value = "/add/{friendId}", method = RequestMethod.PUT)
-    public ResponseEntity<String> addFriend(Principal principal, @PathVariable(value = "friendId") String friendId) {
-        User user =  userRepository.findByUsername(principal.getName());
-        if(user != null) {
-            String username = user.getUsername();
-            if (friendService.addFriend(username, friendId)) {
-                return new ResponseEntity<>(HttpStatus.OK);
+    @RequestMapping(value = "/add/{friendName}", method = RequestMethod.PUT)
+    public ResponseEntity<String> addFriend(Principal principal, @PathVariable(value = "friendName") String friendName) {
+        if(!principal.getName().equalsIgnoreCase(friendName)) {
+            User user = userRepository.findByUsername(principal.getName());
+            if (user != null) {
+                String username = user.getUsername();
+                if (friendService.addFriend(username, friendName)) {
+                    return new ResponseEntity<>(HttpStatus.OK);
+                }
             }
         }
         return new ResponseEntity<>(HttpStatus.CONFLICT);
     }
+
     @ResponseBody
     @RequestMapping(value = "/delete/{friendName}", method = RequestMethod.DELETE)
     public ResponseEntity<String> deleteFriend(Principal principal, @PathVariable(value = "friendName") String friendName) {
@@ -61,4 +64,32 @@ public class FriendController {
         System.out.println(principal.getName());
         return  new ResponseEntity<>(friendService.getFriendsRequests(principal.getName()), HttpStatus.OK);
     }
+    @ResponseBody
+    @RequestMapping(value = "/requests/reject/{friendName}", method = RequestMethod.PUT)
+    public ResponseEntity<String> rejectFriendRequest(Principal principal, @PathVariable(value = "friendName") String friendName) {
+        if(!principal.getName().equalsIgnoreCase(friendName)) {
+            User user = userRepository.findByUsername(principal.getName());
+            if (user != null) {
+                String username = user.getUsername();
+                if (friendService.rejectRequest(username, friendName)) {
+                    return new ResponseEntity<>(HttpStatus.OK);
+                }
+            }
+        }
+        return new ResponseEntity<>(HttpStatus.CONFLICT);
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/publish/{friendName}", method = RequestMethod.PUT)
+    public ResponseEntity<String> publishListToFriend(Principal principal, @PathVariable(value = "friendName") String friendName) {
+        User user =  userRepository.findByUsername(principal.getName());
+        if(user != null) {
+            String username = user.getUsername();
+            if (friendService.addUserToFriendsFriendList(username, friendName)) {
+                return new ResponseEntity<>(HttpStatus.OK);
+            }
+        }
+        return new ResponseEntity<>(HttpStatus.CONFLICT);
+    }
+
 }
