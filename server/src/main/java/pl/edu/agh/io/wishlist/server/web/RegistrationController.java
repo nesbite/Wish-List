@@ -15,7 +15,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import pl.edu.agh.io.wishlist.domain.PasswordResetToken;
 import pl.edu.agh.io.wishlist.domain.User;
@@ -77,26 +76,20 @@ public class RegistrationController {
     }
     @ResponseBody
     @RequestMapping(value = "/registrationConfirm", method = RequestMethod.GET)
-    public ResponseEntity<String> confirmRegistration(final Locale locale, final Model model, @RequestParam("token") final String token) {
+    public ResponseEntity<String> confirmRegistration(@RequestParam("token") final String token) {
         final VerificationToken verificationToken = userService.getVerificationToken(token);
         if (verificationToken == null) {
-            final String message = messages.getMessage("auth.message.invalidToken", null, locale);
-            model.addAttribute("message", message);
             return new ResponseEntity<>("auth.message.invalidToken", HttpStatus.CONFLICT);
         }
 
         final User user = verificationToken.getUser();
         final Calendar cal = Calendar.getInstance();
         if ((verificationToken.getExpiryDate().getTime() - cal.getTime().getTime()) <= 0) {
-            model.addAttribute("message", messages.getMessage("auth.message.expired", null, locale));
-            model.addAttribute("expired", true);
-            model.addAttribute("token", token);
             return new ResponseEntity<>("auth.message.expired", HttpStatus.CONFLICT);
         }
 
         user.setEnabled(true);
         userService.saveRegisteredUser(user);
-        model.addAttribute("message", messages.getMessage("message.accountVerified", null, locale));
         return new ResponseEntity<>("message.accountVerified", HttpStatus.OK);
     }
 
@@ -179,7 +172,7 @@ public class RegistrationController {
     // NON-API
 
     private final SimpleMailMessage constructResendVerificationTokenEmail(final String contextPath, final Locale locale, final VerificationToken newToken, final User user) {
-        final String confirmationUrl = "http://localhost:8080/#/registrationConfirm?token=" + newToken.getToken();
+        final String confirmationUrl = "http://nat-1.d17.iisg.agh.edu.pl:60644/#/registrationConfirm?token=" + newToken.getToken();
         final String message = messages.getMessage("message.resendToken", null, locale);
         final SimpleMailMessage email = new SimpleMailMessage();
         email.setSubject("Resend Registration Token");
@@ -190,7 +183,7 @@ public class RegistrationController {
     }
 
     private final SimpleMailMessage constructResetTokenEmail(final String contextPath, final Locale locale, final String token, final User user) {
-        final String url = "http://localhost:8080/#/changePassword?id=" + user.getId() + "&token=" + token;
+        final String url = "http://nat-1.d17.iisg.agh.edu.pl:60644/#/changePassword?id=" + user.getId() + "&token=" + token;
         final String message = messages.getMessage("message.resetPassword", null, locale);
         final SimpleMailMessage email = new SimpleMailMessage();
         email.setTo(user.getEmail());

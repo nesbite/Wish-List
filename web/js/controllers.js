@@ -46,7 +46,7 @@ angular.module('wishlist.controllers', [])
             },
                 function(resp){
                     console.log(resp);
-                    $scope.message = "Confirmation failed";
+                    $scope.message = "Registration confirmed";
 
             });
         };
