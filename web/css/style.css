@@ -144,6 +144,7 @@ img {
     background: transparent;
 }
 
+.nav-tabs > .dropdown > a,
 .nav-tabs > .dropdown > a:active,
 .nav-tabs > .dropdown > a:focus,
 .nav-tabs > li > a:active,
