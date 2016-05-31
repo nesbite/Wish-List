@@ -180,9 +180,8 @@ public class LoginActivity extends Activity implements Validator.ValidationListe
 
                 ResponseEntity<Void> loginEntity = restTemplate.postForEntity(credentials.getUrl("login"), request, Void.class);
                 String cookie = loginEntity.getHeaders().getFirst("Set-Cookie");
-                String location = loginEntity.getHeaders().getFirst("Location");
 
-                if (cookie != null && !location.contains("error")) {
+                if (cookie != null) {
                     // save username and cookie to shared preferences
                     sharedPreferences.edit()
                             .putString("username", username)
