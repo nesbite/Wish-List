@@ -19,6 +19,7 @@ import pl.edu.agh.io.wishlist.android.auth.interceptor.CookieAuthInterceptor;
 import pl.edu.agh.io.wishlist.android.fragment.FriendsFragment;
 import pl.edu.agh.io.wishlist.android.fragment.GiftDetailFragment;
 import pl.edu.agh.io.wishlist.android.fragment.ProfileFragment;
+import pl.edu.agh.io.wishlist.android.fragment.RequestsFragment;
 
 import javax.inject.Singleton;
 import java.util.Collections;
@@ -32,7 +33,8 @@ import java.util.Collections;
                 DetailsActivity.class,
                 GiftAddActivity.class,
                 GiftDetailFragment.class,
-                SignUpActivity.class
+                SignUpActivity.class,
+                RequestsFragment.class
         },
         library = true)
 public class DaggerModule {

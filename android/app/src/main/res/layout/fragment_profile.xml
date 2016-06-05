@@ -48,40 +48,7 @@
                 android:padding="10dp"
                 android:background="#0c7b7b7b">
 
-            <FrameLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp">
-
-                <de.hdodenhof.circleimageview.CircleImageView
-                        xmlns:app="http://schemas.android.com/apk/res-auto"
-                        android:layout_width="72dp"
-                        android:layout_height="72dp"
-                        app:civ_border_width="2dp"
-                        app:civ_border_color="#A3FF0000"
-                        android:src="#1eff0000"
-                        android:layout_gravity="center"/>
-
-                <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="0"
-                        android:id="@+id/profile_stat1"
-                        android:layout_gravity="center"
-                        android:textSize="20sp"
-                        android:layout_marginBottom="10dp"/>
-
-                <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Friends"
-                        android:layout_gravity="center"
-                        android:layout_marginTop="10dp"/>
-
-            </FrameLayout>
-
-            <FrameLayout
+                <FrameLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
@@ -115,45 +82,22 @@
 
             </FrameLayout>
 
-            <FrameLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp">
-
-                <de.hdodenhof.circleimageview.CircleImageView
-                        xmlns:app="http://schemas.android.com/apk/res-auto"
-                        android:layout_width="72dp"
-                        android:layout_height="72dp"
-                        app:civ_border_width="2dp"
-                        app:civ_border_color="#A3FF0000"
-                        android:src="#1eff0000"
-                        android:layout_gravity="center"/>
-
-                <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="0"
-                        android:layout_gravity="center"
-                        android:id="@+id/profile_stat3"
-                        android:textSize="20sp"
-                        android:layout_marginBottom="10dp"/>
-
-                <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Stats"
-                        android:layout_gravity="center"
-                        android:layout_marginTop="10dp"/>
-
-            </FrameLayout>
-
         </LinearLayout>
 
         <View
                 android:layout_width="match_parent"
                 android:layout_height="2dp"
                 android:background="#000000"/>
+
+        <TextView
+            android:id="@+id/empty_list_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="No results found."
+            android:layout_gravity="center"
+            android:textSize="20sp"
+            android:layout_marginTop="40dp"
+            android:visibility="gone"/>
 
 
 </LinearLayout>

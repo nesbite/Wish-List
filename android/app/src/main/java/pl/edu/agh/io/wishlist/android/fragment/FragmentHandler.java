@@ -47,6 +47,14 @@ public class FragmentHandler {
                     fragment.setArguments(args);
 
                     return fragment;
+                case R.id.nav_requests:
+                    Bundle args2 = new Bundle();
+                    args2.putString("username", sharedPreferences.getString("username", "username"));
+                    args2.putBoolean("editable", true);
+
+                    Fragment fragment2 = new RequestsFragment();
+                    fragment2.setArguments(args2);
+                    return fragment2;
                 default:
                     return new ErrorFragment();
             }

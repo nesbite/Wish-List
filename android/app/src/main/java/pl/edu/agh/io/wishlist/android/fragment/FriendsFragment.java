@@ -57,11 +57,6 @@ public class FriendsFragment extends Fragment {
     @Bind(R.id.user_stat1)
     TextView stat1;
 
-    @Bind(R.id.user_stat2)
-    TextView stat2;
-
-    private Map<String, User> userMap = new HashMap<>();
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_friends, container, false);
@@ -73,6 +68,7 @@ public class FriendsFragment extends Fragment {
         ButterKnife.bind(this, view);
 
         // adapter
+        usersListView.setEmptyView(view.findViewById(R.id.empty_list_view));
         usersListView.setAdapter(adapter);
 
         // FAB listener
@@ -114,31 +110,21 @@ public class FriendsFragment extends Fragment {
     public void onResume() {
         super.onResume();
 
-        final String username = sharedPreferences.getString("username", "username");
-
         // load resources
-        new LoadResourceTask<User[]>(restTemplate, credentials.getUrl("users"), User[].class) {
+        new LoadResourceTask<User[]>(restTemplate, credentials.getUrl("friends"), User[].class) {
             @Override
             protected void onPostExecute(User[] users) {
                 if (users != null) {
-                    userMap.clear();
+                    List<String> friends = new ArrayList<String>();
                     for (User user : users) {
-                        userMap.put(user.getUsername(), user);
-                    }
-
-                    List<String> friendsNickList = userMap.get(username).getFriends();
-
-                    List<User> friendsList = new ArrayList<>();
-                    for (String username : friendsNickList) {
-                        friendsList.add(userMap.get(username));
+                        friends.add(user.getUsername());
                     }
 
                     adapter.clear();
-                    adapter.addAll(friendsList);
+                    adapter.addAll(friends);
                     adapter.notifyDataSetChanged();
 
-                    stat1.setText(String.valueOf(userMap.get(username).getFriends().size()));
-                    stat2.setText(String.valueOf(userMap.size()));
+                    stat1.setText(String.valueOf(users.length));
                 } else {
                     Toast.makeText(getActivity(), "Can't get users from server", Toast.LENGTH_SHORT).show();
                 }
@@ -157,10 +143,10 @@ public class FriendsFragment extends Fragment {
 
     @OnItemClick(R.id.friends_list)
     public void onClick(int position) {
-        User user = adapter.getItem(position);
+        String user = adapter.getItem(position);
 
         Bundle args = new Bundle();
-        args.putString(ProfileFragment.USERNAME, user.getUsername());
+        args.putString(ProfileFragment.USERNAME, user);
         args.putBoolean(ProfileFragment.EDITABLE, false);
 
         Intent intent = new Intent(getActivity(), DetailsActivity.class);
@@ -196,22 +182,9 @@ public class FriendsFragment extends Fragment {
                 return HttpStatus.CONFLICT;
             }
 
-            if (!userMap.containsKey(nick)) {
-                return HttpStatus.NOT_FOUND;
-            }
-
-            if (userMap.get(username).getFriends().contains(nick)) {
-                return HttpStatus.CONFLICT;
-            }
-
             try {
                 ResponseEntity<String> entity = restTemplate.exchange(credentials.getUrl("friends/add/" + nick),
                         HttpMethod.PUT, null, String.class);
-
-                if (entity.getStatusCode() == HttpStatus.OK) {
-                    adapter.add(userMap.get(nick));
-                    adapter.notifyDataSetChanged();
-                }
 
                 return entity.getStatusCode();
             } catch (Exception e) {

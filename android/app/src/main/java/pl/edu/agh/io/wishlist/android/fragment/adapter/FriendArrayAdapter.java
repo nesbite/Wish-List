@@ -11,7 +11,7 @@ import pl.edu.agh.io.wishlist.android.ui.ViewHolder;
 
 import javax.inject.Inject;
 
-public class FriendArrayAdapter extends ArrayAdapter<User> {
+public class FriendArrayAdapter extends ArrayAdapter<String> {
 
     private LayoutInflater inflater;
 
@@ -36,10 +36,10 @@ public class FriendArrayAdapter extends ArrayAdapter<User> {
         }
 
         // fill data
-        User user = getItem(position);
+        String user = getItem(position);
         if (user != null) {
             ViewHolder holder = (ViewHolder) row.getTag();
-            holder.setTitle(user.getUsername());
+            holder.setTitle(user);
             holder.setIcon(R.drawable.icon_user_default);
         }
 

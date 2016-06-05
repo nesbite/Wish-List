@@ -29,6 +29,8 @@ public class User {
 
     private List<Gift> gifts;
 
+    private List<String> friendsRequests;
+
     private Collection<Role> roles;
 
     public User() {
@@ -39,6 +41,13 @@ public class User {
         this.gifts = new ArrayList<>();
     }
 
+    public List<String> getFriendsRequests() {
+        return friendsRequests;
+    }
+
+    public void setFriendsRequests(List<String> friendsRequests) {
+        this.friendsRequests = friendsRequests;
+    }
 
     public String getId() {
         return id;

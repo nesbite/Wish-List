@@ -12,11 +12,17 @@ import android.widget.*;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import org.springframework.web.client.RestTemplate;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import pl.edu.agh.io.wishlist.android.R;
 import pl.edu.agh.io.wishlist.android.activity.DetailsActivity;
 import pl.edu.agh.io.wishlist.android.activity.GiftAddActivity;
 import pl.edu.agh.io.wishlist.android.auth.ServerCredentials;
 import pl.edu.agh.io.wishlist.android.dagger.DaggerApplication;
+import pl.edu.agh.io.wishlist.android.domain.Gift;
 import pl.edu.agh.io.wishlist.android.domain.User;
 import pl.edu.agh.io.wishlist.android.fragment.adapter.GiftArrayAdapter;
 import pl.edu.agh.io.wishlist.android.rest.LoadResourceTask;
@@ -34,14 +40,8 @@ public class ProfileFragment extends Fragment {
     @Bind(R.id.username)
     TextView usernameTextView;
 
-    @Bind(R.id.profile_stat1)
-    TextView stat1;
-
     @Bind(R.id.profile_stat2)
     TextView stat2;
-
-    @Bind(R.id.profile_stat3)
-    TextView stat3;
 
     @Inject
     ServerCredentials credentials;
@@ -94,12 +94,9 @@ public class ProfileFragment extends Fragment {
         ListView giftListView = new ListView(getActivity());
 
         // listener
-
         giftListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(getActivity(), "Clicked position " + position + "!", Toast.LENGTH_SHORT).show();
-
                 Intent intent = new Intent(getActivity(), DetailsActivity.class);
 
                 Bundle args = new Bundle();
@@ -116,6 +113,7 @@ public class ProfileFragment extends Fragment {
             giftListView.addHeaderView(view);
         }
 
+        giftListView.setEmptyView(view.findViewById(R.id.empty_list_view));
         giftListView.setAdapter(adapter);
 
         return giftListView;
@@ -126,7 +124,7 @@ public class ProfileFragment extends Fragment {
         super.onResume();
 
         // load resource
-        new LoadResourceTask<User>(restTemplate, credentials.getUrl("users/" + username), User.class) {
+        new LoadResourceTask<Gift[]>(restTemplate, credentials.getUrl("gifts/user/"+username), Gift[].class) {
             public ProgressDialog progressDialog;
 
             @Override
@@ -140,10 +138,10 @@ public class ProfileFragment extends Fragment {
             }
 
             @Override
-            protected void onPostExecute(User user) {
+            protected void onPostExecute(Gift[] gifts) {
                 progressDialog.dismiss();
-                if (user != null) {
-                    updateViews(user);
+                if (gifts != null) {
+                    updateViews(Arrays.asList(gifts));
                 } else {
                     Toast.makeText(getActivity(), "Can't load user information from server", Toast.LENGTH_SHORT).show();
                 }
@@ -162,14 +160,13 @@ public class ProfileFragment extends Fragment {
         ButterKnife.unbind(this);
     }
 
-    private void updateViews(User user) {
-        stat1.setText(String.valueOf(user.getFriends().size()));
-        stat2.setText(String.valueOf(user.getGifts().size()));
+    private void updateViews(List<Gift> gifts) {
+        stat2.setText(String.valueOf(gifts.size()));
         // TODO add something to 3rd stat
 //                stat3.setText(user.getUsername().charAt(0));
 
         adapter.clear();
-        adapter.addAll(user.getGifts());
+        adapter.addAll(gifts);
         adapter.notifyDataSetChanged();
     }
 
