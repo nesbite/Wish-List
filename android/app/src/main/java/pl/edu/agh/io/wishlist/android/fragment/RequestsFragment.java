@@ -116,6 +116,7 @@ public class RequestsFragment extends Fragment {
         final String user = adapter.getItem(position);
 
         new AlertDialog.Builder(getActivity())
+                .setTitle("What do you want to do with " + user + "?")
                 .setPositiveButton("Accept", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         new RequestTask(true, user).execute();

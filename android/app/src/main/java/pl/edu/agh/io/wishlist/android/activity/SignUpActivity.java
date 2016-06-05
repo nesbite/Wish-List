@@ -12,7 +12,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 import butterknife.Bind;
 import butterknife.ButterKnife;
+
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
@@ -157,7 +161,12 @@ public class SignUpActivity extends Activity {
                 request.add("password", password);
                 request.add("matchingPassword", password);
 
-                ResponseEntity<Void> entity = restTemplate.postForEntity(credentials.getUrl("user/registration"), request, Void.class);
+                HttpHeaders headers = new HttpHeaders();
+                headers.setContentType(MediaType.APPLICATION_JSON);
+
+                HttpEntity<String> req = new HttpEntity<String>(request.toString().replaceAll("]", "\"").replaceAll("\\[", "\""), headers);
+
+                ResponseEntity<Void> entity = restTemplate.postForEntity(credentials.getUrl("user/registration"), req, Void.class);
                 return entity.getStatusCode();
             } catch (HttpClientErrorException e) {
                 return e.getStatusCode();

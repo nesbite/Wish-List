@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.text.InputFilter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -80,6 +81,7 @@ public class FriendsFragment extends Fragment {
                 builder.setTitle("Add a friend");
 
                 final EditText input = new EditText(getActivity());
+                input.setFilters(new InputFilter[] {new InputFilter.LengthFilter(32)});
                 builder.setView(input);
 
                 // Set up the buttons
@@ -197,7 +199,7 @@ public class FriendsFragment extends Fragment {
         protected void onPostExecute(HttpStatus httpStatus) {
             progressDialog.dismiss();
 
-            String message = (httpStatus == HttpStatus.OK) ? "Friend added" : "Can't add a friend";
+            String message = (httpStatus == HttpStatus.OK) ? "Request sent" : "Can't send a request";
 
             Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
         }
