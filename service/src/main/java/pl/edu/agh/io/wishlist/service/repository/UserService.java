@@ -44,10 +44,12 @@ public class UserService implements IUserService {
 
     @Override
     public void update(User user) {
-        if (userRepository.findByEmail(user.getEmail()) == null) {
-            throw new UserNotFoundException(user.getEmail());
+        if (userRepository.findByUsername(user.getUsername()) == null) {
+            throw new UserNotFoundException(user.getUsername());
         }
-        userRepository.save(user);
+        else if((userRepository.findByEmail(user.getEmail()) == null) || (userRepository.findByEmail(user.getEmail()).getUsername().equals(userRepository.findByUsername(user.getUsername()).getUsername()))){
+            userRepository.save(user);
+        }
     }
 
     // API
@@ -150,6 +152,8 @@ public class UserService implements IUserService {
         user.setPassword(passwordEncoder.encode(password));
         userRepository.save(user);
     }
+
+
 
     @Override
     public boolean checkIfValidOldPassword(final User user, final String oldPassword) {

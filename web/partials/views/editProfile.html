@@ -1,0 +1,34 @@
+<div class="row">
+    <div class="list">
+        <div class="panel panel-default">
+            <div class="panel-heading c-list">
+                <span class="title">Profile</span>
+                <ul class="pull-right c-controls">
+                </ul>
+            </div>
+
+            <div class="container">
+                <div class="fluid-row">
+                    <div class="modal-body">
+                        <p>Username</p>
+                        <div class="form-control">{{user.username}}</div>
+
+                        <p>Email</p>
+                        <input type="email" name="email" class="form-control" autocomplete="off" maxlength="80" ng-model="user.email" value="{{user.email}}">
+
+                        <p>First name</p>
+                        <input type="text" name="firstName" class="form-control" autocomplete="off" maxlength="80" ng-model="user.firstName" value="{{user.firstName}}">
+
+                        <p>Last name</p>
+                        <input type="text" name="lastName" class="form-control" autocomplete="off" maxlength="80" ng-model="user.lastName" value="{{user.lastName}}">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-custom" ng-click="editProfile(user)">Edit</button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+

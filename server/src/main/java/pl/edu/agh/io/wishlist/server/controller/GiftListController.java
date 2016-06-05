@@ -23,7 +23,7 @@ public class GiftListController {
     private IGiftService giftService;
 
     @Autowired
-    UserRepository userRepository;
+    private UserRepository userRepository;
 
 
     @ResponseBody
