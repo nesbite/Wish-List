@@ -72,25 +72,25 @@ public class RegistrationController {
         final String appUrl = "http://" + request.getServerName() + ":" + request.getServerPort() + request.getContextPath();
         eventPublisher.publishEvent(new OnRegistrationCompleteEvent(registered, request.getLocale(), appUrl));
 
-        return new ResponseEntity<>("success", HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
     @ResponseBody
     @RequestMapping(value = "/registrationConfirm", method = RequestMethod.GET)
     public ResponseEntity<String> confirmRegistration(@RequestParam("token") final String token) {
         final VerificationToken verificationToken = userService.getVerificationToken(token);
         if (verificationToken == null) {
-            return new ResponseEntity<>("auth.message.invalidToken", HttpStatus.CONFLICT);
+            return new ResponseEntity<>(HttpStatus.CONFLICT);
         }
 
         final User user = verificationToken.getUser();
         final Calendar cal = Calendar.getInstance();
         if ((verificationToken.getExpiryDate().getTime() - cal.getTime().getTime()) <= 0) {
-            return new ResponseEntity<>("auth.message.expired", HttpStatus.CONFLICT);
+            return new ResponseEntity<>(HttpStatus.CONFLICT);
         }
 
         user.setEnabled(true);
         userService.saveRegisteredUser(user);
-        return new ResponseEntity<>("message.accountVerified", HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     // user activation - verification
@@ -104,7 +104,7 @@ public class RegistrationController {
         final SimpleMailMessage email = constructResendVerificationTokenEmail(appUrl, request.getLocale(), newToken, user);
         mailSender.send(email);
 
-        return new ResponseEntity<>("message.resendToken", HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     // Reset password
@@ -122,7 +122,7 @@ public class RegistrationController {
         final String appUrl = "http://" + request.getServerName() + ":" + request.getServerPort() + request.getContextPath();
         final SimpleMailMessage email = constructResetTokenEmail(appUrl, request.getLocale(), token, user);
         mailSender.send(email);
-        return new ResponseEntity<>("message.resetPasswordEmail", HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
     @ResponseBody
     @RequestMapping(value = "/user/changePassword", method = RequestMethod.POST)
@@ -131,12 +131,12 @@ public class RegistrationController {
         final PasswordResetToken passToken = userService.getPasswordResetToken(token);
         final User user = passToken.getUser();
         if ((passToken == null) || (!user.getId().equalsIgnoreCase(id))) {
-            return new ResponseEntity<>("auth.message.invalidToken", HttpStatus.CONFLICT);
+            return new ResponseEntity<>(HttpStatus.CONFLICT);
         }
 
         final Calendar cal = Calendar.getInstance();
         if ((passToken.getExpiryDate().getTime() - cal.getTime().getTime()) <= 0) {
-            return new ResponseEntity<>("auth.message.expired", HttpStatus.CONFLICT);
+            return new ResponseEntity<>(HttpStatus.CONFLICT);
         }
 
         final Authentication auth = new UsernamePasswordAuthenticationToken(user, null, userDetailsService.loadUserByUsername(user.getUsername()).getAuthorities());
@@ -145,7 +145,7 @@ public class RegistrationController {
             throw new InvalidOldPasswordException();
         }
         userService.changeUserPassword(user, password);
-        return new ResponseEntity<>("message.updatePasswordSuc", HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @RequestMapping(value = "/user/savePassword", method = RequestMethod.POST)
@@ -153,7 +153,7 @@ public class RegistrationController {
     public ResponseEntity<String> savePassword(final Locale locale, @RequestParam("password") final String password) {
         final User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         userService.changeUserPassword(user, password);
-        return new ResponseEntity<>("message.resetPasswordSuc", HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     // change user password
@@ -166,7 +166,7 @@ public class RegistrationController {
             throw new InvalidOldPasswordException();
         }
         userService.changeUserPassword(user, password);
-        return new ResponseEntity<>("message.updatePasswordSuc", HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     // NON-API
