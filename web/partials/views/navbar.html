@@ -13,9 +13,9 @@
         <div class="collapse navbar-collapse js-navbar-collapse">
             <ul class="nav nav-tabs navbar-left nav-justified">
                 <li><img src="assets/icon_wishlist.png" id="icon"/></li>
-                <li><a ui-sref="navbar.gifts">Gifts</a></li>
-                <li><a ui-sref="navbar.friends">Friends</a></li>
-                <li><a ui-sref="navbar.friendRequests">Friend Requests</a></li>
+                <li ng-class="{active:isActive('/gifts')}"><a ui-sref="navbar.gifts">Gifts</a></li>
+                <li ng-class="{active:isActive('/friends')}" ><a ui-sref="navbar.friends">Friends</a></li>
+                <li ng-class="{active:isActive('/friendRequests')}"><a ui-sref="navbar.friendRequests">Friend Requests</a></li>
 
                 <li class="divider-vertical"></li>
                 <li class="dropdown">

@@ -12,7 +12,8 @@ angular.module('wishlist', [
 
     .config(function(RestangularProvider) {
         //set the base url for api calls on our RESTful services
-        var newBaseUrl = "http://nat-1.d17.iisg.agh.edu.pl:60680/";
+        var newBaseUrl = "http://wishlistio.localtunnel.me/"
+        // var newBaseUrl = "http://nat-1.d17.iisg.agh.edu.pl:60680/";
         // var newBaseUrl = "http://localhost:80/";
         RestangularProvider.setBaseUrl(newBaseUrl);
         RestangularProvider.setDefaultHeaders({

@@ -79,6 +79,10 @@ angular.module('wishlist.controllers', [])
     })
     .controller('LoginController', function ($scope, $rootScope, $state, $location, Restangular) {
 
+        $scope.isActive = function(route) {
+            return route === $location.path();
+        }
+
         $scope.login = function(){
             Restangular.all('login').post('username=' + $scope.credentials.username
                 + '&password=' + $scope.credentials.password).then(function(resp){
@@ -86,6 +90,7 @@ angular.module('wishlist.controllers', [])
                 $location.path("/gifts");
 
             }, function(resp){
+                alert("Login failed!");
                 console.log(resp);
             });
         };
@@ -180,6 +185,10 @@ angular.module('wishlist.controllers', [])
                 console.log($scope.gifts);
             });
         };
+
+        $scope.isActive = function(route) {
+            return route === $location.path();
+        }
         
         $scope.getGifts();
 
