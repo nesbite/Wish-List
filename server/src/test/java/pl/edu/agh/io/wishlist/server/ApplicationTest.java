@@ -1,8 +1,6 @@
 package pl.edu.agh.io.wishlist.server;
 
 import com.jayway.restassured.RestAssured;
-import org.apache.http.HttpStatus;
-import org.hamcrest.Matchers;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -21,7 +19,6 @@ import pl.edu.agh.io.wishlist.persistence.UserRepository;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.jayway.restassured.RestAssured.given;
 import static org.junit.Assert.assertTrue;
 
 
@@ -112,36 +109,5 @@ public class ApplicationTest {
         assertTrue(true);
     }
 
-//    @Test
-    public void basicAuthentication() throws Exception {
-        given().auth().basic("janek", "pass").expect().statusCode(200).when().get("/users");
-    }
-
-//    @Test
-    public void basicAuthFailure() throws Exception {
-        given().auth().basic("janek", "incorrect").expect().statusCode(401).when().get("/users");
-    }
-
-//    @Test
-    public void basicAuthFailureUnknownName() throws Exception {
-        given().auth().basic("incorrect", "pass").expect().statusCode(401).when().get("/users");
-    }
-
-//    @Test
-    public void testUsersGet() throws Exception {
-        // @formatter:off
-        given()
-                .auth()
-                .basic("janek", "pass").
-        when().
-                get("/users/janek").
-        then().
-                statusCode(HttpStatus.SC_OK).
-                body("username", Matchers.is("janek"));
-        // @formatter:on
-    }
-
-    // TODO write more tests here or create another, similar test-class
-    // see: http://www.jayway.com/2014/07/04/integration-testing-a-spring-boot-application/
 
 }

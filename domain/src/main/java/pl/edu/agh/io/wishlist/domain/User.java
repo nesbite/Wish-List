@@ -7,12 +7,9 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-
-//@Entity
 public class User {
 
     @Id
-//    @GeneratedValue(strategy = GenerationType.AUTO)
     private String id;
 
     private String username;
@@ -23,7 +20,6 @@ public class User {
 
     private String email;
 
-//    @Column(length = 60)
     private String password;
 
     private boolean enabled;
@@ -37,10 +33,6 @@ public class User {
     @DBRef
     private List<Gift> gifts;
 
-    //
-
-//    @ManyToMany
-//    @JoinTable(name = "users_roles", joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id") , inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id") )
     private Collection<Role> roles;
 
     public User() {
@@ -155,10 +147,7 @@ public class User {
             return false;
         }
         final User user = (User) obj;
-        if (!username.equals(user.username)) {
-            return false;
-        }
-        return true;
+        return username.equals(user.username);
     }
 
     @Override

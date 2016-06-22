@@ -11,8 +11,6 @@ import pl.edu.agh.io.wishlist.service.IFriendService;
 import java.security.Principal;
 import java.util.List;
 
-// TODO: 12/04/2016
-// refactor it with a REST-friendly way
 
 @CrossOrigin(origins = "http://localhost:8080")
 @RestController

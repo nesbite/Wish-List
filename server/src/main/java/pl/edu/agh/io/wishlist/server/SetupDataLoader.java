@@ -11,8 +11,6 @@ import pl.edu.agh.io.wishlist.persistence.RoleRepository;
 import pl.edu.agh.io.wishlist.persistence.UserRepository;
 
 import java.util.Arrays;
-import java.util.Collection;
-import java.util.List;
 
 @Component
 public class SetupDataLoader implements ApplicationListener<ContextRefreshedEvent> {
@@ -29,15 +27,11 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    // API
-
     @Override
-//    @Transactional
     public void onApplicationEvent(final ContextRefreshedEvent event) {
         if (alreadySetup) {
             return;
         }
-
 
         // == create initial roles
         createRoleIfNotFound("ROLE_ADMIN");
@@ -45,9 +39,10 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
 
         final Role adminRole = roleRepository.findByName("ROLE_ADMIN");
         final User user = new User();
-        user.setFirstName("Test");
-        user.setLastName("Test");
-        user.setPassword(passwordEncoder.encode("test"));
+        user.setUsername("user");
+        user.setFirstName("John");
+        user.setLastName("Smith");
+        user.setPassword(passwordEncoder.encode("user"));
         user.setEmail("test@test.com");
         user.setRoles(Arrays.asList(adminRole));
         user.setEnabled(true);
@@ -57,9 +52,7 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
     }
 
 
-
-//    @Transactional
-    private final Role createRoleIfNotFound(final String name) {
+    private Role createRoleIfNotFound(final String name) {
         Role role = roleRepository.findByName(name);
         if (role == null) {
             role = new Role(name);

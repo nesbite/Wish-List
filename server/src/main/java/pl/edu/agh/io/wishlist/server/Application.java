@@ -60,7 +60,7 @@ public class Application extends SpringBootServletInitializer implements Command
         gifts2 = giftRepository.save(gifts2);
         gifts3 = giftRepository.save(gifts3);
 
-        User user1 = createDummyUser("siatek25", "abc123", userRole);
+        User user1 = createDummyUser("jarek", "abc123", userRole);
         User user2 = createDummyUser("janek", "pass", userRole);
         User user3 = createDummyUser("adam", "pass", userRole);
 
@@ -103,10 +103,4 @@ public class Application extends SpringBootServletInitializer implements Command
         }
         return gifts;
     }
-
-//     @Override
-//     public void onStartup(ServletContext servletContext) throws ServletException {
-//     super.onStartup(servletContext);
-//     servletContext.addListener(new RequestContextListener());
-//     }
 }

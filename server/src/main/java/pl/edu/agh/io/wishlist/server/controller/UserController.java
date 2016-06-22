@@ -21,13 +21,6 @@ public class UserController {
     @Autowired
     private UserRepository userRepository;
 
-//    @PreAuthorize("hasRole('ROLE_ADMIN')")
-//    @ResponseBody
-//    @RequestMapping(method = RequestMethod.GET)
-//    public ResponseEntity<Collection<User>> getUsers() {
-//        return new ResponseEntity<>(userService.getUsers(), HttpStatus.OK);
-//    }
-
     @ResponseBody
     @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity<User> getUser(Principal principal) {

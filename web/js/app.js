@@ -4,17 +4,11 @@
 angular.module('wishlist', [
         'ui.router',
         'ngResource',
-        'wishlist.services',
-        'wishlist.directives',
-        'wishlist.controllers',
         'restangular'
     ])
-
     .config(function(RestangularProvider) {
         //set the base url for api calls on our RESTful services
-        var newBaseUrl = "http://wishlistio.localtunnel.me/"
-        // var newBaseUrl = "http://nat-1.d17.iisg.agh.edu.pl:60680/";
-        // var newBaseUrl = "http://localhost:80/";
+        var newBaseUrl = "http://localhost:80/";
         RestangularProvider.setBaseUrl(newBaseUrl);
         RestangularProvider.setDefaultHeaders({
             'Content-Type': 'application/x-www-form-urlencoded',

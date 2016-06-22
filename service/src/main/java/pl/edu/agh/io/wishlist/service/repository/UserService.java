@@ -52,8 +52,6 @@ public class UserService implements IUserService {
         }
     }
 
-    // API
-
     @Override
     public User registerNewUserAccount(final UserDto accountDto) throws EmailExistsException {
         if (emailExist(accountDto.getEmail())) {
@@ -76,20 +74,17 @@ public class UserService implements IUserService {
 
     @Override
     public User getUser(final String verificationToken) {
-        final User user = tokenRepository.findByToken(verificationToken).getUser();
-        return user;
+        return tokenRepository.findByToken(verificationToken).getUser();
     }
 
     @Override
     public User getUserByUsername(final String username) {
-        final User user = userRepository.findByUsername(username);
-        return user;
+        return userRepository.findByUsername(username);
     }
 
     @Override
     public User getUserByEmail(final String email) {
-        final User user = userRepository.findByEmail(email);
-        return user;
+        return userRepository.findByEmail(email);
     }
 
     @Override
@@ -162,18 +157,12 @@ public class UserService implements IUserService {
 
     private boolean emailExist(final String email) {
         final User user = userRepository.findByEmail(email);
-        if (user != null) {
-            return true;
-        }
-        return false;
+        return user != null;
     }
 
     private boolean usernameExist(final String username) {
         final User user = userRepository.findByUsername(username);
-        if (user != null) {
-            return true;
-        }
-        return false;
+        return user != null;
     }
 
 }

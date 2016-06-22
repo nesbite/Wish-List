@@ -106,7 +106,6 @@ public class OldRegistrationController {
 
         final User registered = createUserAccount(userDto);
         if (registered == null) {
-            // result.rejectValue("email", "message.regError");
             return new ModelAndView("registration", "user", userDto);
         }
         try {

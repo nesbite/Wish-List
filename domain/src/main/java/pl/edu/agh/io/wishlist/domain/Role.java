@@ -2,14 +2,10 @@ package pl.edu.agh.io.wishlist.domain;
 
 import org.springframework.data.annotation.Id;
 
-import java.util.Collection;
 
-
-//@Entity
 public class Role {
 
     @Id
-//    @GeneratedValue(strategy = GenerationType.AUTO)
     private String id;
 
 
@@ -23,8 +19,6 @@ public class Role {
         super();
         this.name = name;
     }
-
-    //
 
     public String getId() {
         return id;

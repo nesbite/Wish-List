@@ -43,9 +43,7 @@ public class RegistrationListener implements ApplicationListener<OnRegistrationC
         mailSender.send(email);
     }
 
-    //
-
-    private final SimpleMailMessage constructEmailMessage(final OnRegistrationCompleteEvent event, final User user, final String token) {
+    private SimpleMailMessage constructEmailMessage(final OnRegistrationCompleteEvent event, final User user, final String token) {
         final String recipientAddress = user.getEmail();
         final String subject = "Registration Confirmation";
         final String confirmationUrl = "http://nat-1.d17.iisg.agh.edu.pl:60644/#/registrationConfirm?token=" + token;

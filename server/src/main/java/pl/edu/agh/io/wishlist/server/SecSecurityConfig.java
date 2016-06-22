@@ -34,7 +34,6 @@ import java.io.IOException;
 
 @Configuration
 @ComponentScan(basePackages = {"pl.edu.agh.io.wishlist.server.security"})
-//@ImportResource({ "classpath:webSecurityConfig.xml" })
 @EnableWebSecurity
 public class SecSecurityConfig extends WebSecurityConfigurerAdapter {
 
@@ -64,22 +63,11 @@ public class SecSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(final WebSecurity web) throws Exception {
-        web.ignoring().antMatchers("/resources/**");//.antMatchers(HttpMethod.OPTIONS, "/**");
+        web.ignoring().antMatchers("/resources/**");
     }
 
     @Override
     protected void configure(final HttpSecurity http) throws Exception {
-        // @formatter:off
-//        http.
-//                authorizeRequests().anyRequest().authenticated()
-//            .and().
-//                httpBasic()
-//            .and()
-//                .csrf().csrfTokenRepository(csrfTokenRepository()).and()
-//                .addFilterAfter(csrfHeaderFilter(), CsrfFilter.class);
-        // @formatter:on
-
-        // @formatter:off
         http.exceptionHandling().authenticationEntryPoint(authenticationEntryPoint).and()
             .csrf().disable()
             .authorizeRequests()
@@ -90,30 +78,21 @@ public class SecSecurityConfig extends WebSecurityConfigurerAdapter {
                         "/badUser*", "/user/resendRegistrationToken*" ,"/forgetPassword*", "/user/resetPassword*",
                         "/user/changePassword*", "/emailError*", "/resources*//**//**","/old/user/registration*","/successRegister*").permitAll()
                 .antMatchers("/invalidSession*").anonymous()
-//                .antMatchers("/users*//**//**").access("hasRole('ROLE_ADMIN')")
                 .anyRequest().authenticated()
                 .and()
             .formLogin()
-//                .loginPage("/login")
-//                .defaultSuccessUrl("/login")
-//                .failureUrl("/login?error=true")
                 .successHandler(myAuthenticationSuccessHandler)
                 .failureHandler(authenticationFailureHandler)
             .permitAll()
                 .and()
             .sessionManagement()
-//                .invalidSessionUrl("/invalidSession.html")
                 .sessionFixation().none()
             .and()
             .logout().logoutSuccessHandler(logoutSuccessHandler)
                 .invalidateHttpSession(false)
-//                .logoutSuccessUrl("/logout.html?logSucc=true")
                 .deleteCookies("JSESSIONID")
                 .permitAll();
-     // @formatter:on
     }
-
-    // beans
 
     @Bean
     public DaoAuthenticationProvider authProvider() {
